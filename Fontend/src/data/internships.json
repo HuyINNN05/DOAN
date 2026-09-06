@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "company": "FPT Software",
+    "position": "Frontend Developer Intern",
+    "location": "Hà Nội",
+    "tags": ["ReactJS", "JavaScript", "HTML/CSS"],
+    "logo": "FPT",
+    "logoTone": "green"
+  },
+  {
+    "id": 2,
+    "company": "VNG Corporation",
+    "position": "Product Management Intern",
+    "location": "Hồ Chí Minh",
+    "tags": ["Product", "Agile", "Research"],
+    "logo": "VNG",
+    "logoTone": "orange"
+  },
+  {
+    "id": 3,
+    "company": "Viettel Solutions",
+    "position": "Business Analyst Intern",
+    "location": "Hà Nội",
+    "tags": ["BA", "SQL", "Communication"],
+    "logo": "viettel",
+    "logoTone": "red"
+  },
+  {
+    "id": 4,
+    "company": "MB Bank",
+    "position": "Data Analyst Intern",
+    "location": "Hà Nội",
+    "tags": ["Python", "Excel", "Data"],
+    "logo": "MB",
+    "logoTone": "navy"
+  },
+  {
+    "id": 5,
+    "company": "Tiki",
+    "position": "UI/UX Designer Intern",
+    "location": "Hồ Chí Minh",
+    "tags": ["Figma", "UX/UI", "Design"],
+    "logo": "Tiki",
+    "logoTone": "blue"
+  }
+]
