@@ -1,0 +1,4 @@
+[
+  { "id": 101, "companyId": 2, "title": "Frontend Developer Intern", "location": "Hà Nội", "skills": ["ReactJS", "JavaScript"], "status": "Đang tuyển", "applicants": 8 },
+  { "id": 102, "companyId": 2, "title": "Backend Developer Intern", "location": "Đà Nẵng", "skills": ["Node.js", "SQL"], "status": "Đang tuyển", "applicants": 5 }
+]

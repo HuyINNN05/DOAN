@@ -1,6 +1,6 @@
 import { BriefcaseBusiness, CalendarDays, MapPin, X } from 'lucide-react'
 
-function InternshipModal({ internship, onClose }) {
+function InternshipModal({ internship, onClose, onApply }) {
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-[#102d50]/55 p-5" role="presentation" onMouseDown={onClose}>
       <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="internship-modal-title" onMouseDown={(event) => event.stopPropagation()}>
@@ -23,7 +23,7 @@ function InternshipModal({ internship, onClose }) {
           <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-[#7890ad]">Kỹ năng phù hợp</h3>
           <div className="mt-3 flex flex-wrap gap-2">{internship.tags.map((tag) => <span className="rounded-full bg-[#edf4ff] px-3 py-1.5 text-xs font-semibold text-[#4774b3]" key={tag}>{tag}</span>)}</div>
         </div>
-        <button className="mt-7 w-full rounded-md bg-[#0757c9] py-3 text-sm font-bold text-white transition-colors hover:bg-[#064aa9]" type="button" onClick={onClose}>Ứng tuyển ngay</button>
+        <button className="mt-7 w-full rounded-md bg-[#0757c9] py-3 text-sm font-bold text-white transition-colors hover:bg-[#064aa9]" type="button" onClick={() => onApply(internship.id)}>Ứng tuyển ngay</button>
       </div>
     </div>
   )

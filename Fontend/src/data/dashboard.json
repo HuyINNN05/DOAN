@@ -1,0 +1,6 @@
+{
+  "student": { "title": "Dashboard sinh viên", "stats": [{ "label": "Đơn ứng tuyển", "value": 2 }, { "label": "Đang xử lý", "value": 1 }, { "label": "Lịch phỏng vấn", "value": 1 }, { "label": "Tiến độ thực tập", "value": "32%" }] },
+  "company": { "title": "Dashboard doanh nghiệp", "stats": [{ "label": "Tin đang tuyển", "value": 4 }, { "label": "Hồ sơ mới", "value": 18 }, { "label": "Lịch phỏng vấn", "value": 5 }, { "label": "Đang thực tập", "value": 8 }] },
+  "lecturer": { "title": "Dashboard giảng viên", "stats": [{ "label": "Sinh viên phụ trách", "value": 12 }, { "label": "Cần nhận xét", "value": 4 }, { "label": "Báo cáo chờ duyệt", "value": 3 }, { "label": "Hoàn thành", "value": "67%" }] },
+  "admin": { "title": "Dashboard nhà trường", "stats": [{ "label": "Sinh viên tham gia", "value": 245 }, { "label": "Doanh nghiệp", "value": 38 }, { "label": "Hồ sơ chờ duyệt", "value": 7 }, { "label": "Tỷ lệ hoàn thành", "value": "82%" }] }
+}

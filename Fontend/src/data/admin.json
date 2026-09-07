@@ -1,0 +1,9 @@
+{
+  "pendingCompanies": [
+    { "id": 11, "name": "Công ty ABC Technology", "taxCode": "0109999999", "status": "Chờ duyệt" },
+    { "id": 12, "name": "Nền tảng XYZ", "taxCode": "0108888888", "status": "Chờ duyệt" }
+  ],
+  "periods": [
+    { "id": 1, "name": "Kỳ thực tập học kỳ 1 năm 2026-2027", "start": "2026-09-01", "end": "2027-01-31", "status": "Đang mở" }
+  ]
+}

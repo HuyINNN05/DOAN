@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "fullName": "Nguyễn Minh Anh",
+  "email": "student@internconnect.vn",
+  "phone": "0901234567",
+  "major": "Công nghệ thông tin",
+  "className": "74DCTT22",
+  "skills": ["ReactJS", "JavaScript", "SQL"],
+  "cv": { "name": "CV_Nguyen_Minh_Anh.pdf", "updatedAt": "2026-09-01" }
+}

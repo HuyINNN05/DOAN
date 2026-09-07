@@ -1,0 +1,17 @@
+[
+  { "id": "01", "label": "Chưa đăng ký" },
+  { "id": "02", "label": "Đã đăng ký nhu cầu" },
+  { "id": "03", "label": "Nhà trường xác nhận" },
+  { "id": "04", "label": "Gửi hồ sơ doanh nghiệp" },
+  { "id": "05", "label": "Doanh nghiệp tiếp nhận" },
+  { "id": "06", "label": "Mời phỏng vấn" },
+  { "id": "07", "label": "Đã phỏng vấn" },
+  { "id": "08", "label": "Không đạt" },
+  { "id": "09", "label": "Đạt tuyển chọn" },
+  { "id": "10", "label": "Gửi offer" },
+  { "id": "11", "label": "Sinh viên xác nhận" },
+  { "id": "12", "label": "Đang thực tập" },
+  { "id": "13", "label": "Hoàn thành thực tập" },
+  { "id": "14", "label": "Đã đánh giá" },
+  { "id": "15", "label": "Đã ký xác nhận" }
+]

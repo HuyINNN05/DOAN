@@ -1,0 +1,6 @@
+[
+  { "id": 1, "email": "student@internconnect.vn", "password": "123456", "name": "Nguyễn Minh Anh", "role": "student" },
+  { "id": 2, "email": "company@internconnect.vn", "password": "123456", "name": "FPT Software", "role": "company" },
+  { "id": 3, "email": "lecturer@internconnect.vn", "password": "123456", "name": "ThS. Lê Trung Kiên", "role": "lecturer" },
+  { "id": 4, "email": "admin@internconnect.vn", "password": "123456", "name": "Quản trị viên", "role": "admin" }
+]

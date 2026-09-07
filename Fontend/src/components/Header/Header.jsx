@@ -2,12 +2,12 @@ import { Menu, Search, X } from 'lucide-react'
 import { useState } from 'react'
 
 const navigation = [
-  { label: 'Trang chủ', href: '#trang-chu' },
-  { label: 'Cơ hội thực tập', href: '#co-hoi-thuc-tap' },
-  { label: 'Doanh nghiệp', href: '#doanh-nghiep' },
-  { label: 'Thông tin', href: '#thong-tin' },
-  { label: 'Hướng dẫn', href: '#huong-dan' },
-  { label: 'Liên hệ', href: '#lien-he' },
+  { label: 'Trang chủ', href: '/' },
+  { label: 'Cơ hội thực tập', href: '/opportunities' },
+  { label: 'Doanh nghiệp', href: '/companies' },
+  { label: 'Thông tin', href: '/information' },
+  { label: 'Hướng dẫn', href: '/guide' },
+  { label: 'Liên hệ', href: '/contact' },
 ]
 
 function BrandMark() {
@@ -39,7 +39,7 @@ function Header({ activeItem = 'Trang chủ' }) {
   return (
     <header className="relative z-20 border-b border-[#e6ecf4] bg-white">
       <div className="mx-auto flex h-16 max-w-[1440px] items-center px-5 sm:px-8 lg:px-9">
-        <a className="flex items-center gap-2" href="#trang-chu" aria-label="InternConnect">
+        <a className="flex items-center gap-2" href="/" aria-label="InternConnect">
           <BrandMark />
           <span className="text-[15px] font-extrabold tracking-[-0.04em] text-[#064aa9]">
             INTERNCONNECT
@@ -72,18 +72,19 @@ function Header({ activeItem = 'Trang chủ' }) {
             className="grid size-9 place-items-center rounded-md text-[#0757c9] transition-colors hover:bg-[#eff6ff] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0757c9]"
             type="button"
             aria-label="Tìm kiếm"
+            onClick={() => { window.location.href = '/opportunities' }}
           >
             <Search size={17} strokeWidth={2.25} />
           </button>
           <a
             className="rounded-[5px] border border-[#0d61da] px-4 py-2 text-[11px] font-semibold text-[#0757c9] transition-colors hover:bg-[#eff6ff]"
-            href="#dang-nhap"
+            href="/login"
           >
             Đăng nhập
           </a>
           <a
             className="rounded-[5px] bg-[#0757c9] px-4 py-2 text-[11px] font-semibold text-white shadow-[0_2px_4px_rgba(7,87,201,0.18)] transition-colors hover:bg-[#064aa9]"
-            href="#dang-ky"
+            href="/login"
           >
             Đăng ký
           </a>
@@ -123,13 +124,13 @@ function Header({ activeItem = 'Trang chủ' }) {
             <div className="mt-2 grid grid-cols-2 gap-2 border-t border-[#e6ecf4] pt-3 sm:hidden">
               <a
                 className="rounded-md border border-[#0d61da] px-3 py-2 text-center text-sm font-semibold text-[#0757c9]"
-                href="#dang-nhap"
+                href="/login"
               >
                 Đăng nhập
               </a>
               <a
                 className="rounded-md bg-[#0757c9] px-3 py-2 text-center text-sm font-semibold text-white"
-                href="#dang-ky"
+                href="/login"
               >
                 Đăng ký
               </a>

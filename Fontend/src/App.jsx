@@ -7,13 +7,15 @@ import HeroSearch from './components/HeroSearch/HeroSearch'
 import InternshipModal from './components/InternshipModal/InternshipModal'
 import internships from './data/internships.json'
 import { useMemo, useState } from 'react'
+import { applyForInternship } from './services/studentService'
 
-function App() {
+function HomePage() {
   const [query, setQuery] = useState('')
   const [location, setLocation] = useState('Tất cả địa điểm')
   const [sortBy, setSortBy] = useState('Mới nhất')
   const [selectedInternship, setSelectedInternship] = useState(null)
   const [savedIds, setSavedIds] = useState([])
+  const [applicationMessage, setApplicationMessage] = useState('')
 
   const locations = ['Tất cả địa điểm', ...new Set(internships.map((internship) => internship.location))]
 
@@ -43,10 +45,17 @@ function App() {
     )
   }
 
+  const applyFromHome = (id) => {
+    applyForInternship(id)
+    setApplicationMessage('Đã gửi hồ sơ ứng tuyển mock. Bạn có thể theo dõi tại khu vực Sinh viên.')
+    setSelectedInternship(null)
+  }
+
   return (
     <div className="min-h-screen bg-[#f7faff] text-[#172d50]">
       <Header />
       <main>
+        {applicationMessage && <div className="mx-auto max-w-[1440px] px-5 pt-5 sm:px-8 lg:px-9"><p className="rounded-md bg-green-50 px-4 py-3 text-sm font-semibold text-green-700">{applicationMessage}</p></div>}
         <HeroSearch query={query} onQueryChange={setQuery} />
         <section className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 lg:px-9" id="co-hoi-thuc-tap">
           <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -85,10 +94,10 @@ function App() {
       </main>
       <Footer />
       {selectedInternship && (
-        <InternshipModal internship={selectedInternship} onClose={() => setSelectedInternship(null)} />
+        <InternshipModal internship={selectedInternship} onClose={() => setSelectedInternship(null)} onApply={applyFromHome} />
       )}
     </div>
   )
 }
 
-export default App
+export default HomePage

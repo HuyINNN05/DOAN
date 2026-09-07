@@ -1,0 +1,4 @@
+[
+  { "id": 1, "studentId": 1, "internshipId": 1, "status": "05", "statusLabel": "Doanh nghiệp tiếp nhận", "statusHistory": ["01", "02", "03", "04", "05"] },
+  { "id": 2, "studentId": 1, "internshipId": 3, "status": "09", "statusLabel": "Đạt tuyển chọn", "statusHistory": ["01", "02", "03", "04", "05", "06", "07", "09"] }
+]

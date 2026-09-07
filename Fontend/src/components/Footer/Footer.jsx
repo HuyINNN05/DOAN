@@ -38,7 +38,7 @@ function Footer() {
     <footer className="bg-[#06439a] text-white">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-9 sm:px-8 lg:grid-cols-[1.25fr_repeat(4,1fr)_1.45fr] lg:gap-7 lg:px-9 lg:py-8">
         <div>
-          <a className="flex items-center gap-2" href="#trang-chu" aria-label="InternConnect">
+          <a className="flex items-center gap-2" href="/" aria-label="InternConnect">
             <BrandMark />
             <span className="text-[15px] font-extrabold tracking-[-0.04em]">INTERNCONNECT</span>
           </a>
@@ -46,13 +46,13 @@ function Footer() {
             Nền tảng kết nối thực tập giữa sinh viên, nhà trường và doanh nghiệp.
           </p>
           <div className="mt-5 flex gap-2">
-            <a className="grid size-7 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25" href="#facebook" aria-label="Facebook">
+            <a className="grid size-7 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25" href="https://facebook.com" aria-label="Facebook">
               <Link size={14} />
             </a>
-            <a className="grid size-7 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25" href="#linkedin" aria-label="LinkedIn">
+            <a className="grid size-7 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25" href="https://linkedin.com" aria-label="LinkedIn">
               <Mail size={14} />
             </a>
-            <a className="grid size-7 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25" href="#email" aria-label="Email">
+            <a className="grid size-7 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25" href="mailto:support@internconnect.vn" aria-label="Email">
               <Mail size={14} />
             </a>
           </div>
@@ -64,7 +64,7 @@ function Footer() {
             <ul className="mt-4 space-y-2">
               {group.links.map((link) => (
                 <li key={link}>
-                  <a className="text-[10px] leading-4 text-blue-100 transition-colors hover:text-white" href={`#${link}`}>
+                  <a className="text-[10px] leading-4 text-blue-100 transition-colors hover:text-white" href="/information">
                     {link}
                   </a>
                 </li>
@@ -96,9 +96,9 @@ function Footer() {
         <div className="mx-auto flex max-w-[1440px] flex-col gap-3 px-5 py-4 text-[9px] text-blue-100 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-9">
           <p>© 2025 InternConnect. All rights reserved.</p>
           <div className="flex gap-4">
-            <a className="transition-colors hover:text-white" href="#dieu-khoan">Điều khoản sử dụng</a>
+            <a className="transition-colors hover:text-white" href="/information">Điều khoản sử dụng</a>
             <span className="text-white/35">|</span>
-            <a className="transition-colors hover:text-white" href="#chinh-sach">Chính sách bảo mật</a>
+            <a className="transition-colors hover:text-white" href="/information">Chính sách bảo mật</a>
           </div>
         </div>
       </div>
