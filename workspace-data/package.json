@@ -1,0 +1,10 @@
+{
+  "name": "internconnect-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix .\\internconnect run dev",
+    "build": "npm --prefix .\\internconnect run build",
+    "lint": "npm --prefix .\\internconnect run lint",
+    "preview": "npm --prefix .\\internconnect run preview"
+  }
+}

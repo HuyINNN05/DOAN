@@ -1,6 +1,8 @@
 import { Link, useNavigate } from 'react-router'
 import dashboard from '../data/dashboard.json'
 import { getSession, logout } from '../services/mockAuth'
+import StatCard from '../components/dashboard/StatCard'
+import statuses from '../data/internshipStatuses.json'
 
 function DashboardPage() {
   const navigate = useNavigate()
@@ -8,16 +10,7 @@ function DashboardPage() {
   const data = dashboard[session.role]
   function handleLogout() { logout(); navigate('/') }
 
-  return <main className="min-h-screen bg-[#f7faff] px-5 py-8 sm:px-8 lg:px-12">
-    <div className="mx-auto max-w-6xl">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div><Link to="/" className="text-sm font-bold text-[#0757c9]">← InternConnect</Link><h1 className="mt-3 text-3xl font-extrabold text-[#172d50]">{data.title}</h1><p className="mt-1 text-sm text-[#7890ad]">Xin chào, {session.name}</p></div>
-        <button type="button" onClick={handleLogout} className="rounded-md border border-[#cbd9e9] px-4 py-2 text-sm font-semibold text-[#2b4263]">Đăng xuất</button>
-      </div>
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{data.stats.map((stat) => <div className="rounded-xl border border-[#e1eaf5] bg-white p-5" key={stat.label}><p className="text-sm text-[#7890ad]">{stat.label}</p><p className="mt-3 text-3xl font-extrabold text-[#0757c9]">{stat.value}</p></div>)}</div>
-      <section className="mt-6 rounded-xl border border-[#e1eaf5] bg-white p-6"><h2 className="text-lg font-bold text-[#172d50]">Khu vực đang phát triển</h2><p className="mt-2 text-sm leading-6 text-[#7890ad]">Các chức năng chi tiết của vai trò sẽ được nối vào mock service và dữ liệu JSON trong các bước tiếp theo.</p></section>
-    </div>
-  </main>
+  return <section><div className="dashboard-page-heading"><div><p className="dashboard-eyebrow">TỔNG QUAN HỆ THỐNG</p><h1>{data.title}</h1><p>Xin chào, <b>{session.name}</b>. Đây là tổng quan hoạt động của bạn.</p></div><button type="button" onClick={handleLogout} className="dashboard-secondary-button">Đăng xuất</button></div><section className="dashboard-welcome"><div><span className="dashboard-welcome-pill">✦ Kết nối đúng cơ hội</span><h2>{session.role === 'student' ? 'Bắt đầu hành trình thực tập của bạn.' : session.role === 'company' ? 'Cùng tìm kiếm và phát triển tài năng trẻ.' : session.role === 'lecturer' ? 'Đồng hành cùng sinh viên trên hành trình nghề nghiệp.' : 'Quản lý hoạt động thực tập tập trung và hiệu quả.'}</h2><p>{session.role === 'student' ? 'Hoàn thiện hồ sơ, khám phá cơ hội phù hợp và theo dõi tiến độ thực tập.' : 'Tổng quan những hoạt động mới nhất đang cần bạn xử lý.'}</p></div><div className="dashboard-welcome-illustration"><span>◆</span><b>{session.role === 'student' ? '15' : '24'}</b><small>mốc nghiệp vụ</small></div></section><div className="dashboard-stats-grid">{data.stats.map((stat, index) => <StatCard key={stat.label} label={stat.label} value={stat.value} note={index % 2 ? '+8% so với tháng trước' : 'Cập nhật hôm nay'} tone={['blue','green','orange','purple'][index]} />)}</div>{session.role === 'student' && <section className="dashboard-panel dashboard-timeline-panel"><div className="dashboard-panel-heading"><h2>Hành trình thực tập (15 giai đoạn)</h2><Link to="/student/applications">Xem chi tiết →</Link></div><div className="dashboard-timeline">{statuses.map((status, index) => <div className={`dashboard-timeline-step ${index < 4 ? 'done' : ''} ${index === 3 ? 'current' : ''}`} key={status.id}><span>{status.id}</span><small>{status.label}</small></div>)}</div></section>}<div className="dashboard-panels"><section className="dashboard-panel dashboard-panel-large"><div className="dashboard-panel-heading"><h2>{session.role === 'student' ? 'Nhiệm vụ cần làm' : 'Hoạt động gần đây'}</h2><Link to="/opportunities">Xem tất cả →</Link></div><div className="dashboard-activity-list">{['Hồ sơ mới được cập nhật', 'Có thông báo cần xử lý', 'Tiến độ thực tập vừa thay đổi', 'Báo cáo mới được gửi'].map((item, index) => <div key={item}><span className={`activity-dot dot-${index}`} /><p>{item}<small>{index + 1} giờ trước</small></p></div>)}</div></section><section className="dashboard-panel"><div className="dashboard-panel-heading"><h2>{session.role === 'student' ? 'Lịch phỏng vấn sắp tới' : 'Tiến độ tổng quan'}</h2><span className="dashboard-chip">Mock data</span></div>{session.role === 'student' ? <div className="dashboard-interview"><b>THỨ 6<br /><strong>20/06</strong></b><div><strong>10:00 - 11:00</strong><p>Frontend Developer Intern</p><small>FPT Software · Phỏng vấn online</small></div></div> : <><div className="dashboard-progress-ring"><b>{typeof data.stats[3].value === 'string' ? data.stats[3].value : '68%'}</b><span>Hoàn thành</span></div><div className="dashboard-legend"><span><i className="legend-green" />Đã hoàn thành</span><span><i className="legend-blue" />Đang xử lý</span><span><i className="legend-gray" />Chưa bắt đầu</span></div></>}</section></div></section>
 }
 
 export default DashboardPage

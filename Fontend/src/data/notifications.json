@@ -1,0 +1,4 @@
+[
+  { "id": 1, "userId": 1, "title": "Bạn có lịch phỏng vấn mới", "message": "FPT Software đã gửi lịch phỏng vấn Frontend Developer Intern.", "read": false, "createdAt": "2026-09-20T08:00:00.000Z" },
+  { "id": 2, "userId": 1, "title": "Cập nhật hồ sơ ứng tuyển", "message": "Hồ sơ của bạn đang được doanh nghiệp xem xét.", "read": true, "createdAt": "2026-09-19T08:00:00.000Z" }
+]

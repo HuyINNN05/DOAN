@@ -1,0 +1,3 @@
+[
+  { "id": 1, "applicationId": 1, "companyId": 2, "studentId": 1, "date": "2026-09-20", "time": "10:00", "mode": "Online", "location": "Google Meet", "status": "Chờ sinh viên xác nhận" }
+]

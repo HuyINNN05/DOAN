@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 
 function RolePage({ title, description, actions = [] }) {
-  return <section><div className="rounded-xl border border-[#e1eaf5] bg-white p-6"><p className="text-xs font-bold uppercase tracking-wider text-[#0a66c2]">InternConnect</p><h1 className="mt-2 text-2xl font-extrabold text-[#172d50]">{title}</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-[#7890ad]">{description}</p></div><div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{actions.map((action) => <Link to={action.href} className="rounded-xl border border-[#e1eaf5] bg-white p-5 hover:border-[#9fc2ed]" key={action.href}><h2 className="font-bold text-[#172d50]">{action.label}</h2><p className="mt-2 text-sm text-[#7890ad]">Dữ liệu mock và thao tác nghiệp vụ sẽ hiển thị tại đây.</p></Link>)}</div></section>
+  return <section><div className="dashboard-page-heading"><div><p className="dashboard-eyebrow">INTERNCONNECT</p><h1>{title}</h1><p>{description}</p></div><span className="dashboard-chip">Mock data</span></div><div className="dashboard-panels">{actions.map((action) => <Link to={action.href} className="dashboard-panel hover:border-[#82b3ec]" key={action.href}><h2 className="font-bold text-[#173b83]">{action.label}</h2><p className="mt-2 text-sm text-[#7890ad]">Dữ liệu mock và thao tác nghiệp vụ sẽ hiển thị tại đây.</p><span className="mt-5 inline-block text-xs font-bold text-[#0757c9]">Mở chức năng →</span></Link>)}</div></section>
 }
 
 export default RolePage

@@ -37,8 +37,8 @@ function Header({ activeItem = 'Trang chủ' }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="relative z-20 border-b border-[#e6ecf4] bg-white">
-      <div className="mx-auto flex h-16 max-w-[1440px] items-center px-5 sm:px-8 lg:px-9">
+    <header className="public-header relative z-20">
+      <div className="public-header-inner mx-auto flex h-16 max-w-[1440px] items-center px-5 sm:px-8 lg:px-9">
         <a className="flex items-center gap-2" href="/" aria-label="InternConnect">
           <BrandMark />
           <span className="text-[15px] font-extrabold tracking-[-0.04em] text-[#064aa9]">
@@ -82,12 +82,6 @@ function Header({ activeItem = 'Trang chủ' }) {
           >
             Đăng nhập
           </a>
-          <a
-            className="rounded-[5px] bg-[#0757c9] px-4 py-2 text-[11px] font-semibold text-white shadow-[0_2px_4px_rgba(7,87,201,0.18)] transition-colors hover:bg-[#064aa9]"
-            href="/login"
-          >
-            Đăng ký
-          </a>
         </div>
 
         <button
@@ -127,12 +121,6 @@ function Header({ activeItem = 'Trang chủ' }) {
                 href="/login"
               >
                 Đăng nhập
-              </a>
-              <a
-                className="rounded-md bg-[#0757c9] px-3 py-2 text-center text-sm font-semibold text-white"
-                href="/login"
-              >
-                Đăng ký
               </a>
             </div>
           </nav>

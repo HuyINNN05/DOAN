@@ -1,38 +1,7 @@
-import { ArrowRight, Search, Sparkles } from 'lucide-react'
+import { ArrowRight, Building2, Search, ShieldCheck, Sparkles, UsersRound } from 'lucide-react'
 
 function HeroSearch({ query, onQueryChange }) {
-  return (
-    <section className="relative overflow-hidden bg-[#0b4fa8] px-5 py-14 text-white sm:px-8 lg:px-9 lg:py-20">
-      <div className="absolute -right-20 -top-24 size-72 rounded-full border-[36px] border-white/10" />
-      <div className="absolute -bottom-32 left-1/3 size-64 rounded-full border-[24px] border-[#48a8ef]/20" />
-      <div className="relative mx-auto max-w-[1440px]">
-        <div className="max-w-2xl">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-blue-100">
-            <Sparkles size={13} /> Kết nối đúng cơ hội
-          </div>
-          <h1 className="max-w-xl text-4xl font-extrabold leading-[1.08] tracking-[-0.05em] sm:text-5xl">
-            Bắt đầu hành trình thực tập của bạn.
-          </h1>
-          <p className="mt-4 max-w-lg text-sm leading-6 text-blue-100 sm:text-base">
-            Khám phá những vị trí thực tập chất lượng từ các doanh nghiệp đang tìm kiếm tài năng trẻ.
-          </p>
-          <div className="mt-8 flex max-w-2xl items-center rounded-lg bg-white p-1.5 shadow-[0_18px_35px_rgba(4,35,87,0.25)]">
-            <Search className="ml-3 shrink-0 text-[#7290b5]" size={19} />
-            <input
-              className="min-w-0 flex-1 px-3 py-3 text-sm text-[#172d50] outline-none placeholder:text-[#9aabc1]"
-              value={query}
-              onChange={(event) => onQueryChange(event.target.value)}
-              placeholder="Tìm theo vị trí, công ty hoặc kỹ năng..."
-              aria-label="Tìm kiếm cơ hội thực tập"
-            />
-            <button className="hidden items-center gap-2 rounded-md bg-[#f49b3f] px-5 py-3 text-xs font-bold text-white transition-colors hover:bg-[#e8882b] sm:flex" type="button">
-              Tìm kiếm <ArrowRight size={15} />
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+  return <section className="relative overflow-hidden bg-[#eaf5ff] px-5 pb-12 pt-12 sm:px-8 lg:px-12 lg:pb-16 lg:pt-16"><div className="absolute -right-20 -top-24 size-80 rounded-full border-[38px] border-white/70" /><div className="absolute bottom-0 right-1/4 size-52 rounded-full bg-[#d3eaff]/70" /><div className="relative mx-auto max-w-7xl"><div className="grid items-center gap-10 lg:grid-cols-[1fr_.8fr]"><div><div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#0a66c2] shadow-sm"><Sparkles size={13} /> Nền tảng kết nối thực tập</div><h1 className="mt-5 max-w-2xl text-4xl font-extrabold leading-[1.06] tracking-[-0.05em] text-[#123a8b] sm:text-6xl">Kết nối đúng cơ hội.<br /><span className="text-[#0876d1]">Đồng hành trọn kỳ thực tập.</span></h1><p className="mt-5 max-w-xl text-sm leading-6 text-[#5f7c9f] sm:text-base">InternConnect kết nối sinh viên, nhà trường và doanh nghiệp trên một nền tảng thống nhất, giúp bạn dễ dàng tìm kiếm, ứng tuyển và phát triển sự nghiệp.</p><div className="mt-7 flex max-w-2xl items-center rounded-lg bg-white p-1.5 shadow-[0_12px_30px_rgba(37,103,170,0.15)]"><Search className="ml-3 shrink-0 text-[#7290b5]" size={19} /><input className="min-w-0 flex-1 px-3 py-3 text-sm text-[#172d50] outline-none placeholder:text-[#9aabc1]" value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder="Tìm vị trí, công ty hoặc kỹ năng..." aria-label="Tìm kiếm cơ hội thực tập" /><button className="hidden items-center gap-2 rounded-md bg-[#0757c9] px-5 py-3 text-xs font-bold text-white hover:bg-[#064aa9] sm:flex" type="button">Tìm kiếm <ArrowRight size={15} /></button></div></div><div className="relative hidden min-h-[290px] lg:block"><div className="absolute right-6 top-4 h-64 w-72 rounded-[45%] bg-[#c9e5fb]" /><div className="absolute right-14 top-14 grid h-52 w-56 place-items-center rounded-3xl bg-gradient-to-br from-[#197bd5] to-[#0750a5] shadow-2xl"><UsersRound size={90} className="text-white/90" /></div><div className="absolute bottom-5 left-2 rounded-xl bg-white p-4 shadow-lg"><div className="flex items-center gap-3"><ShieldCheck className="text-[#12a878]" /><div><b className="block text-sm text-[#173b83]">Cơ hội xác thực</b><span className="text-xs text-[#7890ad]">Từ doanh nghiệp uy tín</span></div></div></div><div className="absolute right-0 top-2 rounded-xl bg-white p-4 shadow-lg"><Building2 className="text-[#0757c9]" size={22} /><b className="mt-2 block text-xs text-[#173b83]">800+ doanh nghiệp</b></div></div></div><div className="mt-10 grid grid-cols-2 gap-3 border-t border-[#c9e0f5] pt-6 sm:grid-cols-4"><div><b className="block text-2xl text-[#0757c9]">5,000+</b><span className="text-xs text-[#7890ad]">Sinh viên đăng ký</span></div><div><b className="block text-2xl text-[#0757c9]">800+</b><span className="text-xs text-[#7890ad]">Doanh nghiệp đối tác</span></div><div><b className="block text-2xl text-[#0757c9]">3,000+</b><span className="text-xs text-[#7890ad]">Cơ hội thực tập</span></div><div><b className="block text-2xl text-[#0757c9]">95%</b><span className="text-xs text-[#7890ad]">Hài lòng nền tảng</span></div></div></div></section>
 }
 
 export default HeroSearch
