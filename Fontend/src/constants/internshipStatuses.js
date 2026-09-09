@@ -20,11 +20,10 @@ export const STATUS_LABELS = Object.fromEntries(INTERNSHIP_STATUSES.map((status)
 
 export const STATUS_TRANSITIONS = Object.freeze({
   '01': ['02'], '02': ['03'], '03': ['04'], '04': ['05'], '05': ['06', '09'],
-  '06': ['07'], '07': ['08'], '08': ['09'], '09': ['10'], '10': ['11'],
+  '06': ['07'], '07': ['08'], '08': ['09'], '09': ['10'], '10': ['11', '09'],
   '11': ['12'], '12': ['13'], '13': ['14'], '14': ['15'], '15': [],
 })
 
 export function canTransition(from, to) {
   return (STATUS_TRANSITIONS[from] || []).includes(to)
 }
-

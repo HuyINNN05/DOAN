@@ -13,6 +13,7 @@ import { CompanyApplicationsPage, CompanyEvaluationsPage, CompanyInterviewsPage,
 import { LecturerDiariesPage, LecturerEvaluationsPage, LecturerInternshipsPage, LecturerReportsPage, LecturerStudentsPage } from '../pages/lecturer/LecturerFeaturePages'
 import { AdminAssignmentsPage, AdminCompaniesPage, AdminContentPage, AdminNotificationsPage, AdminPeriodsPage, AdminReportsPage, AdminUsersPage } from '../pages/admin/AdminFeaturePages'
 import AuditLogsPage from '../pages/admin/AuditLogsPage'
+import { AccountPage, CompanyLookupPage, CompanyRegisterPage, ForgotPasswordPage, NotificationsPage } from '../pages/AuthFeaturePages'
 
 const pages = {
   student: [['profile', 'Hồ sơ cá nhân & CV'], ['opportunities', 'Cơ hội thực tập'], ['applications', 'Quản lý ứng tuyển'], ['interviews', 'Lịch phỏng vấn'], ['internship', 'Hồ sơ thực tập'], ['diary', 'Nhật ký thực tập'], ['reports', 'Báo cáo thực tập']],
@@ -32,7 +33,7 @@ function RoleRoutes({ role, title }) {
 }
 
 function Router() {
-  return <BrowserRouter><Routes><Route path="/" element={<App />} /><Route path="/login" element={<LoginPage />} /><Route path="/opportunities" element={<OpportunitiesPage />} /><Route path="/companies" element={<PublicInfoPage type="companies" />} /><Route path="/information" element={<PublicInfoPage type="information" />} /><Route path="/guide" element={<PublicInfoPage type="guide" />} /><Route path="/contact" element={<PublicInfoPage type="contact" />} />{RoleRoutes({ role: 'student', title: 'Khu vực sinh viên' })}{RoleRoutes({ role: 'company', title: 'Khu vực doanh nghiệp' })}{RoleRoutes({ role: 'lecturer', title: 'Khu vực giảng viên' })}{RoleRoutes({ role: 'admin', title: 'Khu vực nhà trường' })}<Route path="*" element={<NotFoundPage />} /></Routes></BrowserRouter>
+  return <BrowserRouter><Routes><Route path="/" element={<App />} /><Route path="/login" element={<LoginPage />} /><Route path="/forgot-password" element={<ForgotPasswordPage />} /><Route path="/company/register" element={<CompanyRegisterPage />} /><Route path="/company/lookup" element={<CompanyLookupPage />} /><Route path="/notifications" element={<NotificationsPage />} /><Route path="/account" element={<AccountPage />} /><Route path="/opportunities" element={<OpportunitiesPage />} /><Route path="/companies" element={<PublicInfoPage type="companies" />} /><Route path="/information" element={<PublicInfoPage type="information" />} /><Route path="/guide" element={<PublicInfoPage type="guide" />} /><Route path="/contact" element={<PublicInfoPage type="contact" />} />{RoleRoutes({ role: 'student', title: 'Khu vực sinh viên' })}{RoleRoutes({ role: 'company', title: 'Khu vực doanh nghiệp' })}{RoleRoutes({ role: 'lecturer', title: 'Khu vực giảng viên' })}{RoleRoutes({ role: 'admin', title: 'Khu vực nhà trường' })}<Route path="*" element={<NotFoundPage />} /></Routes></BrowserRouter>
 }
 
 export default Router

@@ -65,3 +65,36 @@ button, input, select { font: inherit; }
 .public-header { position: fixed !important; top: 0; left: 0; right: 0; z-index: 40; }.public-home, .public-page { padding-top: 76px; }.public-guide-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }.public-guide-grid article { border: 1px solid #dce9f7; border-radius: 10px; padding: 24px; background: white; }.public-guide-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #e5f2ff; color: #0757c9; }.public-guide-grid h2 { margin-top: 17px; color: #173b83; font-size: 16px; }.public-guide-grid p { margin-top: 8px; color: #7890ad; font-size: 11px; line-height: 1.6; }.public-guide-grid ol { margin: 17px 0; padding-left: 18px; color: #526f94; font-size: 11px; line-height: 2; }.public-guide-grid a { display: flex; align-items: center; gap: 5px; color: #0757c9; font-size: 10px; font-weight: 800; }.public-contact-info { border-radius: 10px; padding: 28px; background: #0757c9; color: white; }.public-contact-info h2, .public-contact-form h2 { font-size: 20px; font-weight: 900; }.public-contact-info > p { margin-top: 8px; color: #c9e4ff; font-size: 12px; line-height: 1.6; }.public-contact-info > div { display: grid; gap: 3px; margin-top: 25px; }.public-contact-info span { color: #c9e4ff; font-size: 11px; }.public-contact-form { display: grid; gap: 15px; border: 1px solid #dce9f7; border-radius: 10px; padding: 28px; background: white; }.public-contact-form label { display: grid; gap: 7px; color: #2b4263; font-size: 11px; font-weight: 800; }.public-contact-form input, .public-contact-form textarea { width: 100%; border: 1px solid #d8e3f0; border-radius: 5px; padding: 10px 12px; outline: 0; font-size: 11px; font-weight: 400; }.public-contact-form textarea { min-height: 100px; resize: vertical; }.public-contact-form button { display: flex; width: fit-content; align-items: center; gap: 7px; border: 0; border-radius: 5px; background: #0757c9; padding: 11px 17px; color: white; font-size: 11px; font-weight: 800; }
 .status-badge { display: inline-flex; border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 800; }.status-badge.info { background: #e6f2ff; color: #0757c9; }.status-badge.success { background: #ddf8ed; color: #0a9666; }.status-badge.warning { background: #fff0d9; color: #cc7711; }.status-badge.muted { background: #eef2f6; color: #7890ad; }.state-card { display: flex; min-height: 120px; align-items: center; justify-content: center; gap: 9px; border: 1px dashed #b9cee8; border-radius: 9px; background: white; color: #7890ad; font-size: 12px; }.loading-dot { width: 12px; height: 12px; border: 2px solid #c7ddf3; border-top-color: #0757c9; border-radius: 50%; animation: spin .8s linear infinite; }@keyframes spin { to { transform: rotate(360deg); } }
 @media (max-width: 700px) { .public-guide-grid { grid-template-columns: 1fr; } }
+
+/* Final visual polish: the reference UI uses a clean, airy workspace with strong blue actions. */
+body { color: #173b83; background: #f4f8fd; -webkit-font-smoothing: antialiased; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid #9dccff; outline-offset: 2px; }
+.dashboard-shell { background: radial-gradient(circle at 80% 0%, #ffffff 0, #eef7ff 42%, #e8f3ff 100%); }
+.dashboard-sidebar { position: sticky; top: 0; height: 100vh; box-shadow: 7px 0 25px #0b3d7618; }
+.dashboard-brand { letter-spacing: -.03em; }
+.dashboard-nav-link { min-height: 40px; }
+.dashboard-topbar { backdrop-filter: blur(12px); }
+.dashboard-search:focus-within { border-color: #6aaaf1; background: white; box-shadow: 0 0 0 4px #dceeff; }
+.dashboard-page-heading h1 { text-wrap: balance; }
+.dashboard-secondary-button, .public-outline-button { cursor: pointer; transition: .2s ease; }
+.dashboard-secondary-button:hover { border-color: #0757c9; color: #0757c9; background: #f3f8ff; transform: translateY(-1px); }
+.dashboard-stat-card, .dashboard-panel, .public-job-card, .public-feature-card, .public-guide-grid article, .public-news-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.dashboard-stat-card:hover, .dashboard-panel:hover, .public-job-card:hover, .public-feature-card:hover, .public-guide-grid article:hover, .public-news-card:hover { border-color: #a9caf0; box-shadow: 0 12px 28px #255a9414; transform: translateY(-2px); }
+.dashboard-panel { box-shadow: 0 5px 18px #245b9610; }
+.dashboard-quick-actions { display: grid; gap: 9px; margin-top: 18px; }
+.dashboard-quick-actions a { display: flex; align-items: center; justify-content: space-between; border: 1px solid #dce9f7; border-radius: 7px; padding: 11px 12px; color: #24558e; font-size: 11px; font-weight: 700; transition: .2s ease; }
+.dashboard-quick-actions a:hover { border-color: #82b3ec; background: #f4f9ff; color: #0757c9; transform: translateX(2px); }
+.dashboard-quick-actions span { color: #0757c9; font-size: 15px; }
+.dashboard-stat-card strong { letter-spacing: -.04em; }
+.public-header { background: #ffffffee; border-bottom: 1px solid #e3edf8; box-shadow: 0 4px 20px #245b9610; backdrop-filter: blur(12px); }
+.public-list-hero { background: radial-gradient(circle at 80% 15%, #d8eeff 0, transparent 35%), linear-gradient(120deg, #edf7ff, #f9fcff); border-bottom: 1px solid #dceaf7; }
+.public-search-box { box-shadow: 0 8px 24px #1460a514; transition: box-shadow .2s ease, border-color .2s ease; }
+.public-search-box:focus-within { border-color: #70acf0; box-shadow: 0 0 0 4px #dceeff, 0 10px 24px #1460a514; }
+.public-job-card { box-shadow: 0 4px 16px #255a9410; }
+.public-bookmark { cursor: pointer; transition: .2s ease; }
+.public-bookmark:hover { color: #0757c9; transform: scale(1.15); }
+.public-tag { border: 1px solid #d6e8fb; }
+.status-badge { white-space: nowrap; }
+@media (max-width: 900px) { .dashboard-sidebar { position: fixed; z-index: 45; } .dashboard-main { margin-left: 76px; } }
+@media (max-width: 640px) { .dashboard-main { margin-left: 0; } .dashboard-sidebar { position: fixed; width: 64px; } .dashboard-content { padding: 20px 14px 32px; } .dashboard-page-heading { flex-direction: column; } .dashboard-page-heading h1 { font-size: 24px; } .public-header-inner { height: 60px; } .public-home, .public-page { padding-top: 60px; } }

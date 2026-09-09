@@ -5,7 +5,9 @@ const icons = { dashboard: LayoutDashboard, profile: UserRound, opportunities: B
 
 function Sidebar({ role, links }) {
   const location = useLocation()
-  return <aside className="dashboard-sidebar"><Link to="/" className="dashboard-brand"><span className="dashboard-brand-mark">◆</span><span>INTERNCONNECT</span></Link><nav className="dashboard-nav">{links.map(([href, label]) => { const slug = href.split('/').pop(); const Icon = icons[slug] || LayoutDashboard; const active = location.pathname === href; return <Link className={`dashboard-nav-link ${active ? 'active' : ''}`} to={href} key={href}><Icon size={16} /><span>{label}</span></Link> })}</nav><div className="dashboard-sidebar-footer"><div className="dashboard-avatar">{role === 'student' ? 'MA' : role === 'company' ? 'FP' : role === 'lecturer' ? 'LK' : 'NT'}</div><div><b>{role === 'student' ? 'Nguyễn Minh Anh' : role === 'company' ? 'FPT Software' : role === 'lecturer' ? 'Lê Trung Kiên' : 'Nhà trường'}</b><small>{role === 'student' ? 'Sinh viên' : role === 'company' ? 'Doanh nghiệp' : role === 'lecturer' ? 'Giảng viên' : 'Quản trị viên'}</small></div></div></aside>
+  const users = { student: ['MA', 'Nguyễn Minh Anh', 'Sinh viên'], company: ['FP', 'FPT Software', 'Doanh nghiệp'], lecturer: ['LK', 'TS. Nguyễn Văn An', 'Giảng viên'], admin: ['NT', 'Nguyễn Thị Hương', 'Quản trị viên'] }
+  const [initials, name, label] = users[role]
+  return <aside className="dashboard-sidebar"><Link to="/" className="dashboard-brand"><span className="dashboard-brand-mark">◆</span><span>INTERNCONNECT</span></Link><nav className="dashboard-nav">{links.map(([href, text]) => { const slug = href.split('/').pop(); const Icon = icons[slug] || LayoutDashboard; return <Link className={`dashboard-nav-link ${location.pathname === href ? 'active' : ''}`} to={href} key={href}><Icon size={16} /><span>{text}</span></Link> })}</nav><div className="dashboard-sidebar-footer"><div className="dashboard-avatar">{initials}</div><div><b>{name}</b><small>{label}</small></div></div></aside>
 }
 
 export default Sidebar
