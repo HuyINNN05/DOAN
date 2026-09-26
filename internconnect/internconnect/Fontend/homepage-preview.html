@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InternConnect - Trang chủ</title>
+  <style>
+    :root {
+      --plum: #34204f;
+      --plum-soft: #4d4754;
+      --orange: #f0a044;
+      --orange-dark: #df8b2d;
+      --cream: #f3f1f5;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #fff; font-family: Inter, "Segoe UI", sans-serif; background: var(--cream); }
+    header { position: fixed; inset: 0 0 auto; z-index: 2; padding: 10px 18px 0; }
+    .nav { height: 64px; display: flex; align-items: center; gap: 24px; max-width: 1440px; margin: auto; padding: 0 28px; border-radius: 12px 12px 0 0; background: rgba(255,255,255,.94); box-shadow: 0 4px 20px rgba(52,32,79,.16); }
+    .brand { margin-right: auto; color: var(--plum); font-weight: 900; letter-spacing: -.04em; }
+    nav { display: flex; gap: 24px; }
+    nav a { color: var(--plum-soft); font-size: 13px; font-weight: 700; text-decoration: none; }
+    .login { border: 1px solid var(--orange-dark); border-radius: 5px; padding: 10px 16px; background: var(--orange); color: white; font-size: 12px; font-weight: 800; text-decoration: none; }
+    .hero { min-height: 690px; padding: 155px max(7vw, 24px) 90px; position: relative; overflow: hidden; background: linear-gradient(115deg, rgba(52,32,79,.88), rgba(77,71,84,.68)), url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85") center/cover; }
+    .content { position: relative; z-index: 1; max-width: 720px; }
+    .pill { display: inline-block; padding: 9px 13px; border-radius: 20px; background: rgba(255,255,255,.16); font-size: 12px; font-weight: 800; }
+    h1 { margin: 24px 0 0; font-size: clamp(42px, 6vw, 76px); line-height: 1.02; letter-spacing: -.06em; }
+    h1 span { color: var(--orange); }
+    .intro { max-width: 620px; margin: 24px 0 0; color: #f1edf4; font-size: 16px; line-height: 1.7; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .actions a { border-radius: 6px; padding: 14px 19px; font-size: 13px; font-weight: 800; text-decoration: none; }
+    .primary { border: 1px solid var(--orange-dark); background: var(--orange); color: #fff; box-shadow: 0 8px 18px rgba(232,135,36,.24); }
+    .secondary { border: 1px solid rgba(255,255,255,.72); background: rgba(255,255,255,.12); color: #fff; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 900px; margin-top: 70px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.35); }
+    .stats strong { display: block; color: var(--orange); font-size: 27px; }
+    .stats span { color: #e3e0e8; font-size: 12px; }
+    @media (max-width: 800px) { nav { display: none; } .nav { padding: 0 18px; } .hero { min-height: 760px; } .stats { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+  <header><div class="nav"><a class="brand" href="#">INTERNCONNECT</a><nav><a href="#">Trang chủ</a><a href="#">Cơ hội thực tập</a><a href="#">Doanh nghiệp</a><a href="#">Thông tin</a><a href="#">Liên hệ</a></nav><a class="login" href="#">Đăng nhập</a></div></header>
+  <main class="hero"><div class="content"><span class="pill">Nền tảng kết nối thực tập</span><h1>Kết nối đúng <span>cơ hội.</span><br>Đồng hành trọn kỳ thực tập.</h1><p class="intro">InternConnect kết nối sinh viên, nhà trường và doanh nghiệp trên một nền tảng thống nhất, giúp bạn dễ dàng tìm kiếm, ứng tuyển và phát triển sự nghiệp.</p><div class="actions"><a class="primary" href="#">Đăng ký thực tập</a><a class="secondary" href="#">Khám phá cơ hội</a></div><div class="stats"><div><strong>5,000+</strong><span>Sinh viên đăng ký</span></div><div><strong>800+</strong><span>Doanh nghiệp đối tác</span></div><div><strong>3,000+</strong><span>Cơ hội thực tập</span></div><div><strong>95%</strong><span>Hài lòng nền tảng</span></div></div></div></main>
+</body>
+</html>

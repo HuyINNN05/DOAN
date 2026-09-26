@@ -79,7 +79,7 @@ function Header({ activeItem = 'Trang chủ' }) {
             <Search size={17} strokeWidth={2.25} />
           </button>
           <Link
-            className="rounded-[5px] border border-[#0d61da] px-4 py-2 text-[11px] font-semibold text-[#0757c9] transition-colors hover:bg-[#eff6ff]"
+            className="rounded-[5px] border border-[#df8b2d] bg-[#f0a044] px-4 py-2 text-[11px] font-semibold text-white shadow-[0_6px_14px_rgba(240,160,68,0.2)] transition-colors hover:bg-[#df8b2d]"
             to="/login"
           >
             Đăng nhập
@@ -117,9 +117,9 @@ function Header({ activeItem = 'Trang chủ' }) {
                 </NavLink>
               )
             })}
-            <div className="mt-2 grid grid-cols-2 gap-2 border-t border-[#e6ecf4] pt-3 sm:hidden">
+            <div className="mt-2 border-t border-[#e6ecf4] pt-3 sm:hidden">
               <Link
-                className="rounded-md border border-[#0d61da] px-3 py-2 text-center text-sm font-semibold text-[#0757c9]"
+                className="block rounded-md border border-[#df8b2d] bg-[#f0a044] px-3 py-2 text-center text-sm font-semibold text-white shadow-[0_6px_14px_rgba(240,160,68,0.2)]"
                 to="/login"
               >
                 Đăng nhập
