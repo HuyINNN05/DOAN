@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate } from 'react-router'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
 import { getRegistrations, registerCompany } from '../services/companyService'
+import { registerSchool } from '../services/schoolService'
 import { getNotifications, markNotificationRead } from '../services/notificationService'
 import { getSession, logout } from '../services/mockAuth'
 
@@ -14,6 +15,25 @@ export function CompanyRegisterPage() {
   const [message, setMessage] = useState(''); const [code, setCode] = useState('')
   function submit(event) { event.preventDefault(); const values = Object.fromEntries(new FormData(event.currentTarget)); const response = registerCompany(values); setMessage(response.ok ? 'Đã gửi hồ sơ. Mã tra cứu: ' + response.registration.id : response.error); if (response.ok) setCode(String(response.registration.id)) }
   return <Shell title="Đăng ký doanh nghiệp"><form className="grid gap-4 rounded-xl border bg-white p-6 sm:grid-cols-2" onSubmit={submit}>{[['name', 'Tên doanh nghiệp'], ['taxCode', 'Mã số thuế'], ['email', 'Email liên hệ'], ['phone', 'Số điện thoại'], ['representative', 'Người đại diện'], ['industry', 'Lĩnh vực'], ['address', 'Địa chỉ'], ['password', 'Mật khẩu tài khoản sau khi duyệt']].map(([name, label]) => <label className="text-sm font-semibold" key={name}>{label}<input className={fieldClass} name={name} required type={name === 'email' ? 'email' : name === 'password' ? 'password' : 'text'} /></label>)}<button className={`${actionClass} sm:col-span-2`}>Gửi đăng ký</button>{message && <p role="status" className="text-sm sm:col-span-2">{message}</p>}{code && <Link className="text-sm text-[#0757c9] sm:col-span-2" to="/company/lookup">Tra cứu hồ sơ</Link>}</form></Shell>
+}
+export function SchoolRegisterPage() {
+  const [message, setMessage] = useState('')
+  const [requestId, setRequestId] = useState('')
+  function submit(event) {
+    event.preventDefault()
+    const response = registerSchool(Object.fromEntries(new FormData(event.currentTarget)))
+    setMessage(response.ok ? 'Đã nhận yêu cầu. InternConnect sẽ xác minh thông tin trước khi cấp tài khoản quản trị.' : response.error)
+    if (response.ok) setRequestId(String(response.registration.id))
+  }
+  return <Shell title="Đăng ký nhà trường">
+    <p className="mb-5 text-sm leading-7 text-[#6684a8]">Gửi thông tin nhà trường để đội ngũ InternConnect xác minh. Tài khoản quản trị chỉ được cấp sau khi hồ sơ được kiểm tra.</p>
+    <form className="grid gap-4 rounded-xl border bg-white p-6 sm:grid-cols-2" onSubmit={submit}>
+      {[['name', 'Tên nhà trường'], ['schoolCode', 'Mã trường'], ['email', 'Email liên hệ'], ['phone', 'Số điện thoại'], ['representative', 'Người đại diện'], ['address', 'Địa chỉ']].map(([name, label]) => <label className="text-sm font-semibold" key={name}>{label}<input className={fieldClass} name={name} required type={name === 'email' ? 'email' : 'text'} /></label>)}
+      <button className={`${actionClass} sm:col-span-2`}>Gửi yêu cầu đăng ký</button>
+      {message && <p role="status" className="text-sm sm:col-span-2">{message}{requestId && <span className="block mt-1 font-semibold">Mã yêu cầu: {requestId}</span>}</p>}
+      <Link className="text-sm text-[#0757c9] sm:col-span-2" to="/login">Quay lại đăng nhập</Link>
+    </form>
+  </Shell>
 }
 export function CompanyLookupPage() { const [query, setQuery] = useState(''); const [searched, setSearched] = useState(false); const found = getRegistrations().find((item) => String(item.id) === query.trim() || item.taxCode === query.trim() || item.email === query.trim()); return <Shell title="Tra cứu hồ sơ doanh nghiệp"><form className="flex flex-wrap gap-3 rounded-xl border bg-white p-6" onSubmit={(event) => { event.preventDefault(); setSearched(true) }}><label className="min-w-0 flex-1 text-sm">Mã hồ sơ, mã số thuế hoặc email<input required className={fieldClass} value={query} onChange={(event) => setQuery(event.target.value)} /></label><button className={`${actionClass} self-end`}>Tra cứu</button></form>{searched && <div className="mt-4 rounded-xl border bg-white p-6 text-sm">{found ? <><b>{found.name}</b><p>Trạng thái: {found.status}</p>{found.reason && <p>Lý do: {found.reason}</p>}</> : 'Không tìm thấy hồ sơ phù hợp.'}</div>}</Shell> }
 export function NotificationsPage() { const [items, setItems] = useState(getNotifications()); if (!getSession()) return <Navigate to="/login" replace />; return <Shell title="Thông báo"><div className="space-y-3">{items.length ? items.map((item) => <button className="block w-full rounded-xl border bg-white p-5 text-left text-sm" key={item.id} onClick={() => setItems(markNotificationRead(item.id))}><b>{item.title}</b><p>{item.message}</p><small>{item.read ? 'Đã đọc' : 'Chưa đọc'}</small></button>) : <p>Chưa có thông báo.</p>}</div></Shell> }

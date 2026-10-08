@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'Segoe UI', sans-serif;
   --text-xs: 0.8125rem;
   --text-xs--line-height: 1.5;
   --text-sm: 0.9375rem;
@@ -32,7 +32,7 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; font-family: var(--font-sans); }
 
 html { scroll-behavior: smooth; }
 
@@ -332,6 +332,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .home-stats { border-color: #d9d5de !important; }
 .home-stats div { border-color: #aaa4b3 !important; }
 .home-stats b { color: #34204f !important; }
+.home-goals { border-block: 1px solid #e0d6c8; background: linear-gradient(110deg, #f3eff5 0%, #fff8ed 100%); }
+.home-goals-inner { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); align-items: start; gap: 56px; }
+.home-goals-heading small { color: #a35f27; font-size: 13px; font-weight: 700; }
+.home-goals-heading h2 { margin-top: 8px; color: #34204f; font-size: 30px; }
+.home-goals-heading p { max-width: 340px; margin-top: 12px; color: #6d6675; font-size: 15px; line-height: 1.7; }
+.home-goals-list { min-width: 0; }
+.home-goal { display: grid; grid-template-columns: 34px 44px minmax(0, 1fr); align-items: start; gap: 14px; border-top: 1px solid #d9d2df; padding: 19px 0; }
+.home-goal:last-child { border-bottom: 1px solid #d9d2df; }
+.home-goal-number { padding-top: 4px; color: #a35f27; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.home-goal-icon { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #ded5e6; border-radius: 8px; background: #fff; color: #514064; }
+.home-goal h3 { color: #34204f; font-size: 17px; }
+.home-goal p { margin-top: 5px; color: #6d6675; font-size: 14px; line-height: 1.65; }
 .home-section-heading a, .home-detail, .home-save { color: #34204f !important; }
 .home-job-card { border-color: #d9d5de !important; }
 .home-logo, .home-tags span { background: #e3e0e8 !important; color: #413653 !important; }
@@ -431,4 +443,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 @media (max-width: 640px) {
   input, select, textarea { font-size: 16px !important; }
   .home-hero h1 { font-size: clamp(32px, 8vw, 42px); line-height: 1.2; }
+}
+@media (max-width: 760px) {
+  .home-goals-inner { grid-template-columns: 1fr; gap: 28px; }
+  .home-goals-heading p { max-width: 520px; }
+}
+@media (max-width: 420px) {
+  .home-goal { grid-template-columns: 27px 38px minmax(0, 1fr); gap: 10px; }
+  .home-goal-icon { width: 36px; height: 36px; }
 }

@@ -3,10 +3,17 @@ import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router'
 import { login } from '../services/mockAuth'
 
+const accountTypes = [
+  { id: 'student', label: 'Sinh viên', title: 'Đăng nhập sinh viên', description: 'Sử dụng tài khoản sinh viên do nhà trường cấp.', roles: ['student'] },
+  { id: 'school', label: 'Nhà trường', title: 'Đăng nhập nhà trường', description: 'Dành cho cán bộ quản trị và giảng viên.', roles: ['admin', 'lecturer'] },
+  { id: 'company', label: 'Doanh nghiệp', title: 'Đăng nhập doanh nghiệp', description: 'Dành cho doanh nghiệp đã có tài khoản trên InternConnect.', roles: ['company'] },
+]
+
 function LoginPage() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const [mode, setMode] = useState('login')
+  const [accountType, setAccountType] = useState('student')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -22,12 +29,13 @@ function LoginPage() {
     password: false,
     confirmPassword: false,
   })
+  const selectedAccountType = accountTypes.find((item) => item.id === accountType)
 
   const handleLoginSubmit = (event) => {
     event.preventDefault()
-    const session = login(email, password)
+    const session = login(email, password, selectedAccountType.roles)
     if (!session) {
-      setError('Email hoặc mật khẩu không đúng.')
+      setError('Email, mật khẩu hoặc loại tài khoản không đúng.')
       return
     }
     const returnUrl = params.get('returnUrl')
@@ -237,12 +245,22 @@ function LoginPage() {
                     <Link to="/" className="text-lg font-extrabold text-[#0757c9]">INTERNCONNECT</Link>
                   </div>
                   <p className="mt-8 text-xs font-bold uppercase tracking-[0.16em] text-[#0a66c2]">Chào mừng trở lại</p>
-                  <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-[#172d50]">Đăng nhập tài khoản</h1>
-                  <p className="mt-2 text-sm leading-6 text-[#7890ad]">
-                    Sinh viên sử dụng tài khoản do nhà trường cấp. Nếu chưa có tài khoản, vui lòng liên hệ phòng quản lý đào tạo.
-                  </p>
+                  <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-[#172d50]">{selectedAccountType.title}</h1>
+                  <div className="mt-6 grid grid-cols-3 rounded-xl bg-[#edf2f8] p-1" role="group" aria-label="Chọn loại tài khoản">
+                    {accountTypes.map((item) => <button
+                      key={item.id}
+                      type="button"
+                      aria-pressed={accountType === item.id}
+                      className={`min-h-11 rounded-lg px-2 py-2 text-[11px] font-bold leading-tight transition sm:text-sm ${accountType === item.id ? 'bg-white text-[#123a8b] shadow-sm' : 'text-[#61758e] hover:text-[#123a8b]'}`}
+                      onClick={() => {
+                        setAccountType(item.id)
+                        setError('')
+                      }}
+                    >{item.label}</button>)}
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-[#7890ad]">{selectedAccountType.description}</p>
 
-                  <label className="mt-8 block text-sm font-bold text-[#2b4263]">
+                  <label className="mt-6 block text-sm font-bold text-[#2b4263]">
                     Email
                     <div className="mt-2 flex items-center rounded-md border border-[#d8e3f0] bg-white px-3">
                       <Mail size={17} className="text-[#8aa1bb]" />
@@ -287,9 +305,25 @@ function LoginPage() {
                     <p className="mt-4 rounded-md bg-red-50 px-3 py-2.5 text-sm font-semibold text-red-600">{error}</p>
                   )}
 
-                  <button className="mt-6 w-full rounded-md bg-[#34204f] py-3.5 text-sm font-bold text-white shadow-[0_10px_20px_rgba(52,32,79,0.2)] transition hover:bg-[#4d4754]" type="submit">
+                  <button className="mt-6 w-full rounded-md bg-[#f0a044] py-3.5 text-sm font-bold text-[#34204f] shadow-[0_10px_20px_rgba(240,160,68,0.24)] transition hover:bg-[#df8b2d]" type="submit">
                     Đăng nhập
                   </button>
+
+                  {accountType === 'student' && <p className="mt-5 text-center text-sm leading-6 text-[#61758e]">
+                    Tài khoản sinh viên do nhà trường cấp. Nếu chưa có tài khoản, vui lòng liên hệ phòng quản lý đào tạo.
+                  </p>}
+                  {accountType === 'school' && <p className="mt-5 text-center text-sm text-[#61758e]">
+                    Nhà trường chưa sử dụng InternConnect?{' '}
+                    <Link className="font-bold text-[#0757c9] underline-offset-2 hover:underline" to="/school/register">
+                      Đăng ký nhà trường
+                    </Link>
+                  </p>}
+                  {accountType === 'company' && <p className="mt-5 text-center text-sm text-[#61758e]">
+                    Doanh nghiệp mới?{' '}
+                    <Link className="font-bold text-[#0757c9] underline-offset-2 hover:underline" to="/company/register">
+                      Đăng ký doanh nghiệp
+                    </Link>
+                  </p>}
 
                 </form>
               )}

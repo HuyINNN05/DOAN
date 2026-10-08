@@ -2,9 +2,9 @@ import { users } from './dataSource'
 
 const SESSION_KEY = 'internconnect_session'
 
-export function login(email, password) {
+export function login(email, password, allowedRoles) {
   const extra = (() => { try { return JSON.parse(localStorage.getItem('internconnect_users')) || [] } catch { return [] } })()
-  const user = [...extra, ...users.filter((item) => !extra.some((override) => override.id === item.id))].find((item) => item.email === email && item.password === password && item.active !== false)
+  const user = [...extra, ...users.filter((item) => !extra.some((override) => override.id === item.id))].find((item) => item.email === email && item.password === password && item.active !== false && (!allowedRoles || allowedRoles.includes(item.role)))
   if (!user) return null
   const session = { id: user.id, email: user.email, name: user.name, role: user.role }
   localStorage.setItem(SESSION_KEY, JSON.stringify(session))
