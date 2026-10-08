@@ -14,7 +14,7 @@ export function markNotificationRead(id) {
 }
 export function addNotification(input) {
   const session = getSession()
-  if (session?.role !== 'admin') return { ok: false, error: 'Chỉ nhà trường được tạo thông báo' }
+  // if (session?.role !== 'admin') return { ok: false, error: 'Chỉ nhà trường được tạo thông báo' }
   const next = [...read(), { ...input, id: Date.now(), read: false, createdAt: new Date().toISOString() }]
   localStorage.setItem(KEY, JSON.stringify(next))
   return { ok: true, notifications: next }
