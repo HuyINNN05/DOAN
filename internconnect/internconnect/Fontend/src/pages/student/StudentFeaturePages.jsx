@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import internships from '../../data/internships.json'
+import { internships } from '../../services/dataSource'
 import { INTERNSHIP_STATUSES } from '../../constants/internshipStatuses'
 import StatusBadge from '../../components/ui/StatusBadge'
 import { confirmOffer, getInterviews, respondInterview } from '../../services/interviewService'
@@ -13,16 +13,99 @@ function readNotes() { try { return JSON.parse(localStorage.getItem(key)) || [] 
 function saveNotes(notes) { localStorage.setItem(key, JSON.stringify(notes)); return notes }
 
 export function StudentProfilePage() {
-  const [student, setStudent] = useState(getStudent()); const [saved, setSaved] = useState(false)
-  function submit(e) { e.preventDefault(); saveStudent(student); setSaved(true) }
-  return <Page title="Hồ sơ cá nhân & CV" description="Quản lý thông tin dùng trong quá trình ứng tuyển."><form onSubmit={submit} className="rounded-xl border border-[#e1eaf5] bg-white p-6"><div className="grid gap-4 md:grid-cols-2">{[['fullName','Họ và tên'],['email','Email'],['phone','Số điện thoại'],['major','Chuyên ngành'],['className','Lớp']].map(([field,label]) => <label className="text-sm font-semibold text-[#2b4263]" key={field}>{label}<input value={student[field]} onChange={(e) => setStudent({ ...student, [field]: e.target.value })} className="mt-2 w-full rounded-md border border-[#d8e3f0] px-3 py-2.5 font-normal" /></label>)}</div><label className="mt-4 block text-sm font-semibold text-[#2b4263]">Kỹ năng<input value={student.skills.join(', ')} onChange={(e) => setStudent({ ...student, skills: e.target.value.split(',').map((x) => x.trim()).filter(Boolean) })} className="mt-2 w-full rounded-md border border-[#d8e3f0] px-3 py-2.5 font-normal" /></label><div className="mt-5 rounded-lg bg-[#edf4ff] p-4 text-sm text-[#4774b3]"><b>CV mặc định:</b> {student.cv.name}<br /><span className="text-xs">Hỗ trợ PDF/DOCX sẽ được nối storage backend ở giai đoạn sau.</span></div>{saved && <p className="mt-4 text-sm font-semibold text-green-600">Đã lưu hồ sơ.</p>}<button className="mt-5 rounded-md bg-[#0757c9] px-5 py-3 text-sm font-bold text-white" type="submit">Lưu thay đổi</button></form></Page>
+  const [student, setStudent] = useState(getStudent())
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+
+  function selectCvImage(event) {
+    const file = event.target.files?.[0]
+    if (!file) return
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      setError('CV phải là ảnh JPG, PNG hoặc WEBP.')
+      event.target.value = ''
+      return
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setError('Ảnh CV không được vượt quá 10 MB.')
+      event.target.value = ''
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = () => {
+      setStudent((current) => ({
+        ...current,
+        cv: {
+          ...current.cv,
+          name: file.name,
+          imageData: reader.result,
+          updatedAt: new Date().toISOString(),
+        },
+      }))
+      setError('')
+      setMessage('Ảnh CV đã được chọn. Hãy nhấn “Lưu thay đổi” để hoàn tất.')
+    }
+    reader.onerror = () => setError('Không thể đọc ảnh CV. Vui lòng chọn lại.')
+    reader.readAsDataURL(file)
+  }
+
+  function removeCvImage() {
+    setStudent((current) => ({ ...current, cv: { ...current.cv, name: '', imageData: '', updatedAt: '' } }))
+    setError('')
+    setMessage('Ảnh CV đã được gỡ. Hãy lưu thay đổi để hoàn tất.')
+  }
+
+  function submit(event) {
+    event.preventDefault()
+    try {
+      saveStudent(student)
+      setMessage('Đã lưu hồ sơ và ảnh CV.')
+      setError('')
+    } catch {
+      setError('Không thể lưu ảnh CV. Hãy chọn ảnh có dung lượng nhỏ hơn.')
+    }
+  }
+
+  return <Page title="Hồ sơ cá nhân & CV" description="Quản lý thông tin và CV dùng trong quá trình ứng tuyển.">
+    <form onSubmit={submit} className="grid gap-6 lg:grid-cols-[1fr_380px]">
+      <section className="rounded-xl border border-[#e1eaf5] bg-white p-6">
+        <h2 className="text-lg font-bold text-[#172d50]">Thông tin cá nhân</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {[['fullName', 'Họ và tên'], ['email', 'Email'], ['phone', 'Số điện thoại'], ['major', 'Chuyên ngành'], ['className', 'Lớp']].map(([field, label]) => <label className="text-sm font-semibold text-[#2b4263]" key={field}>{label}<input required value={student[field] || ''} onChange={(event) => setStudent({ ...student, [field]: event.target.value })} className="mt-2 w-full rounded-md border border-[#d8e3f0] px-3 py-2.5 font-normal" /></label>)}
+        </div>
+        <label className="mt-4 block text-sm font-semibold text-[#2b4263]">Kỹ năng
+          <input value={(student.skills || []).join(', ')} onChange={(event) => setStudent({ ...student, skills: event.target.value.split(',').map((value) => value.trim()).filter(Boolean) })} className="mt-2 w-full rounded-md border border-[#d8e3f0] px-3 py-2.5 font-normal" placeholder="ReactJS, JavaScript, SQL" />
+        </label>
+      </section>
+
+      <section className="rounded-xl border border-[#e1eaf5] bg-white p-6">
+        <h2 className="text-lg font-bold text-[#172d50]">CV của bạn</h2>
+        <p className="mt-1 text-sm leading-5 text-[#6684a8]">Tải lên ảnh CV mà bạn đã tự thiết kế.</p>
+        <div className="mt-4 overflow-hidden rounded-lg border border-dashed border-[#b9cee8] bg-[#f8fbff]">
+          {student.cv?.imageData ? <img className="max-h-[520px] w-full object-contain" src={student.cv.imageData} alt={`CV của ${student.fullName}`} /> : <div className="grid min-h-64 place-items-center px-6 text-center text-sm text-[#7890ad]">Chưa có ảnh CV.<br />Chọn ảnh để xem trước tại đây.</div>}
+        </div>
+        {student.cv?.name && <p className="mt-3 truncate text-xs text-[#6684a8]" title={student.cv.name}>Tệp: {student.cv.name}</p>}
+        <label className="mt-4 block cursor-pointer rounded-md bg-[#0757c9] px-4 py-3 text-center text-sm font-bold text-white hover:bg-[#064aa9]">
+          {student.cv?.imageData ? 'Thay ảnh CV' : 'Tải ảnh CV lên'}
+          <input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" onChange={selectCvImage} />
+        </label>
+        {student.cv?.imageData && <button className="mt-2 w-full rounded-md border border-red-200 px-4 py-2.5 text-sm font-bold text-red-600" type="button" onClick={removeCvImage}>Xóa ảnh CV</button>}
+        <p className="mt-3 text-xs leading-5 text-[#91a2b7]">Hỗ trợ JPG, PNG, WEBP. Dung lượng tối đa 10 MB.</p>
+      </section>
+
+      <div className="lg:col-span-2">
+        {error && <p className="mb-3 rounded-md bg-red-50 px-4 py-3 text-sm font-semibold text-red-600" role="alert">{error}</p>}
+        {message && !error && <p className="mb-3 rounded-md bg-green-50 px-4 py-3 text-sm font-semibold text-green-700" role="status">{message}</p>}
+        <button className="rounded-md bg-[#0757c9] px-5 py-3 text-sm font-bold text-white" type="submit">Lưu thay đổi</button>
+      </div>
+    </form>
+  </Page>
 }
 
 export function StudentOpportunitiesPage() {
   const [query, setQuery] = useState(''); const [applications, setApplications] = useState(getApplications()); const [message, setMessage] = useState('')
   const items = internships.filter((item) => `${item.company} ${item.position} ${item.tags.join(' ')}`.toLowerCase().includes(query.toLowerCase())); const applied = new Set(applications.map((x) => x.internshipId))
   function apply(id) { const result = applyForInternship(id); setApplications(result.applications); setMessage(result.ok ? 'Đã gửi hồ sơ ứng tuyển.' : result.error) }
-  return <Page title="Cơ hội thực tập" description="Tìm kiếm và ứng tuyển các vị trí phù hợp."><input className="mb-5 w-full rounded-lg border border-[#d8e3f0] bg-white px-4 py-3 text-sm" placeholder="Tìm công ty, vị trí hoặc kỹ năng..." value={query} onChange={(e) => setQuery(e.target.value)} />{message && <p className="mb-4 text-sm font-semibold text-green-600">{message}</p>}<div className="grid gap-4 md:grid-cols-2">{items.map((item) => <article className="rounded-xl border border-[#e1eaf5] bg-white p-5" key={item.id}><p className="text-xs text-[#7890ad]">{item.company} · {item.location}</p><h2 className="mt-2 font-bold text-[#172d50]">{item.position}</h2><div className="mt-3 flex flex-wrap gap-2">{item.tags.map((tag) => <span className="rounded-full bg-[#edf4ff] px-2 py-1 text-xs text-[#4774b3]" key={tag}>{tag}</span>)}</div><button type="button" onClick={() => apply(item.id)} disabled={applied.has(item.id)} className="mt-5 rounded-md bg-[#0757c9] px-4 py-2 text-sm font-bold text-white disabled:bg-slate-300">{applied.has(item.id) ? 'Đã ứng tuyển' : 'Ứng tuyển ngay'}</button></article>)}</div></Page>
+  return <Page title="Cơ hội thực tập" description="Tìm kiếm và ứng tuyển các vị trí phù hợp."><input className="mb-5 w-full rounded-lg border border-[#d8e3f0] bg-white px-4 py-3 text-sm" placeholder="Tìm công ty, vị trí hoặc kỹ năng..." value={query} onChange={(e) => setQuery(e.target.value)} />{message && <p className="mb-4 text-sm font-semibold text-green-600">{message}</p>}{items.length ? <div className="grid gap-4 md:grid-cols-2">{items.map((item) => <article className="rounded-xl border border-[#e1eaf5] bg-white p-5" key={item.id}><p className="text-xs text-[#7890ad]">{item.company} · {item.location}</p><h2 className="mt-2 font-bold text-[#172d50]">{item.position}</h2><div className="mt-3 flex flex-wrap gap-2">{item.tags.map((tag) => <span className="rounded-full bg-[#edf4ff] px-2 py-1 text-xs text-[#4774b3]" key={tag}>{tag}</span>)}</div><button type="button" onClick={() => apply(item.id)} disabled={applied.has(item.id)} className="mt-5 rounded-md bg-[#0757c9] px-4 py-2 text-sm font-bold text-white disabled:bg-slate-300">{applied.has(item.id) ? 'Đã ứng tuyển' : 'Ứng tuyển ngay'}</button></article>)}</div> : <Empty title="Chưa có cơ hội thực tập" text="Dữ liệu sẽ hiển thị tại đây sau khi hệ thống kết nối API." />}</Page>
 }
 
 export function StudentApplicationsPage() { const [apps, setApps] = useState(getApplications()); const [message, setMessage] = useState(''); function offer(id, accepted) { const reason = accepted ? '' : window.prompt('Lý do từ chối đề nghị thực tập?') || ''; const response = confirmOffer(id, accepted, reason); setMessage(response.ok ? 'Đã cập nhật đề nghị.' : response.error); setApps(response.applications) } return <Page title="Quản lý ứng tuyển" description="Theo dõi toàn bộ hồ sơ và lịch sử xử lý."><div className="space-y-4">{message && <p role="status" className="text-sm text-[#0757c9]">{message}</p>}{apps.filter((app) => app.studentId === getSession()?.id).map((app) => { const item = internships.find((x) => x.id === app.internshipId); const current = INTERNSHIP_STATUSES.findIndex((x) => x.id === app.status); const canConfirm = app.status === '10' && app.recruitmentResult === 'passed' && !app.closureReason; return <article className="rounded-xl border border-[#e1eaf5] bg-white p-5" key={app.id}><div className="flex flex-wrap items-center justify-between gap-3"><div><h2 className="font-bold text-[#173b83]">{item?.position || 'Vị trí thực tập'} · {item?.company || 'Doanh nghiệp'}</h2><p className="mt-1 text-xs text-[#7890ad]">Mã hồ sơ: #{app.id} · {app.closureReason ? `Đã đóng: ${app.closureReason}` : 'Đang xử lý'}</p></div><StatusBadge status={app.status} /></div>{canConfirm && <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-green-50 p-4"><p className="text-sm font-semibold text-green-700">Bạn đã trúng tuyển. Xác nhận nhận thực tập để chuyển sang bước tiếp theo.</p><div className="flex gap-2"><button className="rounded-md border border-red-200 px-3 py-2 text-xs font-bold text-red-600" type="button" onClick={() => offer(app.id, false)}>Từ chối</button><button className="rounded-md bg-[#0aa46e] px-3 py-2 text-xs font-bold text-white" type="button" onClick={() => offer(app.id, true)}>Nhận thực tập</button></div></div>}<div className="mt-4 flex gap-2 overflow-x-auto pb-2">{INTERNSHIP_STATUSES.map((status, index) => <span className={`shrink-0 rounded-md px-2 py-1 text-xs ${index <= current ? 'bg-[#dcecff] font-bold text-[#0757c9]' : 'bg-slate-100 text-slate-500'}`} key={status.id}>{status.id}. {status.label}</span>)}</div></article>})}</div></Page> }

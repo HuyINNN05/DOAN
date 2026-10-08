@@ -1,4 +1,4 @@
-import defaults from '../data/interviews.json'
+import { defaultInterviews as defaults } from './dataSource'
 import { getAllApplications, getApplicationCompanyId, updateApplication } from './applicationService'
 import { getSession } from './mockAuth'
 

@@ -1,4 +1,4 @@
-import defaults from '../data/notifications.json'
+import { defaultNotifications as defaults } from './dataSource'
 import { getSession } from './mockAuth'
 const KEY = 'internconnect_notifications'
 const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || defaults } catch { return defaults } }
@@ -13,8 +13,6 @@ export function markNotificationRead(id) {
   return getNotifications()
 }
 export function addNotification(input) {
-  const session = getSession()
-  // if (session?.role !== 'admin') return { ok: false, error: 'Chỉ nhà trường được tạo thông báo' }
   const next = [...read(), { ...input, id: Date.now(), read: false, createdAt: new Date().toISOString() }]
   localStorage.setItem(KEY, JSON.stringify(next))
   return { ok: true, notifications: next }

@@ -7,7 +7,7 @@ import { createInterview, getInterviews, recordInterviewResult } from '../../ser
 import { getRecords } from '../../services/internshipRecordService'
 import { getEvaluations, saveEvaluation } from '../../services/evaluationService'
 import { INTERNSHIP_STATUSES } from '../../constants/internshipStatuses'
-import users from '../../data/users.json'
+import { users } from '../../services/dataSource'
 
 const inputClass = 'mt-2 w-full rounded-md border border-[#d8e3f0] px-3 py-2.5 text-sm'
 const buttonClass = 'rounded-md bg-[#0757c9] px-4 py-2.5 text-sm font-bold text-white disabled:bg-slate-300'

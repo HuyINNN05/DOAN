@@ -1,4 +1,4 @@
-import users from '../data/users.json'
+import { users } from './dataSource'
 
 const SESSION_KEY = 'internconnect_session'
 

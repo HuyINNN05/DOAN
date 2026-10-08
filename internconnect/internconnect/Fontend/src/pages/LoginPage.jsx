@@ -1,4 +1,4 @@
-import { Eye, EyeOff, LockKeyhole, Mail, ShieldCheck, Sparkles, User, X } from 'lucide-react'
+import { Eye, EyeOff, LockKeyhole, Mail, ShieldCheck, Sparkles, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router'
 import { login } from '../services/mockAuth'
@@ -6,9 +6,9 @@ import { login } from '../services/mockAuth'
 function LoginPage() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
-  const [mode, setMode] = useState('register')
-  const [email, setEmail] = useState('student@internconnect.vn')
-  const [password, setPassword] = useState('123456')
+  const [mode, setMode] = useState('login')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [registerForm, setRegisterForm] = useState({
@@ -22,13 +22,6 @@ function LoginPage() {
     password: false,
     confirmPassword: false,
   })
-
-  const demoUsers = [
-    ['Sinh viên', 'student@internconnect.vn'],
-    ['Doanh nghiệp', 'company@internconnect.vn'],
-    ['Giảng viên', 'lecturer@internconnect.vn'],
-    ['Nhà trường', 'admin@internconnect.vn'],
-  ]
 
   const handleLoginSubmit = (event) => {
     event.preventDefault()
@@ -107,27 +100,6 @@ function LoginPage() {
 
           <section className="flex items-center justify-center px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
             <div className="w-full max-w-[560px]">
-              <div className="mb-6 grid grid-cols-2 overflow-hidden rounded-xl border border-[#e7edf7] bg-[#f4e8d8] p-1">
-                <button
-                  type="button"
-                  className={`rounded-lg px-4 py-3 text-center text-[16px] font-bold transition ${
-                    mode === 'login' ? 'bg-[#f4efe8] text-[#172d50] shadow-sm' : 'text-[#7a8ca8]'
-                  }`}
-                  onClick={() => setMode('login')}
-                >
-                  Đăng nhập
-                </button>
-                <button
-                  type="button"
-                  className={`rounded-lg px-4 py-3 text-center text-[16px] font-bold transition ${
-                    mode === 'register' ? 'bg-[#f4efe8] text-[#172d50] shadow-sm' : 'text-[#7a8ca8]'
-                  }`}
-                  onClick={() => setMode('register')}
-                >
-                  Đăng ký
-                </button>
-              </div>
-
               {mode === 'register' ? (
                 <form onSubmit={handleRegisterSubmit} className="space-y-5">
                   <div>
@@ -267,7 +239,7 @@ function LoginPage() {
                   <p className="mt-8 text-xs font-bold uppercase tracking-[0.16em] text-[#0a66c2]">Chào mừng trở lại</p>
                   <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-[#172d50]">Đăng nhập tài khoản</h1>
                   <p className="mt-2 text-sm leading-6 text-[#7890ad]">
-                    Đăng nhập để quản lý hồ sơ, cơ hội và tiến độ thực tập của bạn.
+                    Sinh viên sử dụng tài khoản do nhà trường cấp. Nếu chưa có tài khoản, vui lòng liên hệ phòng quản lý đào tạo.
                   </p>
 
                   <label className="mt-8 block text-sm font-bold text-[#2b4263]">
@@ -319,29 +291,6 @@ function LoginPage() {
                     Đăng nhập
                   </button>
 
-                  <div className="mt-8 border-t border-[#e8eef6] pt-6">
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#7890ad]">Tài khoản demo</p>
-                    <div className="mt-3 grid grid-cols-2 gap-2">
-                      {demoUsers.map(([label, demoEmail]) => (
-                        <button
-                          type="button"
-                          key={demoEmail}
-                          onClick={() => {
-                            setEmail(demoEmail)
-                            setPassword('123456')
-                            setError('')
-                          }}
-                          className="rounded-md border border-[#e1eaf5] px-3 py-2 text-left text-xs font-semibold text-[#526b8d]"
-                        >
-                          <span className="block text-[#0757c9]">{label}</span>
-                          <span className="mt-1 block truncate text-[10px] font-normal text-[#91a2b7]">{demoEmail}</span>
-                        </button>
-                      ))}
-                    </div>
-                    <p className="mt-4 text-center text-xs text-[#91a2b7]">
-                      Mật khẩu demo: <b className="text-[#526b8d]">123456</b>
-                    </p>
-                  </div>
                 </form>
               )}
             </div>

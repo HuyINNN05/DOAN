@@ -1,6 +1,5 @@
-import defaultApplications from '../data/applications.json'
+import { defaultApplications, internships } from './dataSource'
 import { canTransition, STATUS_ROLES } from '../constants/internshipStatuses'
-import internships from '../data/internships.json'
 import { getJobs } from './companyService'
 import { getSession } from './mockAuth'
 import { addAuditLog } from './auditService'

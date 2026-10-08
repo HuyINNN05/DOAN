@@ -1,5 +1,4 @@
-import defaults from '../data/internshipRecords.json'
-import internships from '../data/internships.json'
+import { defaultInternshipRecords as defaults, internships } from './dataSource'
 import { getJobs } from './companyService'
 import { getAllApplications, updateApplication } from './applicationService'
 import { getSession } from './mockAuth'

@@ -4,7 +4,7 @@ import { getRecords } from '../../services/internshipRecordService'
 import { getAllApplications } from '../../services/applicationService'
 import { getReports, reviewReport } from '../../services/reportService'
 import { getEvaluations, saveEvaluation } from '../../services/evaluationService'
-import users from '../../data/users.json'
+import { users } from '../../services/dataSource'
 
 const box = 'rounded-xl border border-[#dce9f7] bg-white p-5'
 const button = 'rounded-md bg-[#0757c9] px-4 py-2.5 text-sm font-bold text-white disabled:bg-slate-300'

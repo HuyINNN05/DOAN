@@ -1,7 +1,5 @@
-import defaultStudent from '../data/student.json'
-import defaultApplications from '../data/applications.json'
+import { defaultApplications, defaultStudent, internships } from './dataSource'
 import { getSession } from './mockAuth'
-import internships from '../data/internships.json'
 import { getJobs } from './companyService'
 
 const STUDENT_KEY = 'internconnect_student'; const APPLICATIONS_KEY = 'internconnect_applications'
