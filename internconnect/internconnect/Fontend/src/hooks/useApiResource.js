@@ -1,0 +1,2 @@
+import{useCallback,useEffect,useState}from'react'
+export default function useApiResource(loader,initial=[]){const[data,setData]=useState(initial),[loading,setLoading]=useState(true),[error,setError]=useState('');const reload=useCallback(async()=>{setLoading(true);setError('');try{setData(await loader())}catch(e){setError(e.response?.data?.error?.message||'Không thể tải dữ liệu.')}finally{setLoading(false)}},[loader]);useEffect(()=>{const timer=setTimeout(reload,0);return()=>clearTimeout(timer)},[reload]);return{data,setData,loading,error,reload}}

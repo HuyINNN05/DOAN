@@ -1,0 +1,12 @@
+import * as service from '../services/companyService.js'
+export const profile=async(req,res)=>res.json({success:true,data:await service.profile(req.user.sub)})
+export const updateProfile=async(req,res)=>res.json({success:true,data:await service.updateProfile(req.user.sub,req.body)})
+export const jobs=async(req,res)=>res.json({success:true,data:await service.paginatedJobs(req.user.sub,req.query)})
+export const job=async(req,res)=>res.json({success:true,data:await service.getJob(req.user.sub,req.params.id)})
+export const createJob=async(req,res)=>res.status(201).json({success:true,data:await service.createJob(req.user.sub,req.body)})
+export const updateJob=async(req,res)=>res.json({success:true,data:await service.updateJob(req.user.sub,req.params.id,req.body)})
+export const publishJob=async(req,res)=>res.json({success:true,data:await service.setJobStatus(req.user.sub,req.params.id,'published')})
+export const closeJob=async(req,res)=>res.json({success:true,data:await service.setJobStatus(req.user.sub,req.params.id,'closed')})
+export const applications=async(req,res)=>res.json({success:true,data:await service.paginatedApplications(req.user.sub,req.query)})
+export const interviews=async(req,res)=>res.json({success:true,data:await service.interviews(req.user.sub)})
+export const criteria=async(_req,res)=>res.json({success:true,data:await service.criteria()})

@@ -1,19 +1,21 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import ProtectedRoute from '../components/Auth/ProtectedRoute'
-import App from '../App'
-import DashboardPage from '../pages/DashboardPage'
+import App from '../pages/HomeApiPage'
+import DashboardPage from '../pages/DashboardApiPage'
 import LoginPage from '../pages/LoginPage'
-import OpportunitiesPage from '../pages/OpportunitiesPage'
+import OpportunitiesPage from '../pages/OpportunitiesApiPage'
 import RoleLayout from '../layouts/RoleLayout'
 import RolePage from '../pages/RolePage'
 import NotFoundPage from '../pages/NotFoundPage'
-import PublicInfoPage from '../pages/PublicInfoPage'
-import { StudentApplicationsPage, StudentDiaryPage, StudentInterviewsPage, StudentInternshipPage, StudentOpportunitiesPage, StudentProfilePage, StudentReportsPage } from '../pages/student/StudentFeaturePages'
-import { CompanyApplicationsPage, CompanyEvaluationsPage, CompanyInterviewsPage, CompanyInternsPage, CompanyJobsPage, CompanyProfilePage } from '../pages/company/CompanyFeaturePages'
-import { LecturerDiariesPage, LecturerEvaluationsPage, LecturerInternshipsPage, LecturerReportsPage, LecturerStudentsPage } from '../pages/lecturer/LecturerFeaturePages'
-import { AdminApplicationsPage, AdminAssignmentsPage, AdminCompaniesPage, AdminContentPage, AdminNotificationsPage, AdminPeriodsPage, AdminReportsPage, AdminUsersPage } from '../pages/admin/AdminFeaturePages'
-import AuditLogsPage from '../pages/admin/AuditLogsPage'
-import { AccountPage, CompanyLookupPage, CompanyRegisterPage, ForgotPasswordPage, NotificationsPage } from '../pages/AuthFeaturePages'
+import PublicInfoPage from '../pages/PublicInfoApiPage'
+import { StudentApplicationsPage, StudentDiaryPage, StudentInterviewsPage, StudentInternshipPage, StudentOpportunitiesPage, StudentProfilePage, StudentReportsPage } from '../pages/student/StudentApiPages'
+import { CompanyApplicationsPage, CompanyEvaluationsPage, CompanyInterviewsPage, CompanyInternsPage, CompanyProfilePage } from '../pages/company/CompanyApiPages'
+import CompanyJobsPage from '../pages/company/CompanyJobsPage'
+import { LecturerDiariesPage, LecturerEvaluationsPage, LecturerInternshipsPage, LecturerReportsPage, LecturerStudentsPage } from '../pages/lecturer/LecturerApiPages'
+import { AdminApplicationsPage, AdminAssignmentsPage, AdminCompaniesPage, AdminContentPage, AdminNotificationsPage, AdminPeriodsPage, AdminReportsPage, AdminUsersPage, AuditLogsPage } from '../pages/admin/AdminApiPages'
+import { CompanyLookupPage, CompanyRegisterPage, ForgotPasswordPage, ResetPasswordPage } from '../pages/AuthFeaturePages'
+import AccountPage from '../pages/AccountPage'
+import NotificationsPage from '../pages/NotificationsPage'
 
 const pages = {
   student: [['profile', 'Hồ sơ cá nhân & CV'], ['opportunities', 'Cơ hội thực tập'], ['applications', 'Quản lý ứng tuyển'], ['interviews', 'Lịch phỏng vấn'], ['internship', 'Hồ sơ thực tập'], ['diary', 'Nhật ký thực tập'], ['reports', 'Báo cáo thực tập']],
@@ -33,7 +35,7 @@ function RoleRoutes({ role, title }) {
 }
 
 function Router() {
-  return <BrowserRouter><Routes><Route path="/" element={<App />} /><Route path="/login" element={<LoginPage />} /><Route path="/forgot-password" element={<ForgotPasswordPage />} /><Route path="/company/register" element={<CompanyRegisterPage />} /><Route path="/company/lookup" element={<CompanyLookupPage />} /><Route path="/notifications" element={<NotificationsPage />} /><Route path="/account" element={<AccountPage />} /><Route path="/opportunities" element={<OpportunitiesPage />} /><Route path="/companies" element={<PublicInfoPage type="companies" />} /><Route path="/information" element={<PublicInfoPage type="information" />} /><Route path="/guide" element={<PublicInfoPage type="guide" />} /><Route path="/contact" element={<PublicInfoPage type="contact" />} />{RoleRoutes({ role: 'student', title: 'Khu vực sinh viên' })}{RoleRoutes({ role: 'company', title: 'Khu vực doanh nghiệp' })}{RoleRoutes({ role: 'lecturer', title: 'Khu vực giảng viên' })}{RoleRoutes({ role: 'admin', title: 'Khu vực nhà trường' })}<Route path="*" element={<NotFoundPage />} /></Routes></BrowserRouter>
+  return <BrowserRouter><Routes><Route path="/" element={<App />} /><Route path="/login" element={<LoginPage />} /><Route path="/forgot-password" element={<ForgotPasswordPage />} /><Route path="/reset-password" element={<ResetPasswordPage />} /><Route path="/company/register" element={<CompanyRegisterPage />} /><Route path="/company/lookup" element={<CompanyLookupPage />} /><Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} /><Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} /><Route path="/opportunities" element={<OpportunitiesPage />} /><Route path="/companies" element={<PublicInfoPage type="companies" />} /><Route path="/information" element={<PublicInfoPage type="information" />} /><Route path="/guide" element={<PublicInfoPage type="guide" />} /><Route path="/contact" element={<PublicInfoPage type="contact" />} />{RoleRoutes({ role: 'student', title: 'Khu vực sinh viên' })}{RoleRoutes({ role: 'company', title: 'Khu vực doanh nghiệp' })}{RoleRoutes({ role: 'lecturer', title: 'Khu vực giảng viên' })}{RoleRoutes({ role: 'admin', title: 'Khu vực nhà trường' })}<Route path="*" element={<NotFoundPage />} /></Routes></BrowserRouter>
 }
 
 export default Router

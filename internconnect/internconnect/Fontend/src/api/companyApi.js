@@ -1,0 +1,6 @@
+import{api}from'./client';const data=r=>r.data.data
+export const getProfile=()=>api.get('/company/profile').then(data);export const updateProfile=x=>api.patch('/company/profile',x).then(data)
+export const getJobs=(params={})=>api.get('/company/jobs',{params}).then(data);export const createJob=x=>api.post('/company/jobs',x).then(data);export const updateJob=(id,x)=>api.patch(`/company/jobs/${id}`,x).then(data);export const publishJob=id=>api.post(`/company/jobs/${id}/publish`).then(data);export const closeJob=id=>api.post(`/company/jobs/${id}/close`).then(data)
+export const getApplications=(params={})=>api.get('/company/applications',{params}).then(data);export const transition=(id,status,note)=>api.post(`/applications/${id}/transition`,{status,note}).then(data);export const scheduleInterview=(id,x)=>api.post(`/company/applications/${id}/interviews`,x).then(data);export const sendOffer=(id,note)=>api.post(`/company/applications/${id}/offer`,{note}).then(data)
+export const getInterviews=()=>api.get('/company/interviews').then(data);export const interviewResult=(id,x)=>api.post(`/company/interviews/${id}/result`,x).then(data)
+export const getInterns=()=>api.get('/company/interns').then(data);export const getCriteria=()=>api.get('/company/evaluation-criteria').then(data);export const evaluate=(id,x)=>api.post(`/company/interns/${id}/evaluations`,x).then(data)

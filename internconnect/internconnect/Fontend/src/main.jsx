@@ -2,7 +2,6 @@ import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import Router from './router/index.jsx'
-import { initializeDemo } from './services/demoStore'
 
 class AppErrorBoundary extends React.Component {
   state = { hasError: false }
@@ -13,7 +12,6 @@ class AppErrorBoundary extends React.Component {
   }
 }
 
-initializeDemo()
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppErrorBoundary><Router /></AppErrorBoundary>

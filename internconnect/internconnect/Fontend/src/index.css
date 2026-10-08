@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 :root {
 	font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
@@ -25,6 +25,8 @@
 }
 
 * { box-sizing: border-box; }
+
+html, body, #root { width: 100%; max-width: 100%; overflow-x: clip; }
 
 html { scroll-behavior: smooth; }
 
@@ -404,3 +406,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   color: #fff !important;
 }
 .public-info-hero h1 span { color: #f0a044 !important; }
+
+.public-footer-main > *, .public-footer-brand > span:last-child { min-width: 0; }
+.public-footer-brand small { overflow-wrap: anywhere; }
+
