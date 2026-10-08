@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS accounts (
   role ENUM('student','lecturer','admin') NOT NULL,
   active BOOLEAN NOT NULL DEFAULT TRUE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS students (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS students (
   phone VARCHAR(20), address VARCHAR(255), career_goal TEXT, skills TEXT, experience TEXT,
   education TEXT, personal_projects TEXT,
   FOREIGN KEY (account_id) REFERENCES accounts(id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS lecturers (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS lecturers (
   lecturer_code VARCHAR(50) NOT NULL UNIQUE,
   faculty VARCHAR(150), degree VARCHAR(100), phone VARCHAR(20),
   FOREIGN KEY (account_id) REFERENCES accounts(id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS internship_periods (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS internship_periods (
   start_date DATE NOT NULL, end_date DATE NOT NULL, report_deadline DATE,
   status ENUM('draft','open','closed') NOT NULL DEFAULT 'draft',
   CHECK (end_date >= start_date)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS cvs (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -46,14 +46,14 @@ CREATE TABLE IF NOT EXISTS cvs (
   mime_type VARCHAR(100), analysis_status ENUM('pending','done','failed') NOT NULL DEFAULT 'pending',
   uploaded_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (student_id) REFERENCES students(id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS cv_analyses (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   cv_id BIGINT UNSIGNED NOT NULL UNIQUE,
   match_score DECIMAL(5,2), skill_keywords TEXT, extracted_experience TEXT, suggested_jobs TEXT,
   processed_at DATETIME, FOREIGN KEY (cv_id) REFERENCES cvs(id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS internship_records (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS internship_records (
   FOREIGN KEY (student_id) REFERENCES students(id),
   FOREIGN KEY (period_id) REFERENCES internship_periods(id),
   FOREIGN KEY (lecturer_id) REFERENCES lecturers(id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS internship_logs (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS internship_logs (
   work_content TEXT NOT NULL, results TEXT, difficulties TEXT,
   status ENUM('draft','submitted','reviewed') NOT NULL DEFAULT 'draft', lecturer_feedback TEXT,
   FOREIGN KEY (record_id) REFERENCES internship_records(id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS reports (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -86,13 +86,13 @@ CREATE TABLE IF NOT EXISTS reports (
   status ENUM('submitted','approved','revision_requested') NOT NULL DEFAULT 'submitted',
   feedback TEXT, submitted_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE (record_id, version), FOREIGN KEY (record_id) REFERENCES internship_records(id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS evaluation_criteria (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(150) NOT NULL, description TEXT, weight DECIMAL(5,2) NOT NULL,
   evaluator_role ENUM('company','lecturer') NOT NULL, active BOOLEAN NOT NULL DEFAULT TRUE
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS lecturer_evaluations (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS lecturer_evaluations (
   FOREIGN KEY (record_id) REFERENCES internship_records(id),
   FOREIGN KEY (lecturer_id) REFERENCES lecturers(id),
   CHECK (total_score BETWEEN 0 AND 10)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS internship_scores (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS internship_scores (
   final_score DECIMAL(4,2), grade VARCHAR(50), published_at DATETIME,
   FOREIGN KEY (record_id) REFERENCES internship_records(id),
   CHECK (final_score BETWEEN 0 AND 10)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS notifications (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -120,18 +120,31 @@ CREATE TABLE IF NOT EXISTS notifications (
   body TEXT NOT NULL, type VARCHAR(100), is_read BOOLEAN NOT NULL DEFAULT FALSE,
   sent_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (recipient_account_id) REFERENCES accounts(id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS articles (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255) NOT NULL, category VARCHAR(100) NOT NULL, body TEXT NOT NULL,
   status ENUM('draft','published') NOT NULL DEFAULT 'draft',
   published_at DATETIME
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS audit_logs (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   actor_id BIGINT UNSIGNED, actor_role VARCHAR(30), action VARCHAR(255) NOT NULL,
   entity VARCHAR(100) NOT NULL, old_value JSON, new_value JSON,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB;
+
+-- Nhà trường giữ lịch sử phê duyệt; trạng thái hiện tại nằm ở company.companies.
+-- Backend cập nhật cả hai bên khi duyệt doanh nghiệp.
+CREATE TABLE IF NOT EXISTS company_reviews (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  company_id BIGINT UNSIGNED NOT NULL,
+  reviewer_account_id BIGINT UNSIGNED NOT NULL,
+  decision ENUM('approved','rejected','revision_requested') NOT NULL,
+  reason TEXT,
+  reviewed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (reviewer_account_id) REFERENCES accounts(id),
+  INDEX idx_company_reviews_company (company_id)
+) ENGINE=InnoDB;

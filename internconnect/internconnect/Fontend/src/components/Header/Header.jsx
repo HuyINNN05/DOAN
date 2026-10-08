@@ -34,7 +34,7 @@ function BrandMark() {
   )
 }
 
-function Header({ activeItem = 'Trang chủ' }) {
+function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const navigate = useNavigate()
 
@@ -43,30 +43,31 @@ function Header({ activeItem = 'Trang chủ' }) {
       <div className="public-header-inner mx-auto flex h-16 max-w-[1440px] items-center px-5 sm:px-8 lg:px-9">
         <Link className="flex items-center gap-2" to="/" aria-label="InternConnect">
           <BrandMark />
-          <span className="text-[15px] font-extrabold tracking-[-0.04em] text-[#064aa9]">
+          <span className="text-[15px] font-extrabold tracking-tight text-[#064aa9]">
             INTERNCONNECT
           </span>
         </Link>
 
         <nav className="ml-auto hidden h-full items-stretch xl:flex" aria-label="Điều hướng chính">
-          {navigation.map((item) => {
-            const isActive = item.label === activeItem
-
-            return (
+          {navigation.map((item) => (
               <NavLink
-                className={`relative flex items-center whitespace-nowrap px-[18px] text-[11px] font-semibold transition-colors hover:text-[#0757c9] ${
+                className={({ isActive }) => `relative flex items-center whitespace-nowrap px-3 text-sm font-semibold transition-colors hover:text-[#0757c9] ${
                   isActive ? 'text-[#0757c9]' : 'text-[#2b4263]'
                 }`}
                 to={item.href}
+                end={item.href !== '/guide'}
                 key={item.label}
               >
-                {item.label}
-                {isActive && (
-                  <span className="absolute inset-x-[18px] bottom-0 h-0.5 rounded-t-full bg-[#0757c9]" />
+                {({ isActive }) => (
+                  <>
+                    {item.label}
+                    {isActive && (
+                      <span aria-hidden="true" className="absolute inset-x-3 bottom-0 h-0.5 rounded-t-full bg-[#0757c9]" />
+                    )}
+                  </>
                 )}
               </NavLink>
-            )
-          })}
+          ))}
         </nav>
 
         <div className="ml-4 hidden items-center gap-2 sm:flex">
@@ -79,7 +80,7 @@ function Header({ activeItem = 'Trang chủ' }) {
             <Search size={17} strokeWidth={2.25} />
           </button>
           <Link
-            className="rounded-[5px] border border-[#df8b2d] bg-[#f0a044] px-4 py-2 text-[11px] font-semibold text-white shadow-[0_6px_14px_rgba(240,160,68,0.2)] transition-colors hover:bg-[#df8b2d]"
+            className="rounded-[5px] border border-[#df8b2d] bg-[#f0a044] px-4 py-2 text-xs font-semibold text-white shadow-[0_6px_14px_rgba(240,160,68,0.2)] transition-colors hover:bg-[#df8b2d]"
             to="/login"
           >
             Đăng nhập
@@ -101,22 +102,19 @@ function Header({ activeItem = 'Trang chủ' }) {
       {isMenuOpen && (
         <div className="border-t border-[#e6ecf4] bg-white px-5 py-3 xl:hidden" id="mobile-navigation">
           <nav className="mx-auto grid max-w-[1440px] gap-1" aria-label="Điều hướng trên di động">
-            {navigation.map((item) => {
-              const isActive = item.label === activeItem
-
-              return (
+            {navigation.map((item) => (
                 <NavLink
-                  className={`rounded-md px-3 py-2.5 text-sm font-semibold ${
+                  className={({ isActive }) => `rounded-md px-3 py-2.5 text-sm font-semibold ${
                     isActive ? 'bg-[#eff6ff] text-[#0757c9]' : 'text-[#2b4263]'
                   }`}
                   to={item.href}
+                  end={item.href !== '/guide'}
                   key={item.label}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
                 </NavLink>
-              )
-            })}
+            ))}
             <div className="mt-2 border-t border-[#e6ecf4] pt-3 sm:hidden">
               <Link
                 className="block rounded-md border border-[#df8b2d] bg-[#f0a044] px-3 py-2 text-center text-sm font-semibold text-white shadow-[0_6px_14px_rgba(240,160,68,0.2)]"

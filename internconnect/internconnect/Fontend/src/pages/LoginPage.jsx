@@ -85,7 +85,7 @@ function LoginPage() {
                 <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-blue-100">
                   <Sparkles size={14} /> Kết nối đúng cơ hội
                 </div>
-                <h1 className="mt-5 text-5xl font-extrabold leading-[1.08] tracking-[-0.05em]">
+                <h1 className="mt-5 text-5xl font-extrabold leading-[1.08] tracking-tight">
                   Bắt đầu hành trình thực tập của bạn.
                 </h1>
                 <p className="mt-5 text-sm leading-6 text-blue-100">
