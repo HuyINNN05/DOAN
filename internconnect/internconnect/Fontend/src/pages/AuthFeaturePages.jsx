@@ -1,40 +1,14 @@
 import { useState } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router'
-import Header from '../components/Header/Header'
-import Footer from '../components/Footer/Footer'
-import { getRegistrations, registerCompany } from '../services/companyService'
-import { registerSchool } from '../services/schoolService'
-import { getNotifications, markNotificationRead } from '../services/notificationService'
-import { getSession, logout } from '../services/mockAuth'
+import CompanyRegistrationForm from '../components/CompanyRegistrationForm'
+import { PublicLayout, PageHero } from '../components/ui/PageUI'
 
-function Shell({ title, children }) { return <div className="public-page min-h-screen bg-[#f4f8fd]"><Header /><main className="mx-auto max-w-3xl px-5 py-10"><h1 className="mb-6 text-3xl font-extrabold text-[#123a8b]">{title}</h1>{children}</main><Footer /></div> }
-const fieldClass = 'mt-2 w-full rounded-md border border-[#d8e3f0] px-3 py-3 text-sm'
-const actionClass = 'rounded-md bg-[#0757c9] px-5 py-3 text-sm font-bold text-white'
-export function ForgotPasswordPage() { return <Shell title="Quên mật khẩu"><p className="rounded-xl border bg-white p-6 text-sm">Tính năng đặt lại mật khẩu sẽ có khi hệ thống kết nối dịch vụ email. Vui lòng liên hệ nhà trường để được hỗ trợ.</p><Link className="mt-4 inline-block text-sm text-[#0757c9]" to="/login">Quay lại đăng nhập</Link></Shell> }
-export function CompanyRegisterPage() {
-  const [message, setMessage] = useState(''); const [code, setCode] = useState('')
-  function submit(event) { event.preventDefault(); const values = Object.fromEntries(new FormData(event.currentTarget)); const response = registerCompany(values); setMessage(response.ok ? 'Đã gửi hồ sơ. Mã tra cứu: ' + response.registration.id : response.error); if (response.ok) setCode(String(response.registration.id)) }
-  return <Shell title="Đăng ký doanh nghiệp"><form className="grid gap-4 rounded-xl border bg-white p-6 sm:grid-cols-2" onSubmit={submit}>{[['name', 'Tên doanh nghiệp'], ['taxCode', 'Mã số thuế'], ['email', 'Email liên hệ'], ['phone', 'Số điện thoại'], ['representative', 'Người đại diện'], ['industry', 'Lĩnh vực'], ['address', 'Địa chỉ'], ['password', 'Mật khẩu tài khoản sau khi duyệt']].map(([name, label]) => <label className="text-sm font-semibold" key={name}>{label}<input className={fieldClass} name={name} required type={name === 'email' ? 'email' : name === 'password' ? 'password' : 'text'} /></label>)}<button className={`${actionClass} sm:col-span-2`}>Gửi đăng ký</button>{message && <p role="status" className="text-sm sm:col-span-2">{message}</p>}{code && <Link className="text-sm text-[#0757c9] sm:col-span-2" to="/company/lookup">Tra cứu hồ sơ</Link>}</form></Shell>
-}
-export function SchoolRegisterPage() {
-  const [message, setMessage] = useState('')
-  const [requestId, setRequestId] = useState('')
-  function submit(event) {
-    event.preventDefault()
-    const response = registerSchool(Object.fromEntries(new FormData(event.currentTarget)))
-    setMessage(response.ok ? 'Đã nhận yêu cầu. InternConnect sẽ xác minh thông tin trước khi cấp tài khoản quản trị.' : response.error)
-    if (response.ok) setRequestId(String(response.registration.id))
-  }
-  return <Shell title="Đăng ký nhà trường">
-    <p className="mb-5 text-sm leading-7 text-[#6684a8]">Gửi thông tin nhà trường để đội ngũ InternConnect xác minh. Tài khoản quản trị chỉ được cấp sau khi hồ sơ được kiểm tra.</p>
-    <form className="grid gap-4 rounded-xl border bg-white p-6 sm:grid-cols-2" onSubmit={submit}>
-      {[['name', 'Tên nhà trường'], ['schoolCode', 'Mã trường'], ['email', 'Email liên hệ'], ['phone', 'Số điện thoại'], ['representative', 'Người đại diện'], ['address', 'Địa chỉ']].map(([name, label]) => <label className="text-sm font-semibold" key={name}>{label}<input className={fieldClass} name={name} required type={name === 'email' ? 'email' : 'text'} /></label>)}
-      <button className={`${actionClass} sm:col-span-2`}>Gửi yêu cầu đăng ký</button>
-      {message && <p role="status" className="text-sm sm:col-span-2">{message}{requestId && <span className="block mt-1 font-semibold">Mã yêu cầu: {requestId}</span>}</p>}
-      <Link className="text-sm text-[#0757c9] sm:col-span-2" to="/login">Quay lại đăng nhập</Link>
-    </form>
-  </Shell>
-}
-export function CompanyLookupPage() { const [query, setQuery] = useState(''); const [searched, setSearched] = useState(false); const found = getRegistrations().find((item) => String(item.id) === query.trim() || item.taxCode === query.trim() || item.email === query.trim()); return <Shell title="Tra cứu hồ sơ doanh nghiệp"><form className="flex flex-wrap gap-3 rounded-xl border bg-white p-6" onSubmit={(event) => { event.preventDefault(); setSearched(true) }}><label className="min-w-0 flex-1 text-sm">Mã hồ sơ, mã số thuế hoặc email<input required className={fieldClass} value={query} onChange={(event) => setQuery(event.target.value)} /></label><button className={`${actionClass} self-end`}>Tra cứu</button></form>{searched && <div className="mt-4 rounded-xl border bg-white p-6 text-sm">{found ? <><b>{found.name}</b><p>Trạng thái: {found.status}</p>{found.reason && <p>Lý do: {found.reason}</p>}</> : 'Không tìm thấy hồ sơ phù hợp.'}</div>}</Shell> }
-export function NotificationsPage() { const [items, setItems] = useState(getNotifications()); if (!getSession()) return <Navigate to="/login" replace />; return <Shell title="Thông báo"><div className="space-y-3">{items.length ? items.map((item) => <button className="block w-full rounded-xl border bg-white p-5 text-left text-sm" key={item.id} onClick={() => setItems(markNotificationRead(item.id))}><b>{item.title}</b><p>{item.message}</p><small>{item.read ? 'Đã đọc' : 'Chưa đọc'}</small></button>) : <p>Chưa có thông báo.</p>}</div></Shell> }
-export function AccountPage() { const session = getSession(); const navigate = useNavigate(); if (!session) return <Navigate to="/login" replace />; return <Shell title="Tài khoản"><div className="space-y-3 rounded-xl border bg-white p-6 text-sm"><p><b>Họ tên:</b> {session.name}</p><p><b>Email:</b> {session.email}</p><p><b>Vai trò:</b> {session.role}</p><button className={actionClass} onClick={() => { logout(); navigate('/') }}>Đăng xuất</button></div></Shell> }
+import { forgotPasswordRequest, resetPasswordRequest } from '../api/authApi'
+import { lookupCompany } from '../api/publicApi'
+
+function Shell({title,children}){return <PublicLayout><PageHero eyebrow="TÀI KHOẢN & KẾT NỐI" title={title} description="Hoàn thiện thông tin để tiếp tục hành trình cùng InternConnect."/><div className="site-container section-space auth-service-content">{children}</div></PublicLayout>}
+const fieldClass = 'mt-2 w-full rounded-md border border-line px-3 py-3 text-sm'
+const actionClass = 'rounded-md bg-primary px-5 py-3 text-sm font-bold text-white'
+export function ForgotPasswordPage(){const[message,setMessage]=useState('');async function submit(event){event.preventDefault();try{const result=await forgotPasswordRequest(new FormData(event.currentTarget).get('email'));setMessage(result.resetToken?`Token development: ${result.resetToken}`:'Nếu email tồn tại, hướng dẫn đặt lại mật khẩu đã được gửi.')}catch(error){setMessage(error.response?.data?.error?.message||'Không thể gửi yêu cầu.')}}return <Shell title="Quên mật khẩu"><form className="space-y-4 rounded-xl border bg-white p-6" onSubmit={submit}><label className="block text-sm font-semibold">Email<input className={fieldClass} type="email" name="email" required/></label><button className={actionClass}>Gửi yêu cầu</button>{message&&<p role="status" className="text-sm">{message}</p>}</form></Shell>}
+export function ResetPasswordPage(){const[message,setMessage]=useState('');async function submit(event){event.preventDefault();const values=Object.fromEntries(new FormData(event.currentTarget));if(values.password!==values.confirmPassword){setMessage('Xác nhận mật khẩu không khớp.');return}try{await resetPasswordRequest(values.token,values.password);setMessage('Đặt lại mật khẩu thành công. Bạn có thể đăng nhập.')}catch(error){setMessage(error.response?.data?.error?.message||'Không thể đặt lại mật khẩu.')}}return <Shell title="Đặt lại mật khẩu"><form className="space-y-4 rounded-xl border bg-white p-6" onSubmit={submit}><label className="block text-sm font-semibold">Token<input className={fieldClass} name="token" required/></label><label className="block text-sm font-semibold">Mật khẩu mới<input className={fieldClass} type="password" name="password" minLength="8" required/></label><label className="block text-sm font-semibold">Xác nhận mật khẩu<input className={fieldClass} type="password" name="confirmPassword" minLength="8" required/></label><button className={actionClass}>Đặt lại mật khẩu</button>{message&&<p role="status" className="text-sm">{message}</p>}</form></Shell>}
+export function CompanyRegisterPage() { return <Shell title="Đăng ký doanh nghiệp"><CompanyRegistrationForm/></Shell> }
+export function CompanyLookupPage(){const[query,setQuery]=useState(''),[found,setFound]=useState(null),[message,setMessage]=useState('');async function submit(event){event.preventDefault();try{setFound(await lookupCompany(query));setMessage('')}catch(error){setFound(null);setMessage(error.response?.data?.error?.message||'Không thể tra cứu hồ sơ.')}}return <Shell title="Tra cứu hồ sơ doanh nghiệp"><form className="flex flex-wrap gap-3 rounded-xl border bg-white p-6" onSubmit={submit}><label className="min-w-0 flex-1 text-sm">Mã hồ sơ, mã số thuế hoặc email<input required className={fieldClass} value={query} onChange={event=>setQuery(event.target.value)}/></label><button className={`${actionClass} self-end`}>Tra cứu</button></form>{(found||message)&&<div className="mt-4 rounded-xl border bg-white p-6 text-sm">{found?<><b>{found.name}</b><p>Trạng thái: {found.status}</p>{found.rejection_reason&&<p>Lý do: {found.rejection_reason}</p>}</>:message}</div>}</Shell>}

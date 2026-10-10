@@ -6,12 +6,12 @@ import { getReports, reviewReport } from '../../services/reportService'
 import { getEvaluations, saveEvaluation } from '../../services/evaluationService'
 import { users } from '../../services/dataSource'
 
-const box = 'rounded-xl border border-[#dce9f7] bg-white p-5'
-const button = 'rounded-md bg-[#0757c9] px-4 py-2.5 text-sm font-bold text-white disabled:bg-slate-300'
+const box = 'rounded-xl border border-line bg-white p-5'
+const button = 'rounded-md bg-primary px-4 py-2.5 text-sm font-bold text-white disabled:bg-slate-300'
 const mine = () => getRecords().filter((record) => record.lecturerId === getSession()?.id)
 const student = (id) => users.find((item) => item.id === id)?.name || `Sinh viên #${id}`
 function Shell({ title, children }) { return <section><div className="dashboard-page-heading"><div><p className="dashboard-eyebrow">GIẢNG VIÊN</p><h1>{title}</h1></div></div>{children}</section> }
-function Rows({ records }) { return <div className="space-y-3">{records.length ? records.map((record) => <article className={box} key={record.id}><h2 className="font-bold">{student(record.studentId)} · {record.position}</h2><p className="text-sm text-[#6684a8]">{record.company} · {record.period} · {record.status}</p></article>) : <p>Chưa có sinh viên được phân công.</p>}</div> }
+function Rows({ records }) { return <div className="space-y-3">{records.length ? records.map((record) => <article className={box} key={record.id}><h2 className="font-bold">{student(record.studentId)} · {record.position}</h2><p className="text-sm text-muted">{record.company} · {record.period} · {record.status}</p></article>) : <p>Chưa có sinh viên được phân công.</p>}</div> }
 export function LecturerStudentsPage() { return <Shell title="Sinh viên được phân công"><Rows records={mine()} /></Shell> }
 export function LecturerInternshipsPage() { return <Shell title="Theo dõi thực tập"><Rows records={mine()} /></Shell> }
 export function LecturerDiariesPage() { const [notes, setNotes] = useState(() => { try { return JSON.parse(localStorage.getItem('internconnect_student_notes')) || [] } catch { return [] } }); function comment(note) { const feedback = window.prompt('Nhận xét cho nhật ký này:') || ''; if (!feedback.trim()) return; const next = notes.map((item) => item.id === note.id ? { ...item, feedback, lecturerId: getSession().id } : item); localStorage.setItem('internconnect_student_notes', JSON.stringify(next)); setNotes(next) } const ids = mine().map((item) => item.studentId); return <Shell title="Nhật ký thực tập"><div className="space-y-3">{notes.filter((item) => ids.includes(item.studentId)).map((note) => <article className={box} key={note.id}><p className="text-sm">{student(note.studentId)} · {note.date}</p><p>{note.text}</p>{note.feedback && <p className="text-sm">Nhận xét: {note.feedback}</p>}<button className={`${button} mt-3`} onClick={() => comment(note)}>Gửi nhận xét</button></article>)}</div></Shell> }

@@ -1,0 +1,667 @@
+0 verbose cli D:\NodeJS\node.exe D:\NodeJS\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.11.0
+2 info using node@v24.14.1
+3 silly config load:file:D:\NodeJS\node_modules\npm\npmrc
+4 silly config load:file:D:\DOAN\internconnect\internconnect\.npmrc
+5 silly config load:file:C:\Users\LEGION\.npmrc
+6 silly config load:file:D:\npm-global\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install" "--no-audit" "--no-fund" "--cache" "D:/DOAN/.npm-cache"
+9 verbose logfile logs-max:10 dir:D:\DOAN\.npm-cache\_logs\2026-10-10T13_43_19_760Z-
+10 verbose logfile D:\DOAN\.npm-cache\_logs\2026-10-10T13_43_19_760Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules
+14 silly idealTree buildDeps
+15 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\accepts' ]
+16 silly reify mark retired [
+16 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\append-field'
+16 silly reify ]
+17 silly reify mark retired [
+17 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\aws-ssl-profiles'
+17 silly reify ]
+18 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\bcryptjs' ]
+19 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\body-parser' ]
+20 silly reify mark retired [
+20 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\brace-expansion'
+20 silly reify ]
+21 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\busboy' ]
+22 silly reify mark retired [
+22 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\buffer-equal-constant-time'
+22 silly reify ]
+23 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\bytes' ]
+24 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\call-bound' ]
+25 silly reify mark retired [
+25 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\content-disposition'
+25 silly reify ]
+26 silly reify mark retired [
+26 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\content-type'
+26 silly reify ]
+27 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\cookie' ]
+28 silly reify mark retired [
+28 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\cookie-parser'
+28 silly reify ]
+29 silly reify mark retired [
+29 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\cookie-signature'
+29 silly reify ]
+30 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\cors' ]
+31 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\depd' ]
+32 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\ee-first' ]
+33 silly reify mark retired [
+33 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\ecdsa-sig-formatter'
+33 silly reify ]
+34 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\encodeurl' ]
+35 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\escape-html' ]
+36 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\express' ]
+37 silly reify mark retired [
+37 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\express-rate-limit'
+37 silly reify ]
+38 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\etag' ]
+39 silly reify mark retired [
+39 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\finalhandler'
+39 silly reify ]
+40 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\forwarded' ]
+41 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\fresh' ]
+42 silly reify mark retired [
+42 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\generate-function'
+42 silly reify ]
+43 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\helmet' ]
+44 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\http-errors' ]
+45 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\iconv-lite' ]
+46 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\inherits' ]
+47 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\ip-address' ]
+48 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\ipaddr.js' ]
+49 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\is-promise' ]
+50 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\is-property' ]
+51 silly reify mark retired [
+51 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\jsonwebtoken'
+51 silly reify ]
+52 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\jwa' ]
+53 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\jws' ]
+54 silly reify mark retired [
+54 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.includes'
+54 silly reify ]
+55 silly reify mark retired [
+55 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.isboolean'
+55 silly reify ]
+56 silly reify mark retired [
+56 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.isnumber'
+56 silly reify ]
+57 silly reify mark retired [
+57 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.isinteger'
+57 silly reify ]
+58 silly reify mark retired [
+58 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.isstring'
+58 silly reify ]
+59 silly reify mark retired [
+59 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.isplainobject'
+59 silly reify ]
+60 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.once' ]
+61 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lru.min' ]
+62 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\long' ]
+63 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\media-typer' ]
+64 silly reify mark retired [
+64 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\merge-descriptors'
+64 silly reify ]
+65 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\multer' ]
+66 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\mysql2' ]
+67 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\negotiator' ]
+68 silly reify mark retired [
+68 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\named-placeholders'
+68 silly reify ]
+69 silly reify mark retired [
+69 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\object-assign'
+69 silly reify ]
+70 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\on-finished' ]
+71 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\once' ]
+72 silly reify mark retired [
+72 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\object-inspect'
+72 silly reify ]
+73 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\parseurl' ]
+74 silly reify mark retired [
+74 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\path-to-regexp'
+74 silly reify ]
+75 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\proxy-addr' ]
+76 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\qs' ]
+77 silly reify mark retired [
+77 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\range-parser'
+77 silly reify ]
+78 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\raw-body' ]
+79 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\router' ]
+80 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\safe-buffer' ]
+81 silly reify mark retired [
+81 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\safer-buffer'
+81 silly reify ]
+82 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\send' ]
+83 silly reify mark retired [
+83 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\serve-static'
+83 silly reify ]
+84 silly reify mark retired [
+84 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\setprototypeof'
+84 silly reify ]
+85 silly reify mark retired [
+85 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\side-channel'
+85 silly reify ]
+86 silly reify mark retired [
+86 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\side-channel-list'
+86 silly reify ]
+87 silly reify mark retired [
+87 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\side-channel-map'
+87 silly reify ]
+88 silly reify mark retired [
+88 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\side-channel-weakmap'
+88 silly reify ]
+89 silly reify mark retired [
+89 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\source-map-js'
+89 silly reify ]
+90 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\sql-escaper' ]
+91 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\statuses' ]
+92 silly reify mark retired [
+92 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\streamsearch'
+92 silly reify ]
+93 silly reify mark retired [
+93 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\toidentifier'
+93 silly reify ]
+94 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\type-is' ]
+95 silly reify mark retired [
+95 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\undici-types'
+95 silly reify ]
+96 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\unpipe' ]
+97 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\vary' ]
+98 silly reify mark retired [ 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\wrappy' ]
+99 silly reify mark retired [
+99 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\@types\\node'
+99 silly reify ]
+100 silly reify moves {
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\accepts': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.accepts-DvmAiC6V',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\append-field': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.append-field-kZEvgPIM',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\aws-ssl-profiles': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.aws-ssl-profiles-TmslqoW3',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\bcryptjs': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.bcryptjs-8KbL94yS',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\body-parser': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.body-parser-BBS8qCnc',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\brace-expansion': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.brace-expansion-5WCpzdPr',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\busboy': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.busboy-8Wb7ll8X',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\buffer-equal-constant-time': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.buffer-equal-constant-time-2vMrkGWC',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\bytes': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.bytes-M9im8DEJ',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\call-bound': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.call-bound-betvAERu',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\content-disposition': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.content-disposition-qA7EIy5m',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\content-type': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.content-type-fUwN2qX1',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\cookie': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.cookie-3Zg4vXTS',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\cookie-parser': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.cookie-parser-wuPPnGF9',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\cookie-signature': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.cookie-signature-HGnbkF2I',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\cors': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.cors-ura5lPcy',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\depd': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.depd-NqZBM6GL',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\ee-first': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.ee-first-dyvSf9X2',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\ecdsa-sig-formatter': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.ecdsa-sig-formatter-ANPf89W8',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\encodeurl': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.encodeurl-Dvv46LVj',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\escape-html': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.escape-html-M4ShBHL1',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\express': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.express-XblvGDkn',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\express-rate-limit': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.express-rate-limit-hvGtYUIh',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\etag': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.etag-TXAXj9QO',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\finalhandler': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.finalhandler-61YXd4Sl',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\forwarded': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.forwarded-3NCic8YM',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\fresh': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.fresh-7qEX1vNb',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\generate-function': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.generate-function-VVAB4V7W',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\helmet': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.helmet-99cJbeCJ',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\http-errors': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.http-errors-hze8B9x2',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\iconv-lite': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.iconv-lite-pUV86t9X',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\inherits': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.inherits-ZuoLEj0T',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\ip-address': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.ip-address-ijHF3IKt',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\ipaddr.js': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.ipaddr.js-Mt8c4pCv',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\is-promise': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.is-promise-WMlLVg6m',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\is-property': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.is-property-nbcJg0pm',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\jsonwebtoken': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.jsonwebtoken-XqSaIwD3',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\jwa': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.jwa-JAGKMsWE',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\jws': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.jws-WgVxWf4Z',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.includes': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.lodash.includes-8RHoXvSB',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.isboolean': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.lodash.isboolean-piN3aAnn',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.isnumber': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.lodash.isnumber-45BemMXH',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.isinteger': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.lodash.isinteger-6yfIz2PV',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.isstring': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.lodash.isstring-eLJNpjje',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.isplainobject': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.lodash.isplainobject-RxqLB93e',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lodash.once': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.lodash.once-amne7Xad',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\lru.min': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.lru.min-PbXgH3IV',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\long': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.long-5P11AQL5',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\media-typer': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.media-typer-IvfxFxEy',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\merge-descriptors': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.merge-descriptors-CbZe3YD6',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\multer': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.multer-ZYxv65q0',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\mysql2': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.mysql2-eNj7Qy76',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\negotiator': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.negotiator-Bgo7CocK',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\named-placeholders': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.named-placeholders-gxh5gvxh',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\object-assign': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.object-assign-3VQmkD3o',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\on-finished': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.on-finished-MgAuY7rh',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\once': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.once-o5NCXzZY',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\object-inspect': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.object-inspect-QkTs6ty8',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\parseurl': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.parseurl-ID4makhc',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\path-to-regexp': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.path-to-regexp-9od61Czy',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\proxy-addr': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.proxy-addr-1l7A3IDD',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\qs': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.qs-vE5DYuo0',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\range-parser': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.range-parser-NTnyFEyM',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\raw-body': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.raw-body-GPJmMU75',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\router': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.router-xBYq3BP7',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\safe-buffer': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.safe-buffer-HN44v0Cj',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\safer-buffer': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.safer-buffer-bNPHKEsy',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\send': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.send-hrlgeDJ5',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\serve-static': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.serve-static-8jIVNo3Q',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\setprototypeof': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.setprototypeof-YJPfE5Nm',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\side-channel': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.side-channel-vV8bOxkT',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\side-channel-list': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.side-channel-list-o3nDUhjB',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\side-channel-map': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.side-channel-map-Iflpjw5h',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\side-channel-weakmap': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.side-channel-weakmap-qFxcFoRM',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\source-map-js': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.source-map-js-FZASAVY6',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\sql-escaper': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.sql-escaper-rmzVSrSF',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\statuses': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.statuses-zIcgpYFE',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\streamsearch': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.streamsearch-WeFIKokH',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\toidentifier': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.toidentifier-KsDoxgkE',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\type-is': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.type-is-uZPVypXJ',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\undici-types': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.undici-types-XP3Nt2gY',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\unpipe': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.unpipe-k9lDNjvk',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\vary': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.vary-vG89251c',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\wrappy': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\.wrappy-wmDUrjcV',
+100 silly reify   'D:\\DOAN\\internconnect\\internconnect\\node_modules\\@types\\node': 'D:\\DOAN\\internconnect\\internconnect\\node_modules\\@types\\.node-8jCKn8we'
+100 silly reify }
+101 http cache vary@https://registry.npmjs.org/vary/-/vary-1.1.2.tgz 0ms (cache hit)
+102 http cache wrappy@https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz 0ms (cache hit)
+103 http cache @types/node@https://registry.npmjs.org/@types/node/-/node-26.6.3.tgz 0ms (cache hit)
+104 http cache unpipe@https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz 0ms (cache hit)
+105 http cache type-is@https://registry.npmjs.org/type-is/-/type-is-2.1.0.tgz 0ms (cache hit)
+106 http cache undici-types@https://registry.npmjs.org/undici-types/-/undici-types-8.9.0.tgz 0ms (cache hit)
+107 http cache toidentifier@https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz 0ms (cache hit)
+108 http cache streamsearch@https://registry.npmjs.org/streamsearch/-/streamsearch-1.1.0.tgz 0ms (cache hit)
+109 http cache sql-escaper@https://registry.npmjs.org/sql-escaper/-/sql-escaper-1.5.2.tgz 0ms (cache hit)
+110 http cache source-map-js@https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz 0ms (cache hit)
+111 http cache side-channel-weakmap@https://registry.npmjs.org/side-channel-weakmap/-/side-channel-weakmap-1.0.2.tgz 0ms (cache hit)
+112 http cache side-channel-map@https://registry.npmjs.org/side-channel-map/-/side-channel-map-1.0.1.tgz 0ms (cache hit)
+113 http cache setprototypeof@https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz 0ms (cache hit)
+114 http cache side-channel@https://registry.npmjs.org/side-channel/-/side-channel-1.1.1.tgz 0ms (cache hit)
+115 http cache side-channel-list@https://registry.npmjs.org/side-channel-list/-/side-channel-list-1.0.1.tgz 0ms (cache hit)
+116 http cache serve-static@https://registry.npmjs.org/serve-static/-/serve-static-2.2.1.tgz 0ms (cache hit)
+117 http cache safer-buffer@https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz 0ms (cache hit)
+118 http cache send@https://registry.npmjs.org/send/-/send-1.2.1.tgz 0ms (cache hit)
+119 http cache safe-buffer@https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz 0ms (cache hit)
+120 http cache router@https://registry.npmjs.org/router/-/router-2.2.0.tgz 0ms (cache hit)
+121 http cache raw-body@https://registry.npmjs.org/raw-body/-/raw-body-3.0.2.tgz 0ms (cache hit)
+122 http cache range-parser@https://registry.npmjs.org/range-parser/-/range-parser-1.3.0.tgz 0ms (cache hit)
+123 http cache qs@https://registry.npmjs.org/qs/-/qs-6.16.0.tgz 0ms (cache hit)
+124 http cache proxy-addr@https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.8.tgz 0ms (cache hit)
+125 http cache path-to-regexp@https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-8.4.2.tgz 0ms (cache hit)
+126 http cache parseurl@https://registry.npmjs.org/parseurl/-/parseurl-1.3.3.tgz 0ms (cache hit)
+127 http cache once@https://registry.npmjs.org/once/-/once-1.4.0.tgz 0ms (cache hit)
+128 http cache object-inspect@https://registry.npmjs.org/object-inspect/-/object-inspect-1.13.4.tgz 0ms (cache hit)
+129 http cache on-finished@https://registry.npmjs.org/on-finished/-/on-finished-2.4.1.tgz 0ms (cache hit)
+130 http cache object-assign@https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz 0ms (cache hit)
+131 http cache named-placeholders@https://registry.npmjs.org/named-placeholders/-/named-placeholders-1.1.6.tgz 0ms (cache hit)
+132 http cache negotiator@https://registry.npmjs.org/negotiator/-/negotiator-1.1.0.tgz 0ms (cache hit)
+133 http cache mysql2@https://registry.npmjs.org/mysql2/-/mysql2-3.24.4.tgz 0ms (cache hit)
+134 http cache statuses@https://registry.npmjs.org/statuses/-/statuses-2.0.2.tgz 0ms (cache hit)
+135 http cache multer@https://registry.npmjs.org/multer/-/multer-2.4.0.tgz 0ms (cache hit)
+136 http cache merge-descriptors@https://registry.npmjs.org/merge-descriptors/-/merge-descriptors-2.0.0.tgz 0ms (cache hit)
+137 http cache media-typer@https://registry.npmjs.org/media-typer/-/media-typer-1.1.1.tgz 0ms (cache hit)
+138 http cache long@https://registry.npmjs.org/long/-/long-5.3.2.tgz 0ms (cache hit)
+139 http cache lru.min@https://registry.npmjs.org/lru.min/-/lru.min-1.1.5.tgz 0ms (cache hit)
+140 http cache lodash.once@https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz 0ms (cache hit)
+141 http cache lodash.isplainobject@https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz 1ms (cache hit)
+142 http cache lodash.isstring@https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz 0ms (cache hit)
+143 http cache lodash.isinteger@https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz 0ms (cache hit)
+144 http cache lodash.isnumber@https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz 0ms (cache hit)
+145 http cache lodash.isboolean@https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz 0ms (cache hit)
+146 http cache jsonwebtoken@https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.3.tgz 0ms (cache hit)
+147 http cache lodash.includes@https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz 0ms (cache hit)
+148 http cache jwa@https://registry.npmjs.org/jwa/-/jwa-2.0.1.tgz 0ms (cache hit)
+149 http cache jws@https://registry.npmjs.org/jws/-/jws-4.0.1.tgz 0ms (cache hit)
+150 http cache is-property@https://registry.npmjs.org/is-property/-/is-property-1.0.2.tgz 0ms (cache hit)
+151 http cache is-promise@https://registry.npmjs.org/is-promise/-/is-promise-4.0.0.tgz 0ms (cache hit)
+152 http cache ipaddr.js@https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.9.1.tgz 0ms (cache hit)
+153 http cache ip-address@https://registry.npmjs.org/ip-address/-/ip-address-10.7.3.tgz 0ms (cache hit)
+154 http cache inherits@https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz 0ms (cache hit)
+155 http cache http-errors@https://registry.npmjs.org/http-errors/-/http-errors-2.0.1.tgz 0ms (cache hit)
+156 http cache iconv-lite@https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.7.3.tgz 0ms (cache hit)
+157 http cache helmet@https://registry.npmjs.org/helmet/-/helmet-8.3.0.tgz 0ms (cache hit)
+158 http cache generate-function@https://registry.npmjs.org/generate-function/-/generate-function-2.3.1.tgz 0ms (cache hit)
+159 http cache fresh@https://registry.npmjs.org/fresh/-/fresh-2.0.0.tgz 0ms (cache hit)
+160 http cache finalhandler@https://registry.npmjs.org/finalhandler/-/finalhandler-2.1.1.tgz 0ms (cache hit)
+161 http cache etag@https://registry.npmjs.org/etag/-/etag-1.8.1.tgz 0ms (cache hit)
+162 http cache express-rate-limit@https://registry.npmjs.org/express-rate-limit/-/express-rate-limit-8.7.1.tgz 0ms (cache hit)
+163 http cache escape-html@https://registry.npmjs.org/escape-html/-/escape-html-1.0.3.tgz 0ms (cache hit)
+164 http cache express@https://registry.npmjs.org/express/-/express-5.2.1.tgz 0ms (cache hit)
+165 http cache encodeurl@https://registry.npmjs.org/encodeurl/-/encodeurl-2.0.0.tgz 0ms (cache hit)
+166 http cache ecdsa-sig-formatter@https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz 0ms (cache hit)
+167 http cache ee-first@https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz 0ms (cache hit)
+168 http cache cors@https://registry.npmjs.org/cors/-/cors-2.8.6.tgz 0ms (cache hit)
+169 http cache depd@https://registry.npmjs.org/depd/-/depd-2.0.0.tgz 0ms (cache hit)
+170 http cache cookie-signature@https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz 0ms (cache hit)
+171 http cache cookie-parser@https://registry.npmjs.org/cookie-parser/-/cookie-parser-1.4.7.tgz 0ms (cache hit)
+172 http cache cookie@https://registry.npmjs.org/cookie/-/cookie-0.7.2.tgz 0ms (cache hit)
+173 http cache content-type@https://registry.npmjs.org/content-type/-/content-type-1.0.5.tgz 0ms (cache hit)
+174 http cache call-bound@https://registry.npmjs.org/call-bound/-/call-bound-1.0.4.tgz 0ms (cache hit)
+175 http cache content-disposition@https://registry.npmjs.org/content-disposition/-/content-disposition-1.1.0.tgz 0ms (cache hit)
+176 http cache bytes@https://registry.npmjs.org/bytes/-/bytes-3.1.2.tgz 0ms (cache hit)
+177 http cache buffer-equal-constant-time@https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz 0ms (cache hit)
+178 http cache busboy@https://registry.npmjs.org/busboy/-/busboy-1.6.0.tgz 0ms (cache hit)
+179 http cache body-parser@https://registry.npmjs.org/body-parser/-/body-parser-2.3.0.tgz 1ms (cache hit)
+180 http cache brace-expansion@https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.12.tgz 0ms (cache hit)
+181 http cache bcryptjs@https://registry.npmjs.org/bcryptjs/-/bcryptjs-3.0.3.tgz 0ms (cache hit)
+182 http cache aws-ssl-profiles@https://registry.npmjs.org/aws-ssl-profiles/-/aws-ssl-profiles-1.1.2.tgz 0ms (cache hit)
+183 http cache append-field@https://registry.npmjs.org/append-field/-/append-field-1.0.0.tgz 0ms (cache hit)
+184 http cache accepts@https://registry.npmjs.org/accepts/-/accepts-2.0.0.tgz 0ms (cache hit)
+185 http cache mime-types@https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz 0ms (cache hit)
+186 http cache mime-types@https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz 0ms (cache hit)
+187 http cache content-type@https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz 0ms (cache hit)
+188 http cache mime-db@https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz 0ms (cache hit)
+189 http cache mime-db@https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz 0ms (cache hit)
+190 http cache content-type@https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz 0ms (cache hit)
+191 http cache media-typer@https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz 0ms (cache hit)
+192 http cache type-is@https://registry.npmjs.org/type-is/-/type-is-1.6.18.tgz 0ms (cache hit)
+193 http cache semver@https://registry.npmjs.org/semver/-/semver-7.8.5.tgz 0ms (cache hit)
+194 http cache cookie-signature@https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.2.2.tgz 0ms (cache hit)
+195 http cache mime-db@https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz 0ms (cache hit)
+196 http cache mime-types@https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz 0ms (cache hit)
+197 http cache content-type@https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz 0ms (cache hit)
+198 http cache mime-types@https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz 0ms (cache hit)
+199 http cache mime-db@https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz 0ms (cache hit)
+200 http cache forwarded@https://registry.npmjs.org/forwarded/-/forwarded-0.2.0.tgz 0ms (cache hit)
+201 silly tarball no local data for vary@https://registry.npmjs.org/vary/-/vary-1.1.2.tgz. Extracting by manifest.
+202 silly tarball no local data for wrappy@https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz. Extracting by manifest.
+203 silly tarball no local data for @types/node@https://registry.npmjs.org/@types/node/-/node-26.6.3.tgz. Extracting by manifest.
+204 silly tarball no local data for unpipe@https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz. Extracting by manifest.
+205 silly tarball no local data for type-is@https://registry.npmjs.org/type-is/-/type-is-2.1.0.tgz. Extracting by manifest.
+206 silly tarball no local data for undici-types@https://registry.npmjs.org/undici-types/-/undici-types-8.9.0.tgz. Extracting by manifest.
+207 silly tarball no local data for toidentifier@https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz. Extracting by manifest.
+208 silly tarball no local data for streamsearch@https://registry.npmjs.org/streamsearch/-/streamsearch-1.1.0.tgz. Extracting by manifest.
+209 silly tarball no local data for sql-escaper@https://registry.npmjs.org/sql-escaper/-/sql-escaper-1.5.2.tgz. Extracting by manifest.
+210 silly tarball no local data for source-map-js@https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz. Extracting by manifest.
+211 silly tarball no local data for side-channel-weakmap@https://registry.npmjs.org/side-channel-weakmap/-/side-channel-weakmap-1.0.2.tgz. Extracting by manifest.
+212 silly tarball no local data for side-channel-map@https://registry.npmjs.org/side-channel-map/-/side-channel-map-1.0.1.tgz. Extracting by manifest.
+213 silly tarball no local data for setprototypeof@https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz. Extracting by manifest.
+214 silly tarball no local data for side-channel@https://registry.npmjs.org/side-channel/-/side-channel-1.1.1.tgz. Extracting by manifest.
+215 silly tarball no local data for side-channel-list@https://registry.npmjs.org/side-channel-list/-/side-channel-list-1.0.1.tgz. Extracting by manifest.
+216 silly tarball no local data for serve-static@https://registry.npmjs.org/serve-static/-/serve-static-2.2.1.tgz. Extracting by manifest.
+217 silly tarball no local data for safer-buffer@https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz. Extracting by manifest.
+218 silly tarball no local data for send@https://registry.npmjs.org/send/-/send-1.2.1.tgz. Extracting by manifest.
+219 silly tarball no local data for safe-buffer@https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz. Extracting by manifest.
+220 silly tarball no local data for router@https://registry.npmjs.org/router/-/router-2.2.0.tgz. Extracting by manifest.
+221 silly tarball no local data for raw-body@https://registry.npmjs.org/raw-body/-/raw-body-3.0.2.tgz. Extracting by manifest.
+222 silly tarball no local data for range-parser@https://registry.npmjs.org/range-parser/-/range-parser-1.3.0.tgz. Extracting by manifest.
+223 silly tarball no local data for qs@https://registry.npmjs.org/qs/-/qs-6.16.0.tgz. Extracting by manifest.
+224 silly tarball no local data for proxy-addr@https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.8.tgz. Extracting by manifest.
+225 silly tarball no local data for path-to-regexp@https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-8.4.2.tgz. Extracting by manifest.
+226 silly tarball no local data for parseurl@https://registry.npmjs.org/parseurl/-/parseurl-1.3.3.tgz. Extracting by manifest.
+227 silly tarball no local data for once@https://registry.npmjs.org/once/-/once-1.4.0.tgz. Extracting by manifest.
+228 silly tarball no local data for object-inspect@https://registry.npmjs.org/object-inspect/-/object-inspect-1.13.4.tgz. Extracting by manifest.
+229 silly tarball no local data for on-finished@https://registry.npmjs.org/on-finished/-/on-finished-2.4.1.tgz. Extracting by manifest.
+230 silly tarball no local data for object-assign@https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz. Extracting by manifest.
+231 silly tarball no local data for named-placeholders@https://registry.npmjs.org/named-placeholders/-/named-placeholders-1.1.6.tgz. Extracting by manifest.
+232 silly tarball no local data for negotiator@https://registry.npmjs.org/negotiator/-/negotiator-1.1.0.tgz. Extracting by manifest.
+233 silly tarball no local data for mysql2@https://registry.npmjs.org/mysql2/-/mysql2-3.24.4.tgz. Extracting by manifest.
+234 silly tarball no local data for statuses@https://registry.npmjs.org/statuses/-/statuses-2.0.2.tgz. Extracting by manifest.
+235 silly tarball no local data for multer@https://registry.npmjs.org/multer/-/multer-2.4.0.tgz. Extracting by manifest.
+236 silly tarball no local data for merge-descriptors@https://registry.npmjs.org/merge-descriptors/-/merge-descriptors-2.0.0.tgz. Extracting by manifest.
+237 silly tarball no local data for media-typer@https://registry.npmjs.org/media-typer/-/media-typer-1.1.1.tgz. Extracting by manifest.
+238 silly tarball no local data for long@https://registry.npmjs.org/long/-/long-5.3.2.tgz. Extracting by manifest.
+239 silly tarball no local data for lru.min@https://registry.npmjs.org/lru.min/-/lru.min-1.1.5.tgz. Extracting by manifest.
+240 silly tarball no local data for lodash.once@https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz. Extracting by manifest.
+241 silly tarball no local data for lodash.isplainobject@https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz. Extracting by manifest.
+242 silly tarball no local data for lodash.isstring@https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz. Extracting by manifest.
+243 silly tarball no local data for lodash.isinteger@https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz. Extracting by manifest.
+244 silly tarball no local data for lodash.isnumber@https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz. Extracting by manifest.
+245 silly tarball no local data for lodash.isboolean@https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz. Extracting by manifest.
+246 silly tarball no local data for jsonwebtoken@https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.3.tgz. Extracting by manifest.
+247 silly tarball no local data for lodash.includes@https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz. Extracting by manifest.
+248 silly tarball no local data for jwa@https://registry.npmjs.org/jwa/-/jwa-2.0.1.tgz. Extracting by manifest.
+249 silly tarball no local data for jws@https://registry.npmjs.org/jws/-/jws-4.0.1.tgz. Extracting by manifest.
+250 silly tarball no local data for is-property@https://registry.npmjs.org/is-property/-/is-property-1.0.2.tgz. Extracting by manifest.
+251 silly tarball no local data for is-promise@https://registry.npmjs.org/is-promise/-/is-promise-4.0.0.tgz. Extracting by manifest.
+252 silly tarball no local data for ipaddr.js@https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.9.1.tgz. Extracting by manifest.
+253 silly tarball no local data for ip-address@https://registry.npmjs.org/ip-address/-/ip-address-10.7.3.tgz. Extracting by manifest.
+254 silly tarball no local data for inherits@https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz. Extracting by manifest.
+255 silly tarball no local data for http-errors@https://registry.npmjs.org/http-errors/-/http-errors-2.0.1.tgz. Extracting by manifest.
+256 silly tarball no local data for iconv-lite@https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.7.3.tgz. Extracting by manifest.
+257 silly tarball no local data for helmet@https://registry.npmjs.org/helmet/-/helmet-8.3.0.tgz. Extracting by manifest.
+258 silly tarball no local data for generate-function@https://registry.npmjs.org/generate-function/-/generate-function-2.3.1.tgz. Extracting by manifest.
+259 silly tarball no local data for fresh@https://registry.npmjs.org/fresh/-/fresh-2.0.0.tgz. Extracting by manifest.
+260 silly tarball no local data for finalhandler@https://registry.npmjs.org/finalhandler/-/finalhandler-2.1.1.tgz. Extracting by manifest.
+261 silly tarball no local data for etag@https://registry.npmjs.org/etag/-/etag-1.8.1.tgz. Extracting by manifest.
+262 silly tarball no local data for express-rate-limit@https://registry.npmjs.org/express-rate-limit/-/express-rate-limit-8.7.1.tgz. Extracting by manifest.
+263 silly tarball no local data for escape-html@https://registry.npmjs.org/escape-html/-/escape-html-1.0.3.tgz. Extracting by manifest.
+264 silly tarball no local data for express@https://registry.npmjs.org/express/-/express-5.2.1.tgz. Extracting by manifest.
+265 silly tarball no local data for encodeurl@https://registry.npmjs.org/encodeurl/-/encodeurl-2.0.0.tgz. Extracting by manifest.
+266 silly tarball no local data for ecdsa-sig-formatter@https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz. Extracting by manifest.
+267 silly tarball no local data for ee-first@https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz. Extracting by manifest.
+268 silly tarball no local data for cors@https://registry.npmjs.org/cors/-/cors-2.8.6.tgz. Extracting by manifest.
+269 silly tarball no local data for depd@https://registry.npmjs.org/depd/-/depd-2.0.0.tgz. Extracting by manifest.
+270 silly tarball no local data for cookie-signature@https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz. Extracting by manifest.
+271 silly tarball no local data for cookie-parser@https://registry.npmjs.org/cookie-parser/-/cookie-parser-1.4.7.tgz. Extracting by manifest.
+272 silly tarball no local data for cookie@https://registry.npmjs.org/cookie/-/cookie-0.7.2.tgz. Extracting by manifest.
+273 silly tarball no local data for content-type@https://registry.npmjs.org/content-type/-/content-type-1.0.5.tgz. Extracting by manifest.
+274 silly tarball no local data for call-bound@https://registry.npmjs.org/call-bound/-/call-bound-1.0.4.tgz. Extracting by manifest.
+275 silly tarball no local data for content-disposition@https://registry.npmjs.org/content-disposition/-/content-disposition-1.1.0.tgz. Extracting by manifest.
+276 silly tarball no local data for bytes@https://registry.npmjs.org/bytes/-/bytes-3.1.2.tgz. Extracting by manifest.
+277 silly tarball no local data for buffer-equal-constant-time@https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz. Extracting by manifest.
+278 silly tarball no local data for busboy@https://registry.npmjs.org/busboy/-/busboy-1.6.0.tgz. Extracting by manifest.
+279 silly tarball no local data for body-parser@https://registry.npmjs.org/body-parser/-/body-parser-2.3.0.tgz. Extracting by manifest.
+280 silly tarball no local data for brace-expansion@https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.12.tgz. Extracting by manifest.
+281 silly tarball no local data for bcryptjs@https://registry.npmjs.org/bcryptjs/-/bcryptjs-3.0.3.tgz. Extracting by manifest.
+282 silly tarball no local data for aws-ssl-profiles@https://registry.npmjs.org/aws-ssl-profiles/-/aws-ssl-profiles-1.1.2.tgz. Extracting by manifest.
+283 silly tarball no local data for append-field@https://registry.npmjs.org/append-field/-/append-field-1.0.0.tgz. Extracting by manifest.
+284 silly tarball no local data for accepts@https://registry.npmjs.org/accepts/-/accepts-2.0.0.tgz. Extracting by manifest.
+285 silly tarball no local data for mime-types@https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz. Extracting by manifest.
+286 silly tarball no local data for mime-types@https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz. Extracting by manifest.
+287 silly tarball no local data for content-type@https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz. Extracting by manifest.
+288 silly tarball no local data for mime-db@https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz. Extracting by manifest.
+289 silly tarball no local data for mime-db@https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz. Extracting by manifest.
+290 silly tarball no local data for content-type@https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz. Extracting by manifest.
+291 silly tarball no local data for media-typer@https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz. Extracting by manifest.
+292 silly tarball no local data for type-is@https://registry.npmjs.org/type-is/-/type-is-1.6.18.tgz. Extracting by manifest.
+293 silly tarball no local data for semver@https://registry.npmjs.org/semver/-/semver-7.8.5.tgz. Extracting by manifest.
+294 silly tarball no local data for cookie-signature@https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.2.2.tgz. Extracting by manifest.
+295 silly tarball no local data for mime-db@https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz. Extracting by manifest.
+296 silly tarball no local data for mime-types@https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz. Extracting by manifest.
+297 silly tarball no local data for content-type@https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz. Extracting by manifest.
+298 silly tarball no local data for mime-types@https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz. Extracting by manifest.
+299 silly tarball no local data for mime-db@https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz. Extracting by manifest.
+300 silly tarball no local data for forwarded@https://registry.npmjs.org/forwarded/-/forwarded-0.2.0.tgz. Extracting by manifest.
+301 http fetch GET 200 https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz 434ms (cache miss)
+302 http fetch GET 200 https://registry.npmjs.org/vary/-/vary-1.1.2.tgz 440ms (cache miss)
+303 http fetch GET 200 https://registry.npmjs.org/type-is/-/type-is-2.1.0.tgz 436ms (cache miss)
+304 http fetch GET 200 https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz 433ms (cache miss)
+305 http fetch GET 200 https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz 431ms (cache miss)
+306 http fetch GET 200 https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz 441ms (cache miss)
+307 http fetch GET 200 https://registry.npmjs.org/streamsearch/-/streamsearch-1.1.0.tgz 491ms (cache miss)
+308 http fetch GET 200 https://registry.npmjs.org/side-channel-map/-/side-channel-map-1.0.1.tgz 508ms (cache miss)
+309 http fetch GET 200 https://registry.npmjs.org/side-channel-weakmap/-/side-channel-weakmap-1.0.2.tgz 514ms (cache miss)
+310 http fetch GET 200 https://registry.npmjs.org/side-channel-list/-/side-channel-list-1.0.1.tgz 519ms (cache miss)
+311 http fetch GET 200 https://registry.npmjs.org/sql-escaper/-/sql-escaper-1.5.2.tgz 527ms (cache miss)
+312 http fetch GET 200 https://registry.npmjs.org/side-channel/-/side-channel-1.1.1.tgz 526ms (cache miss)
+313 http fetch GET 200 https://registry.npmjs.org/range-parser/-/range-parser-1.3.0.tgz 539ms (cache miss)
+314 http fetch GET 200 https://registry.npmjs.org/once/-/once-1.4.0.tgz 537ms (cache miss)
+315 http fetch GET 200 https://registry.npmjs.org/parseurl/-/parseurl-1.3.3.tgz 541ms (cache miss)
+316 http fetch GET 200 https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.8.tgz 557ms (cache miss)
+317 http fetch GET 200 https://registry.npmjs.org/raw-body/-/raw-body-3.0.2.tgz 570ms (cache miss)
+318 http fetch GET 200 https://registry.npmjs.org/serve-static/-/serve-static-2.2.1.tgz 573ms (cache miss)
+319 http fetch GET 200 https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz 573ms (cache miss)
+320 http fetch GET 200 https://registry.npmjs.org/on-finished/-/on-finished-2.4.1.tgz 580ms (cache miss)
+321 http fetch GET 200 https://registry.npmjs.org/send/-/send-1.2.1.tgz 584ms (cache miss)
+322 http fetch GET 200 https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz 589ms (cache miss)
+323 http fetch GET 200 https://registry.npmjs.org/named-placeholders/-/named-placeholders-1.1.6.tgz 594ms (cache miss)
+324 http fetch GET 200 https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz 605ms (cache miss)
+325 http fetch GET 200 https://registry.npmjs.org/merge-descriptors/-/merge-descriptors-2.0.0.tgz 609ms (cache miss)
+326 http fetch GET 200 https://registry.npmjs.org/media-typer/-/media-typer-1.1.1.tgz 611ms (cache miss)
+327 http fetch GET 200 https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz 615ms (cache miss)
+328 http fetch GET 200 https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz 616ms (cache miss)
+329 http fetch GET 200 https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-8.4.2.tgz 624ms (cache miss)
+330 http fetch GET 200 https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz 621ms (cache miss)
+331 http fetch GET 200 https://registry.npmjs.org/router/-/router-2.2.0.tgz 641ms (cache miss)
+332 http fetch GET 200 https://registry.npmjs.org/statuses/-/statuses-2.0.2.tgz 640ms (cache miss)
+333 http fetch GET 200 https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz 647ms (cache miss)
+334 http fetch GET 200 https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz 650ms (cache miss)
+335 http fetch GET 200 https://registry.npmjs.org/negotiator/-/negotiator-1.1.0.tgz 665ms (cache miss)
+336 http fetch GET 200 https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz 665ms (cache miss)
+337 http fetch GET 200 https://registry.npmjs.org/lru.min/-/lru.min-1.1.5.tgz 677ms (cache miss)
+338 http fetch GET 200 https://registry.npmjs.org/jwa/-/jwa-2.0.1.tgz 699ms (cache miss)
+339 http fetch GET 200 https://registry.npmjs.org/is-property/-/is-property-1.0.2.tgz 701ms (cache miss)
+340 http fetch GET 200 https://registry.npmjs.org/is-promise/-/is-promise-4.0.0.tgz 711ms (cache miss)
+341 http fetch GET 200 https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz 729ms (cache miss)
+342 http fetch GET 200 https://registry.npmjs.org/finalhandler/-/finalhandler-2.1.1.tgz 762ms (cache miss)
+343 http fetch GET 200 https://registry.npmjs.org/http-errors/-/http-errors-2.0.1.tgz 772ms (cache miss)
+344 http fetch GET 200 https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz 776ms (cache miss)
+345 http fetch GET 200 https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz 800ms (cache miss)
+346 http fetch GET 200 https://registry.npmjs.org/fresh/-/fresh-2.0.0.tgz 783ms (cache miss)
+347 http fetch GET 200 https://registry.npmjs.org/etag/-/etag-1.8.1.tgz 794ms (cache miss)
+348 http fetch GET 200 https://registry.npmjs.org/long/-/long-5.3.2.tgz 816ms (cache miss)
+349 http fetch GET 200 https://registry.npmjs.org/generate-function/-/generate-function-2.3.1.tgz 812ms (cache miss)
+350 http fetch GET 200 https://registry.npmjs.org/escape-html/-/escape-html-1.0.3.tgz 817ms (cache miss)
+351 http fetch GET 200 https://registry.npmjs.org/encodeurl/-/encodeurl-2.0.0.tgz 825ms (cache miss)
+352 http fetch GET 200 https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz 830ms (cache miss)
+353 http fetch GET 200 https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.9.1.tgz 840ms (cache miss)
+354 http fetch GET 200 https://registry.npmjs.org/cookie-parser/-/cookie-parser-1.4.7.tgz 857ms (cache miss)
+355 http fetch GET 200 https://registry.npmjs.org/content-disposition/-/content-disposition-1.1.0.tgz 862ms (cache miss)
+356 http fetch GET 200 https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz 865ms (cache miss)
+357 http fetch GET 200 https://registry.npmjs.org/content-type/-/content-type-1.0.5.tgz 876ms (cache miss)
+358 http fetch GET 200 https://registry.npmjs.org/jws/-/jws-4.0.1.tgz 887ms (cache miss)
+359 http fetch GET 200 https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz 877ms (cache miss)
+360 http fetch GET 200 https://registry.npmjs.org/multer/-/multer-2.4.0.tgz 895ms (cache miss)
+361 http fetch GET 200 https://registry.npmjs.org/cookie/-/cookie-0.7.2.tgz 883ms (cache miss)
+362 http fetch GET 200 https://registry.npmjs.org/bytes/-/bytes-3.1.2.tgz 883ms (cache miss)
+363 http fetch GET 200 https://registry.npmjs.org/helmet/-/helmet-8.3.0.tgz 897ms (cache miss)
+364 http fetch GET 200 https://registry.npmjs.org/cors/-/cors-2.8.6.tgz 897ms (cache miss)
+365 http fetch GET 200 https://registry.npmjs.org/append-field/-/append-field-1.0.0.tgz 905ms (cache miss)
+366 http fetch GET 200 https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz 915ms (cache miss)
+367 http fetch GET 200 https://registry.npmjs.org/depd/-/depd-2.0.0.tgz 918ms (cache miss)
+368 http fetch GET 200 https://registry.npmjs.org/accepts/-/accepts-2.0.0.tgz 924ms (cache miss)
+369 http fetch GET 200 https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz 924ms (cache miss)
+370 http fetch GET 200 https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz 930ms (cache miss)
+371 http fetch GET 200 https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz 936ms (cache miss)
+372 http fetch GET 200 https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz 936ms (cache miss)
+373 http fetch GET 200 https://registry.npmjs.org/type-is/-/type-is-1.6.18.tgz 937ms (cache miss)
+374 http fetch GET 200 https://registry.npmjs.org/call-bound/-/call-bound-1.0.4.tgz 949ms (cache miss)
+375 http fetch GET 200 https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.3.tgz 968ms (cache miss)
+376 http fetch GET 200 https://registry.npmjs.org/express-rate-limit/-/express-rate-limit-8.7.1.tgz 966ms (cache miss)
+377 http fetch GET 200 https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.2.2.tgz 956ms (cache miss)
+378 http fetch GET 200 https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz 961ms (cache miss)
+379 http fetch GET 200 https://registry.npmjs.org/forwarded/-/forwarded-0.2.0.tgz 963ms (cache miss)
+380 http fetch GET 200 https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz 968ms (cache miss)
+381 http fetch GET 200 https://registry.npmjs.org/qs/-/qs-6.16.0.tgz 993ms (cache miss)
+382 http fetch GET 200 https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz 971ms (cache miss)
+383 http fetch GET 200 https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz 972ms (cache miss)
+384 http fetch GET 200 https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz 972ms (cache miss)
+385 http fetch GET 200 https://registry.npmjs.org/mime-types/-/mime-types-3.0.2.tgz 975ms (cache miss)
+386 http fetch GET 200 https://registry.npmjs.org/express/-/express-5.2.1.tgz 989ms (cache miss)
+387 http fetch GET 200 https://registry.npmjs.org/bcryptjs/-/bcryptjs-3.0.3.tgz 985ms (cache miss)
+388 http fetch GET 200 https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz 987ms (cache miss)
+389 http fetch GET 200 https://registry.npmjs.org/mime-db/-/mime-db-1.54.0.tgz 989ms (cache miss)
+390 http fetch GET 200 https://registry.npmjs.org/body-parser/-/body-parser-2.3.0.tgz 1000ms (cache miss)
+391 http fetch GET 200 https://registry.npmjs.org/undici-types/-/undici-types-8.9.0.tgz 1033ms (cache miss)
+392 http fetch GET 200 https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.12.tgz 1008ms (cache miss)
+393 http fetch GET 200 https://registry.npmjs.org/aws-ssl-profiles/-/aws-ssl-profiles-1.1.2.tgz 1017ms (cache miss)
+394 http fetch GET 200 https://registry.npmjs.org/object-inspect/-/object-inspect-1.13.4.tgz 1039ms (cache miss)
+395 http fetch GET 200 https://registry.npmjs.org/busboy/-/busboy-1.6.0.tgz 1029ms (cache miss)
+396 http fetch GET 200 https://registry.npmjs.org/ip-address/-/ip-address-10.7.3.tgz 1051ms (cache miss)
+397 http fetch GET 200 https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.7.3.tgz 1057ms (cache miss)
+398 http fetch GET 200 https://registry.npmjs.org/semver/-/semver-7.8.5.tgz 1072ms (cache miss)
+399 http fetch GET 200 https://registry.npmjs.org/@types/node/-/node-26.6.3.tgz 1163ms (cache miss)
+400 http fetch GET 200 https://registry.npmjs.org/mysql2/-/mysql2-3.24.4.tgz 1221ms (cache miss)
+401 silly CHANGE node_modules/@types/node
+402 silly CHANGE node_modules/wrappy
+403 silly CHANGE node_modules/vary
+404 silly CHANGE node_modules/unpipe
+405 silly CHANGE node_modules/undici-types
+406 silly CHANGE node_modules/type-is
+407 silly CHANGE node_modules/type-is/node_modules/mime-db
+408 silly CHANGE node_modules/type-is/node_modules/mime-types
+409 silly CHANGE node_modules/type-is/node_modules/content-type
+410 silly CHANGE node_modules/toidentifier
+411 silly CHANGE node_modules/streamsearch
+412 silly CHANGE node_modules/statuses
+413 silly CHANGE node_modules/sql-escaper
+414 silly CHANGE node_modules/source-map-js
+415 silly CHANGE node_modules/side-channel-weakmap
+416 silly CHANGE node_modules/side-channel-map
+417 silly CHANGE node_modules/side-channel-list
+418 silly CHANGE node_modules/side-channel
+419 silly CHANGE node_modules/setprototypeof
+420 silly CHANGE node_modules/serve-static
+421 silly CHANGE node_modules/send
+422 silly CHANGE node_modules/send/node_modules/mime-types
+423 silly CHANGE node_modules/send/node_modules/mime-db
+424 silly CHANGE node_modules/safer-buffer
+425 silly CHANGE node_modules/safe-buffer
+426 silly CHANGE node_modules/router
+427 silly CHANGE node_modules/raw-body
+428 silly CHANGE node_modules/range-parser
+429 silly CHANGE node_modules/qs
+430 silly CHANGE node_modules/proxy-addr
+431 silly CHANGE node_modules/path-to-regexp
+432 silly CHANGE node_modules/parseurl
+433 silly CHANGE node_modules/object-inspect
+434 silly CHANGE node_modules/once
+435 silly CHANGE node_modules/on-finished
+436 silly CHANGE node_modules/object-assign
+437 silly CHANGE node_modules/named-placeholders
+438 silly CHANGE node_modules/negotiator
+439 silly CHANGE node_modules/negotiator/node_modules/content-type
+440 silly CHANGE node_modules/mysql2
+441 silly CHANGE node_modules/multer
+442 silly CHANGE node_modules/multer/node_modules/media-typer
+443 silly CHANGE node_modules/multer/node_modules/type-is
+444 silly CHANGE node_modules/merge-descriptors
+445 silly CHANGE node_modules/media-typer
+446 silly CHANGE node_modules/long
+447 silly CHANGE node_modules/lru.min
+448 silly CHANGE node_modules/lodash.once
+449 silly CHANGE node_modules/lodash.isplainobject
+450 silly CHANGE node_modules/lodash.isstring
+451 silly CHANGE node_modules/lodash.isinteger
+452 silly CHANGE node_modules/lodash.isnumber
+453 silly CHANGE node_modules/lodash.isboolean
+454 silly CHANGE node_modules/lodash.includes
+455 silly CHANGE node_modules/jws
+456 silly CHANGE node_modules/jwa
+457 silly CHANGE node_modules/jsonwebtoken
+458 silly CHANGE node_modules/jsonwebtoken/node_modules/semver
+459 silly CHANGE node_modules/is-property
+460 silly CHANGE node_modules/is-promise
+461 silly CHANGE node_modules/ipaddr.js
+462 silly CHANGE node_modules/ip-address
+463 silly CHANGE node_modules/inherits
+464 silly CHANGE node_modules/iconv-lite
+465 silly CHANGE node_modules/http-errors
+466 silly CHANGE node_modules/helmet
+467 silly CHANGE node_modules/generate-function
+468 silly CHANGE node_modules/fresh
+469 silly CHANGE node_modules/forwarded
+470 silly CHANGE node_modules/finalhandler
+471 silly CHANGE node_modules/etag
+472 silly CHANGE node_modules/express-rate-limit
+473 silly CHANGE node_modules/express
+474 silly CHANGE node_modules/express/node_modules/cookie-signature
+475 silly CHANGE node_modules/express/node_modules/mime-types
+476 silly CHANGE node_modules/express/node_modules/mime-db
+477 silly CHANGE node_modules/escape-html
+478 silly CHANGE node_modules/encodeurl
+479 silly CHANGE node_modules/ecdsa-sig-formatter
+480 silly CHANGE node_modules/ee-first
+481 silly CHANGE node_modules/depd
+482 silly CHANGE node_modules/cors
+483 silly CHANGE node_modules/cookie-signature
+484 silly CHANGE node_modules/cookie-parser
+485 silly CHANGE node_modules/cookie
+486 silly CHANGE node_modules/content-type
+487 silly CHANGE node_modules/content-disposition
+488 silly CHANGE node_modules/call-bound
+489 silly CHANGE node_modules/bytes
+490 silly CHANGE node_modules/buffer-equal-constant-time
+491 silly CHANGE node_modules/busboy
+492 silly CHANGE node_modules/brace-expansion
+493 silly CHANGE node_modules/body-parser
+494 silly CHANGE node_modules/body-parser/node_modules/content-type
+495 silly CHANGE node_modules/bcryptjs
+496 silly CHANGE node_modules/aws-ssl-profiles
+497 silly CHANGE node_modules/append-field
+498 silly CHANGE node_modules/accepts
+499 silly CHANGE node_modules/accepts/node_modules/mime-db
+500 silly CHANGE node_modules/accepts/node_modules/mime-types
+501 verbose cwd D:\DOAN\internconnect\internconnect
+502 verbose os Windows_NT 10.0.26300
+503 verbose node v24.14.1
+504 verbose npm  v11.11.0
+505 verbose exit 0
+506 info ok

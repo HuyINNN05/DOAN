@@ -1,0 +1,14 @@
+﻿import { useCallback, useState } from 'react'
+import { Bell, CheckCheck, CalendarDays } from 'lucide-react'
+import { PublicLayout, PageHero, ResourceState, EmptyState } from '../components/ui/PageUI'
+import useApiResource from '../hooks/useApiResource'
+import { listNotifications, readAllNotifications, readNotification } from '../api/notificationApi'
+import { formatDate } from '../utils/display'
+export default function NotificationsPage() {
+  const loader = useCallback(() => listNotifications(), []), r = useApiResource(loader, [])
+  const [filter,setFilter] = useState('all'), [notice,setNotice] = useState(''), [busy,setBusy] = useState(false)
+  const unread = r.data.filter(x => !x.is_read), visible = filter === 'unread' ? unread : r.data
+  async function read(id) { try { await readNotification(id); r.setData(current => current.map(x => x.id === id ? {...x,is_read:true} : x)) } catch (e) { setNotice(e.response?.data?.error?.message || 'Không thể cập nhật thông báo.') } }
+  async function all() { setBusy(true); try { await readAllNotifications(); r.setData(current => current.map(x => ({...x,is_read:true}))); setNotice('Đã đánh dấu tất cả thông báo là đã đọc.') } catch { setNotice('Không thể cập nhật. Vui lòng thử lại.') } finally { setBusy(false) } }
+  return <PublicLayout><PageHero eyebrow="CẬP NHẬT DÀNH CHO BẠN" title="Thông báo" description="Theo dõi phản hồi về hồ sơ và cập nhật trong kỳ thực tập." /><div className="site-container section-space notification-content"><div className="section-heading"><div className="filter-tabs mt-0"><button className={filter === 'all' ? 'selected' : ''} aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>Tất cả ({r.data.length})</button><button className={filter === 'unread' ? 'selected' : ''} aria-pressed={filter === 'unread'} onClick={() => setFilter('unread')}>Chưa đọc ({unread.length})</button></div>{unread.length > 0 && <button className="button button-secondary" disabled={busy} onClick={all}><CheckCheck size={17} />Đọc tất cả</button>}</div>{notice && <p className="notice mb-5" role="status">{notice}</p>}<ResourceState resource={r} emptyTitle="Bạn chưa có thông báo" emptyDescription="Phản hồi về hồ sơ và cập nhật từ nhà trường sẽ được hiển thị tại đây.">{visible.length ? <div className="notification-list">{visible.map(x => <article className={`notification-card ${x.is_read ? '' : 'unread'}`} key={x.id}><span className="icon-tile"><Bell size={20} /></span><div><h2>{x.title}</h2><p>{x.message}</p><span className="article-meta"><CalendarDays size={14} />{formatDate(x.created_at)} · {x.is_read ? 'Đã đọc' : 'Chưa đọc'}</span></div>{!x.is_read && <button className="icon-button" aria-label={`Đánh dấu đã đọc: ${x.title}`} onClick={() => read(x.id)}><CheckCheck size={19} /></button>}</article>)}</div> : <EmptyState title="Bạn đã đọc tất cả thông báo" description="Không có thông báo chưa đọc." />}</ResourceState></div></PublicLayout>
+}

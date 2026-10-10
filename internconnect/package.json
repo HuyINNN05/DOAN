@@ -5,6 +5,8 @@
     "dev": "npm --prefix .\\internconnect run dev",
     "build": "npm --prefix .\\internconnect run build",
     "lint": "npm --prefix .\\internconnect run lint",
+    "server": "npm --prefix .\\internconnect run server",
+    "test": "npm --prefix .\\internconnect run test",
     "preview": "npm --prefix .\\internconnect run preview"
   }
 }

@@ -1,0 +1,6 @@
+import{db}from'../config/database.js';import{AppError}from'../utils/AppError.js';
+export async function publicArticles(){const[rows]=await db.execute(`SELECT id,title,slug,body,published_at FROM articles WHERE status='published' ORDER BY published_at DESC`);return rows}
+export async function list(){const[rows]=await db.execute('SELECT * FROM articles ORDER BY created_at DESC');return rows}
+export async function create(userId,input){const[result]=await db.execute(`INSERT INTO articles(title,slug,body,status,created_by,published_at) VALUES(?,?,?,?,?,?)`,[input.title,input.slug,input.body,input.status,userId,input.status==='published'?new Date():null]);return{id:result.insertId}}
+export async function update(id,input){const[result]=await db.execute(`UPDATE articles SET title=?,slug=?,body=?,status=?,published_at=CASE WHEN ?='published' THEN COALESCE(published_at,NOW()) ELSE published_at END WHERE id=?`,[input.title,input.slug,input.body,input.status,input.status,id]);if(!result.affectedRows)throw new AppError(404,'ARTICLE_NOT_FOUND','Không tìm thấy bài viết');return{id:Number(id)}}
+export async function archive(id){const[result]=await db.execute(`UPDATE articles SET status='archived' WHERE id=?`,[id]);if(!result.affectedRows)throw new AppError(404,'ARTICLE_NOT_FOUND','Không tìm thấy bài viết')}

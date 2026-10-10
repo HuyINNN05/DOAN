@@ -1,13 +1,10 @@
-import { Bell, BriefcaseBusiness, Building2, ChartNoAxesCombined, ClipboardCheck, FileText, GraduationCap, LayoutDashboard, MessageSquareText, UserRound, UsersRound } from 'lucide-react'
+﻿import { Bell, BriefcaseBusiness, Building2, ChartNoAxesCombined, ClipboardCheck, FileText, GraduationCap, LayoutDashboard, MessageSquareText, UserRound, UsersRound, Settings } from 'lucide-react'
 import { Link, useLocation } from 'react-router'
-
-const icons = { dashboard: LayoutDashboard, profile: UserRound, opportunities: BriefcaseBusiness, applications: ClipboardCheck, interviews: MessageSquareText, internship: GraduationCap, diary: FileText, reports: ChartNoAxesCombined, jobs: BriefcaseBusiness, companies: Building2, students: UsersRound, assignments: UsersRound, content: FileText, notifications: Bell, users: UsersRound, 'internship-periods': ClipboardCheck, evaluations: ClipboardCheck, interns: GraduationCap }
-
-function Sidebar({ role, links, onNavigate }) {
-  const location = useLocation()
-  const users = { student: ['MA', 'Nguyễn Minh Anh', 'Sinh viên'], company: ['FP', 'FPT Software', 'Doanh nghiệp'], lecturer: ['LK', 'TS. Nguyễn Văn An', 'Giảng viên'], admin: ['NT', 'Nguyễn Thị Hương', 'Quản trị viên'] }
-  const [initials, name, label] = users[role]
-  return <aside className="dashboard-sidebar"><Link to="/" className="dashboard-brand"><span className="dashboard-brand-mark">◆</span><span>INTERNCONNECT</span></Link><nav className="dashboard-nav">{links.map(([href, text]) => { const slug = href.split('/').pop(); const Icon = icons[slug] || LayoutDashboard; return <Link onClick={onNavigate} className={`dashboard-nav-link ${location.pathname === href ? 'active' : ''}`} to={href} key={href}><Icon size={16} /><span>{text}</span></Link> })}</nav><div className="dashboard-sidebar-footer"><div className="dashboard-avatar">{initials}</div><div><b>{name}</b><small>{label}</small></div></div></aside>
+import { getSession } from '../../services/sessionService'
+import { roleLabels, initials } from '../../utils/display'
+const icons = { dashboard: LayoutDashboard, profile: UserRound, opportunities: BriefcaseBusiness, applications: ClipboardCheck, interviews: MessageSquareText, internship: GraduationCap, diary: FileText, reports: ChartNoAxesCombined, jobs: BriefcaseBusiness, companies: Building2, students: UsersRound, assignments: UsersRound, content: FileText, notifications: Bell, users: UsersRound, 'internship-periods': ClipboardCheck, evaluations: ClipboardCheck, interns: GraduationCap, audit: FileText, create: BriefcaseBusiness }
+export default function Sidebar({ role, links, onNavigate }) {
+  const location = useLocation(), session = getSession()
+  const name = session?.name || session?.full_name || 'Tài khoản'
+  return <aside className="dashboard-sidebar"><Link to="/" className="dashboard-brand"><span className="dashboard-brand-mark"><GraduationCap size={20} /></span>InternConnect</Link><p className="eyebrow px-3 mb-3">{roleLabels[role]}</p><nav className="dashboard-nav" aria-label="Chức năng nghiệp vụ">{links.map(([href, text]) => { const Icon = icons[href.split('/').pop()] || LayoutDashboard; return <Link aria-current={location.pathname === href ? 'page' : undefined} onClick={onNavigate} className={`dashboard-nav-link ${location.pathname === href ? 'active' : ''}`} to={href} key={href}><Icon size={18} /><span>{text === 'Dashboard' ? 'Tổng quan' : text}</span></Link> })}<Link className="dashboard-nav-link" to="/account" onClick={onNavigate}><Settings size={18} />Tài khoản & đăng xuất</Link></nav><Link to="/account" className="dashboard-sidebar-footer"><span className="dashboard-avatar">{initials(name)}</span><div className="min-w-0"><b className="truncate">{name}</b><small>{roleLabels[role]}</small></div></Link></aside>
 }
-
-export default Sidebar

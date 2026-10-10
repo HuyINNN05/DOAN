@@ -1,11 +1,13 @@
-import { Bell, Check } from 'lucide-react'
-import { useState } from 'react'
-import { getNotifications, markNotificationRead } from '../../services/notificationService'
-
-function NotificationPanel() {
-  const [open, setOpen] = useState(false); const [items, setItems] = useState(getNotifications()); const unread = items.filter((item) => !item.read).length
-  function read(id) { markNotificationRead(id); setItems(getNotifications()) }
-  return <div className="relative"><button className="dashboard-notification-button" type="button" aria-label="Thông báo" onClick={() => setOpen((value) => !value)}><Bell size={18} />{unread > 0 && <i>{unread}</i>}</button>{open && <div className="dashboard-notification-panel"><div className="flex items-center justify-between border-b border-[#e8eef6] pb-3"><b>Thông báo</b><span>{unread} chưa đọc</span></div>{items.length ? items.map((item) => <button className={`dashboard-notification-item ${item.read ? '' : 'unread'}`} type="button" key={item.id} onClick={() => read(item.id)}><span><b>{item.title}</b><small>{item.message}</small></span>{item.read ? <Check size={14} /> : <i />}</button>) : <p className="py-5 text-center text-xs text-[#7890ad]">Chưa có thông báo.</p>}</div>}</div>
+﻿import { Bell, Check, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router'
+import { listNotifications, readNotification } from '../../api/notificationApi'
+export default function NotificationPanel() {
+  const [open,setOpen] = useState(false), [items,setItems] = useState([]), [error,setError] = useState('')
+  const container = useRef(null), button = useRef(null)
+  const unread = items.filter(x => !x.is_read).length
+  useEffect(() => { let active = true; listNotifications().then(data => { if (active) setItems(data) }).catch(() => { if (active) setError('Không thể tải thông báo.') }); return () => { active = false } }, [])
+  useEffect(() => { if (!open) return; function outside(e) { if (!container.current?.contains(e.target)) setOpen(false) } function escape(e) { if (e.key === 'Escape') { setOpen(false); button.current?.focus() } } document.addEventListener('mousedown',outside); document.addEventListener('keydown',escape); return () => { document.removeEventListener('mousedown',outside); document.removeEventListener('keydown',escape) } }, [open])
+  async function read(id) { try { await readNotification(id); setItems(current => current.map(x => x.id === id ? {...x,is_read:true} : x)); setError('') } catch { setError('Không thể đánh dấu đã đọc. Vui lòng thử lại.') } }
+  return <div className="relative" ref={container}><button className="dashboard-notification-button" ref={button} aria-label={`Thông báo, ${unread} chưa đọc`} aria-expanded={open} aria-controls="notification-preview" onClick={() => setOpen(!open)}><Bell size={19}/>{unread > 0 && <i>{unread}</i>}</button>{open && <section className="dashboard-notification-panel" id="notification-preview" aria-label="Thông báo gần đây"><div className="flex items-center justify-between border-b border-line pb-3"><div><b>Thông báo</b><small className="muted block mt-1">{unread} thông báo chưa đọc</small></div><button className="icon-button" aria-label="Đóng thông báo" onClick={() => setOpen(false)}><X size={18}/></button></div>{error && <p role="alert" className="mt-3">{error}</p>}{items.length ? items.slice(0,5).map(item => <button className={`dashboard-notification-item ${item.is_read ? '' : 'unread'}`} key={item.id} onClick={() => read(item.id)}><span><b>{item.title}</b><small>{item.message}</small></span>{item.is_read ? <Check size={15}/> : <span className="text-xs">●</span>}</button>) : <p className="py-6 text-center muted">Chưa có thông báo mới.</p>}<Link className="text-link mt-4" to="/notifications" onClick={() => setOpen(false)}>Xem tất cả thông báo →</Link></section>}</div>
 }
-
-export default NotificationPanel
