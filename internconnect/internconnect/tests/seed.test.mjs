@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import bcrypt from 'bcryptjs'
 
-const seed = await readFile(new URL('../database/seed.sql', import.meta.url), 'utf8')
+const seed = await readFile(new URL('../database/03_seed.sql', import.meta.url), 'utf8')
 
 const accountCases = [
   ['admin@internconnect.vn', 'Admin@123'],

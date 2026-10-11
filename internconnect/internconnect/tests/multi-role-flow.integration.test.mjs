@@ -1,3 +1,4 @@
+import { companyTables } from '../server/config/companyTables.js'
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import process from 'node:process'
@@ -27,7 +28,7 @@ test('three tabs retain their roles and school approval reaches company intervie
     const mismatch=await request('student','/auth/refresh',{}, {'X-Expected-User':String(users.company.id)})
     assert.equal(mismatch.status,401);assert.equal(mismatch.body.error.code,'SESSION_ACCOUNT_MISMATCH')
     assert.equal((await request('student','/auth/refresh',{})).status,200)
-    const [source]=await db.execute('SELECT s.id student_id,cv.id cv_id,j.id job_id FROM students s JOIN cvs cv ON cv.student_id=s.id JOIN jobs j JOIN company_accounts ca ON ca.company_id=j.company_id WHERE s.user_id=? AND ca.user_id=? LIMIT 1',[users.student.id,users.company.id])
+    const [source]=await db.execute(`SELECT s.id student_id,cv.id cv_id,j.id job_id FROM students s JOIN cvs cv ON cv.student_id=s.id JOIN ${companyTables.jobs} j JOIN ${companyTables.company_accounts} ca ON ca.company_id=j.company_id WHERE s.user_id=? AND ca.user_id=? LIMIT 1`,[users.student.id,users.company.id])
     const fixture=source[0]
     const [period]=await db.execute("INSERT INTO internship_periods(name,academic_year,semester,start_date,end_date,status,created_by) VALUES('Multi-tab workflow fixture','test','test',CURRENT_DATE,DATE_ADD(CURRENT_DATE,INTERVAL 90 DAY),'open',?)",[users.admin.id]);periodId=period.insertId
     const applied=await request('student',`/jobs/${fixture.job_id}/apply`,{cvId:fixture.cv_id,internshipPeriodId:periodId})
@@ -41,7 +42,7 @@ test('three tabs retain their roles and school approval reaches company intervie
     assert.equal((await request('company',`/company/applications/${applicationId}/review`,{})).status,200)
     const incomplete=await request('company',`/company/applications/${applicationId}/interviews`,{scheduledAt:new Date(Date.now()+86400000).toISOString(),durationMinutes:60,type:'online'})
     assert.equal(incomplete.status,422);assert.equal(incomplete.body.error.code,'INTERVIEW_LOCATION_REQUIRED')
-    const [unchanged]=await db.execute('SELECT status FROM applications WHERE id=?',[applicationId]);assert.equal(unchanged[0].status,'05')
+    const [unchanged]=await db.execute(`SELECT status FROM ${companyTables.applications} WHERE id=?`,[applicationId]);assert.equal(unchanged[0].status,'05')
     const scheduled=await request('company',`/company/applications/${applicationId}/interviews`,{scheduledAt:new Date(Date.now()+86400000).toISOString(),durationMinutes:60,type:'online',meetingUrl:'https://example.com/test-interview'})
     assert.equal(scheduled.status,201);interviewId=scheduled.body.data.id
     // Simulate the student tab reloading after the company sends the invitation.
@@ -61,9 +62,9 @@ test('three tabs retain their roles and school approval reaches company intervie
     if(applicationId){
       await db.execute("DELETE FROM notifications WHERE (entity_type='application' AND entity_id=?) OR (entity_type='interview' AND entity_id=?)",[applicationId,interviewId||0])
       await db.execute("DELETE FROM audit_logs WHERE entity_type='application' AND entity_id=?",[applicationId])
-      await db.execute('DELETE FROM interviews WHERE application_id=?',[applicationId])
-      await db.execute('DELETE FROM application_events WHERE application_id=?',[applicationId])
-      await db.execute('DELETE FROM applications WHERE id=?',[applicationId])
+      await db.execute(`DELETE FROM ${companyTables.interviews} WHERE application_id=?`,[applicationId])
+      await db.execute(`DELETE FROM ${companyTables.application_events} WHERE application_id=?`,[applicationId])
+      await db.execute(`DELETE FROM ${companyTables.applications} WHERE id=?`,[applicationId])
     }
     if(periodId)await db.execute('DELETE FROM internship_periods WHERE id=?',[periodId])
     await db.end()

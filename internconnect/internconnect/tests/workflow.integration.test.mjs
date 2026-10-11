@@ -1,3 +1,4 @@
+import { companyTables } from '../server/config/companyTables.js'
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import process from 'node:process'
@@ -13,13 +14,13 @@ test('real MySQL workflow blocks bypasses and calculates the actual final report
   try {
     const [users] = await db.query("SELECT id,role,email FROM users WHERE email IN ('admin@internconnect.vn','sv001@internconnect.vn','gv001@internconnect.vn','company1@internconnect.vn')")
     const actor = role => ({ role, sub: String(users.find(user => user.role === role).id) })
-    const [source] = await db.query("SELECT a.*,la.lecturer_id FROM applications a JOIN students s ON s.id=a.student_id JOIN lecturer_assignments la ON la.student_id=a.student_id AND la.internship_period_id=a.internship_period_id WHERE s.student_code='SV001' LIMIT 1")
+    const [source] = await db.query(`SELECT a.*,la.lecturer_id FROM ${companyTables.applications} a JOIN students s ON s.id=a.student_id JOIN lecturer_assignments la ON la.student_id=a.student_id AND la.internship_period_id=a.internship_period_id WHERE s.student_code='SV001' LIMIT 1`)
     const template = source[0]
     const [period] = await db.execute("INSERT INTO internship_periods(name,academic_year,semester,start_date,end_date,status,created_by) VALUES('Backend regression fixture','2026','test','2026-01-01','2027-12-31','open',?)",[actor('admin').sub])
     periodId = period.insertId
     const [assignment] = await db.execute('INSERT INTO lecturer_assignments(lecturer_id,student_id,internship_period_id,assigned_by) VALUES(?,?,?,?)',[template.lecturer_id,template.student_id,periodId,actor('admin').sub])
     assignmentId = assignment.insertId
-    const [application] = await db.execute("INSERT INTO applications(student_id,job_id,cv_id,internship_period_id,status) VALUES(?,?,?,?,'05')",[template.student_id,template.job_id,template.cv_id,periodId])
+    const [application] = await db.execute(`INSERT INTO ${companyTables.applications}(student_id,job_id,cv_id,internship_period_id,status) VALUES(?,?,?,?,'05')`,[template.student_id,template.job_id,template.cv_id,periodId])
     applicationId = application.insertId
     await assert.rejects(transitionApplication(applicationId,'06',actor('company')), { code: 'WORKFLOW_ACTION_REQUIRED' })
     const scheduled = await interview.schedule(actor('company').sub,applicationId,{scheduledAt:new Date(Date.now()+86400000).toISOString(),durationMinutes:60,type:'online',meetingUrl:'https://example.com/interview'})
@@ -27,16 +28,16 @@ test('real MySQL workflow blocks bypasses and calculates the actual final report
     await interview.respond(actor('student').sub,interviewId,{response:'accepted'})
     await assert.rejects(interview.result(actor('company').sub,interviewId,{result:'passed',note:'Too early'}),{code:'INTERVIEW_NOT_STARTED'})
     await interview.update(actor('company').sub,interviewId,{scheduledAt:new Date(Date.now()+172800000).toISOString(),durationMinutes:60,type:'online',meetingUrl:'https://example.com/rescheduled'})
-    const [rescheduled]=await db.execute('SELECT i.status,i.student_response,a.status application_status FROM interviews i JOIN applications a ON a.id=i.application_id WHERE i.id=?',[interviewId])
+    const [rescheduled]=await db.execute(`SELECT i.status,i.student_response,a.status application_status FROM ${companyTables.interviews} i JOIN ${companyTables.applications} a ON a.id=i.application_id WHERE i.id=?`,[interviewId])
     assert.equal(rescheduled[0].status,'scheduled')
     assert.equal(rescheduled[0].student_response,'pending')
     assert.equal(rescheduled[0].application_status,'06')
     await interview.respond(actor('student').sub,interviewId,{response:'accepted'})
-    await db.execute('UPDATE interviews SET scheduled_at=DATE_SUB(NOW(),INTERVAL 1 DAY) WHERE id=?',[interviewId])
+    await db.execute(`UPDATE ${companyTables.interviews} SET scheduled_at=DATE_SUB(NOW(),INTERVAL 1 DAY) WHERE id=?`,[interviewId])
     await interview.result(actor('company').sub,interviewId,{result:'passed',note:'Regression interview result'})
     await interview.offer(actor('company').sub,applicationId,'Regression offer')
-    const [otherJobs]=await db.execute('SELECT id FROM jobs WHERE id<>? LIMIT 1',[template.job_id])
-    const [declinedApplication]=await db.execute("INSERT INTO applications(student_id,job_id,cv_id,internship_period_id,status) VALUES(?,?,?,?,'10')",[template.student_id,otherJobs[0].id,template.cv_id,periodId]);declinedApplicationId=declinedApplication.insertId
+    const [otherJobs]=await db.execute(`SELECT id FROM ${companyTables.jobs} WHERE id<>? LIMIT 1`,[template.job_id])
+    const [declinedApplication]=await db.execute(`INSERT INTO ${companyTables.applications}(student_id,job_id,cv_id,internship_period_id,status) VALUES(?,?,?,?,'10')`,[template.student_id,otherJobs[0].id,template.cv_id,periodId]);declinedApplicationId=declinedApplication.insertId
     await interview.offerResponse(actor('student').sub,declinedApplicationId,{accepted:false,note:'Declined regression offer'})
     assert.equal((await student.applications(actor('student').sub)).find(item=>item.id===declinedApplicationId).offer_decision,'declined')
     await assert.rejects(interview.offerResponse(actor('student').sub,declinedApplicationId,{accepted:true}),{code:'OFFER_ALREADY_RESPONDED'})
@@ -69,11 +70,11 @@ test('real MySQL workflow blocks bypasses and calculates the actual final report
       for (const [type,id] of [['application',applicationId],['interview',interviewId],['report',reportId],['assignment',assignmentId]]) if (id) await db.execute('DELETE FROM notifications WHERE entity_type=? AND entity_id=?',[type,id])
       await db.execute("DELETE FROM audit_logs WHERE entity_type='application' AND entity_id=?",[applicationId])
       await db.execute('DELETE FROM internship_records WHERE application_id=?',[applicationId])
-      await db.execute('DELETE FROM interviews WHERE application_id=?',[applicationId])
-      await db.execute('DELETE FROM application_events WHERE application_id=?',[applicationId])
-      await db.execute('DELETE FROM applications WHERE id=?',[applicationId])
+      await db.execute(`DELETE FROM ${companyTables.interviews} WHERE application_id=?`,[applicationId])
+      await db.execute(`DELETE FROM ${companyTables.application_events} WHERE application_id=?`,[applicationId])
+      await db.execute(`DELETE FROM ${companyTables.applications} WHERE id=?`,[applicationId])
     }
-    if(declinedApplicationId){await db.execute('DELETE FROM application_events WHERE application_id=?',[declinedApplicationId]);await db.execute('DELETE FROM applications WHERE id=?',[declinedApplicationId])}
+    if(declinedApplicationId){await db.execute(`DELETE FROM ${companyTables.application_events} WHERE application_id=?`,[declinedApplicationId]);await db.execute(`DELETE FROM ${companyTables.applications} WHERE id=?`,[declinedApplicationId])}
     if (periodId) { await db.execute('DELETE FROM lecturer_assignments WHERE internship_period_id=?',[periodId]); await db.execute('DELETE FROM internship_periods WHERE id=?',[periodId]) }
     await db.end()
   }

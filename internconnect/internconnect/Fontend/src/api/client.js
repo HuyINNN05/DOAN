@@ -4,7 +4,7 @@ import { clearTabSession,getExpectedUserId,getTabId,readAccessToken,storeAccessT
 let accessToken = readAccessToken()
 export const setAccessToken = (token) => { accessToken = token;storeAccessToken(token) }
 
-const authActions = ['/auth/login','/auth/refresh','/auth/logout','/auth/company-register','/auth/forgot-password','/auth/reset-password']
+const authActions = ['/auth/login','/auth/refresh','/auth/logout','/auth/company-register','/auth/forgot-password','/auth/reset-password','/auth/activate-account']
 function expired(token) {
   try { const claims=JSON.parse(atob(token.split('.')[1].replaceAll('-','+').replaceAll('_','/')));return claims.exp*1000<=Date.now()+5000 } catch { return false }
 }

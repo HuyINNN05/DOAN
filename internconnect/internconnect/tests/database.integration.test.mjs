@@ -1,3 +1,4 @@
+import { companyTables } from '../server/config/companyTables.js'
 import test, { after } from 'node:test'
 import assert from 'node:assert/strict'
 import process from 'node:process'
@@ -13,11 +14,11 @@ test('SQL DATE retains its calendar day when returned to the frontend', {skip:!e
 })
 
 test('database từ chối application tham chiếu entity không tồn tại', { skip: !enabled }, async () => {
-  await assert.rejects(db.execute(`INSERT INTO applications(student_id,job_id,cv_id,internship_period_id,status) VALUES(999999999,999999999,999999999,999999999,'02')`), missingFk)
+  await assert.rejects(db.execute(`INSERT INTO ${companyTables.applications}(student_id,job_id,cv_id,internship_period_id,status) VALUES(999999999,999999999,999999999,999999999,'02')`), missingFk)
 })
 
 test('database từ chối interview có application không tồn tại', { skip: !enabled }, async () => {
-  await assert.rejects(db.execute(`INSERT INTO interviews(application_id,scheduled_at,type,status,created_by) VALUES(999999999,NOW(),'online','scheduled',999999999)`), missingFk)
+  await assert.rejects(db.execute(`INSERT INTO ${companyTables.interviews}(application_id,scheduled_at,type,status,created_by) VALUES(999999999,NOW(),'online','scheduled',999999999)`), missingFk)
 })
 
 test('database từ chối internship record có application không tồn tại', { skip: !enabled }, async () => {
@@ -36,4 +37,18 @@ test('transaction rollback toàn bộ khi bước sau lỗi', { skip: !enabled }
   }))
   const [rows] = await db.execute('SELECT id FROM users WHERE email=?', [marker])
   assert.equal(rows.length, 0)
+})
+
+test('a failed transaction rolls back school identities and company records together', { skip: !enabled }, async () => {
+  const marker = `cross-schema-${Date.now()}@example.com`
+  await assert.rejects(transaction(async connection => {
+    const [user] = await connection.execute("INSERT INTO users(email,password_hash,full_name,role,status) VALUES(?,'x','Cross-schema fixture','company','pending')", [marker])
+    const [company] = await connection.execute(`INSERT INTO ${companyTables.companies}(name,tax_code,email,status) VALUES('Cross-schema fixture',?,?,'pending')`, [marker, marker])
+    await connection.execute(`INSERT INTO ${companyTables.company_accounts}(user_id,company_id) VALUES(?,?)`, [user.insertId, company.insertId])
+    throw new Error('cross-schema rollback fixture')
+  }), /cross-schema rollback fixture/)
+  const [users] = await db.execute('SELECT id FROM users WHERE email=?', [marker])
+  const [companies] = await db.execute(`SELECT id FROM ${companyTables.companies} WHERE email=?`, [marker])
+  assert.equal(users.length, 0)
+  assert.equal(companies.length, 0)
 })

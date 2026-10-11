@@ -1,3 +1,5 @@
+import { companyTables } from '../config/companyTables.js'
+import { publicJob } from './jobReviewService.js'
 import { applicationOutcomeColumns } from '../domain/applicationOutcome.js'
 import { db, transaction } from '../config/database.js'
 import { AppError } from '../utils/AppError.js'
@@ -34,7 +36,7 @@ export async function deleteCv(userId, cvId) {
     await connection.execute('SELECT id FROM students WHERE id=? FOR UPDATE',[student.id])
     const [rows] = await connection.execute('SELECT * FROM cvs WHERE id=? AND student_id=? FOR UPDATE',[cvId,student.id])
     if (!rows[0]) throw new AppError(404,'CV_NOT_FOUND','Không tìm thấy CV')
-    const [uses] = await connection.execute('SELECT 1 FROM applications WHERE cv_id=? LIMIT 1 FOR UPDATE',[cvId])
+    const [uses] = await connection.execute(`SELECT 1 FROM ${companyTables.applications} WHERE cv_id=? LIMIT 1 FOR UPDATE`,[cvId])
     if (uses.length) throw new AppError(409,'CV_IN_USE','CV đã được dùng để ứng tuyển')
     await connection.execute('DELETE FROM cvs WHERE id=?',[cvId])
     if (rows[0].is_default) {
@@ -53,28 +55,28 @@ export async function setDefaultCv(userId, cvId) {
 export async function saveJob(userId, jobId) {
   return transaction(async connection => {
     const student = await studentFor(userId,connection)
-    const [jobs] = await connection.execute("SELECT j.id FROM jobs j JOIN companies c ON c.id=j.company_id WHERE j.id=? AND j.status='published' AND c.status='approved' AND j.deadline>=CURRENT_DATE FOR UPDATE",[jobId])
+    const [jobs] = await connection.execute(`SELECT j.id FROM ${companyTables.jobs} j JOIN ${companyTables.companies} c ON c.id=j.company_id WHERE j.id=? AND j.status='published' AND c.status='approved' AND j.deadline>=CURRENT_DATE FOR UPDATE`,[jobId])
     if (!jobs.length) throw new AppError(404,'JOB_NOT_AVAILABLE','Tin tuyển dụng không tồn tại hoặc đã ngừng nhận hồ sơ')
     await connection.execute('INSERT INTO saved_jobs(student_id,job_id) VALUES(?,?) ON DUPLICATE KEY UPDATE job_id=VALUES(job_id)',[student.id,jobId])
     return {saved:true}
   })
 }
 export async function unsaveJob(userId, jobId) { const student=await studentFor(userId); await db.execute('DELETE FROM saved_jobs WHERE student_id=? AND job_id=?',[student.id,jobId]); return {saved:false} }
-export async function savedJobs(userId) { const student=await studentFor(userId); const [rows]=await db.execute(`SELECT j.*,c.name company_name FROM saved_jobs s JOIN jobs j ON j.id=s.job_id JOIN companies c ON c.id=j.company_id WHERE s.student_id=? ORDER BY s.created_at DESC`,[student.id]); return rows }
+export async function savedJobs(userId) { const student=await studentFor(userId); const [rows]=await db.execute(`SELECT j.*,c.name company_name FROM saved_jobs s JOIN ${companyTables.jobs} j ON j.id=s.job_id JOIN ${companyTables.companies} c ON c.id=j.company_id WHERE s.student_id=? ORDER BY s.created_at DESC`,[student.id]); return rows.map(publicJob) }
 export async function apply(userId, jobId, input) {
   return transaction(async(connection)=>{ const student=await studentFor(userId,connection)
     await connection.execute('SELECT id FROM students WHERE id=? FOR UPDATE',[student.id])
-    const [jobs]=await connection.execute(`SELECT j.id FROM jobs j JOIN companies c ON c.id=j.company_id WHERE j.id=? AND j.status='published' AND c.status='approved' AND j.deadline>=CURRENT_DATE FOR UPDATE`,[jobId]); if(!jobs.length) throw new AppError(409,'JOB_NOT_AVAILABLE','Tin tuyển dụng không còn nhận hồ sơ')
+    const [jobs]=await connection.execute(`SELECT j.id FROM ${companyTables.jobs} j JOIN ${companyTables.companies} c ON c.id=j.company_id WHERE j.id=? AND j.status='published' AND c.status='approved' AND j.deadline>=CURRENT_DATE FOR UPDATE`,[jobId]); if(!jobs.length) throw new AppError(409,'JOB_NOT_AVAILABLE','Tin tuyển dụng không còn nhận hồ sơ')
     const [cvs]=await connection.execute('SELECT id FROM cvs WHERE id=? AND student_id=? FOR UPDATE',[input.cvId,student.id]); if(!cvs.length) throw new AppError(403,'CV_NOT_OWNED','CV không thuộc sinh viên này')
     const [periods]=await connection.execute(`SELECT id FROM internship_periods WHERE id=? AND status='open' AND end_date>=CURRENT_DATE AND (registration_start IS NULL OR registration_start<=NOW()) AND (registration_end IS NULL OR registration_end>=NOW()) FOR UPDATE`,[input.internshipPeriodId]); if(!periods.length) throw new AppError(409,'PERIOD_NOT_OPEN','Kỳ thực tập không mở đăng ký')
-    const [existing] = await connection.execute('SELECT id FROM applications WHERE student_id=? AND job_id=? AND internship_period_id=? FOR UPDATE',[student.id,jobId,input.internshipPeriodId])
+    const [existing] = await connection.execute(`SELECT id FROM ${companyTables.applications} WHERE student_id=? AND job_id=? AND internship_period_id=? FOR UPDATE`,[student.id,jobId,input.internshipPeriodId])
     if (existing.length) throw new AppError(409,'APPLICATION_ALREADY_EXISTS','Bạn đã ứng tuyển vị trí này trong kỳ thực tập đã chọn. Hãy xem hồ sơ tại mục Ứng tuyển',{applicationId:existing[0].id})
     const [confirmed] = await connection.execute("SELECT id FROM internship_records WHERE student_id=? AND internship_period_id=? AND status<>'cancelled' LIMIT 1 FOR UPDATE",[student.id,input.internshipPeriodId])
     if (confirmed.length) throw new AppError(409,'INTERNSHIP_ALREADY_CONFIRMED','Bạn đã có nơi thực tập được xác nhận trong kỳ này')
-    const [result]=await connection.execute('INSERT INTO applications(student_id,job_id,cv_id,internship_period_id,status,cover_letter) VALUES(?,?,?,?,\'02\',?)',[student.id,jobId,input.cvId,input.internshipPeriodId,input.coverLetter||null])
-    await connection.execute(`INSERT INTO application_events(application_id,from_status,to_status,actor_user_id,actor_role,action) VALUES(?,'01','02',?,'student','APPLY')`,[result.insertId,userId])
+    const [result]=await connection.execute(`INSERT INTO ${companyTables.applications}(student_id,job_id,cv_id,internship_period_id,status,cover_letter) VALUES(?,?,?,?,'02',?)`,[student.id,jobId,input.cvId,input.internshipPeriodId,input.coverLetter||null])
+    await connection.execute(`INSERT INTO ${companyTables.application_events}(application_id,from_status,to_status,actor_user_id,actor_role,action) VALUES(?,'01','02',?,'student','APPLY')`,[result.insertId,userId])
     return {id:result.insertId,status:'02'}
   })
 }
-export async function applications(userId) { const student=await studentFor(userId); const [rows]=await db.execute(`SELECT a.*,${applicationOutcomeColumns},j.title,c.name company_name FROM applications a JOIN jobs j ON j.id=a.job_id JOIN companies c ON c.id=j.company_id WHERE a.student_id=? ORDER BY a.applied_at DESC`,[student.id]); return rows }
+export async function applications(userId) { const student=await studentFor(userId); const [rows]=await db.execute(`SELECT a.*,${applicationOutcomeColumns},j.title,c.name company_name FROM ${companyTables.applications} a JOIN ${companyTables.jobs} j ON j.id=a.job_id JOIN ${companyTables.companies} c ON c.id=j.company_id WHERE a.student_id=? ORDER BY a.applied_at DESC`,[student.id]); return rows }
 export async function openPeriods(){const[rows]=await db.execute(`SELECT id,name,academic_year,semester,registration_end FROM internship_periods WHERE status='open' AND end_date>=CURRENT_DATE AND (registration_start IS NULL OR registration_start<=NOW()) AND (registration_end IS NULL OR registration_end>=NOW()) ORDER BY start_date DESC`);return rows}

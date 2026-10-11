@@ -19,16 +19,15 @@
 
 Kết quả cuối: lint và build thành công; **45/45 kiểm thử đạt**, gồm MySQL và HTTP integration, không có test bị bỏ qua. Backend đã khởi động lại ở cổng 3001; `/api/health` trả `ok`.
 
-Migration bổ sung cột `report_reviews.score` đã áp dụng vào database hiện tại, không import lại seed và không xóa dữ liệu. Database khác chạy:
+Tại thời điểm sửa lỗi, migration bổ sung cột `report_reviews.score` đã áp dụng vào database hiện tại. Bộ database hiện nay gồm `01_school.sql`, `02_company.sql` và `03_seed.sql`, bao gồm cột điểm và quy trình duyệt tin. Hai database trên cùng MySQL server có khóa ngoại liên kết và cùng transaction. Import mới theo [hướng dẫn database](DATABASE.md), sau đó kiểm tra:
 
 ```powershell
-npm.cmd run db:migrate
 $env:RUN_DB_TESTS='1'
 $env:RUN_API_TESTS='1'
 npm.cmd test
 ```
 
-Runner migration kiểm tra cột trước khi chạy, có thể gọi lại. Kiểm thử mới gồm thu hồi access token, tiêu chí/điểm, ngày, upload giả định dạng, download khác chủ sở hữu và luồng MySQL từ phỏng vấn đến hoàn thành với điểm báo cáo 4, tổng điểm 8.20. Fixture luồng thực tập được xóa trong `finally`.
+Kiểm thử mới gồm thu hồi access token, tiêu chí/điểm, ngày, upload giả định dạng, download khác chủ sở hữu và luồng MySQL từ phỏng vấn đến hoàn thành với điểm báo cáo 4, tổng điểm 8.20. Fixture luồng thực tập được xóa trong `finally`.
 
 ## Phần còn phụ thuộc cấu hình hoặc phạm vi sản phẩm
 

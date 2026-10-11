@@ -8,7 +8,7 @@ nhất. Backend chịu trách nhiệm JWT, RBAC, ownership và workflow 01–15.
 
 - React 19, Vite, Tailwind CSS.
 - Node.js, Express, Zod, Multer.
-- MySQL 8, schema hợp nhất tại `database/schema.sql`.
+- MySQL 8, hai database `internconnect_school` và `internconnect_company` trên cùng MySQL server, liên kết bằng khóa ngoại thật.
 - JWT access token và refresh token xoay vòng trong HttpOnly cookie.
 - Backend tách `config`, `controllers`, `services`, `repositories`, `routes`,
   `middleware`; transaction bao quanh các thao tác nghiệp vụ nhiều bước.
@@ -20,9 +20,16 @@ Yêu cầu Node.js 22+, npm và MySQL 8.
 ```bash
 npm install
 copy .env.example .env
-mysql -u root -p < database/schema.sql
-mysql -u root -p < database/seed.sql
+mysql -u root -p < database/01_school.sql
+mysql -u root -p < database/02_company.sql
+mysql -u root -p < database/03_seed.sql
 ```
+
+Import ba file theo đúng thứ tự trên vào hai database mới hoặc trống. Hướng dẫn
+MySQL Workbench và tài khoản mẫu nằm tại [docs/DATABASE.md](docs/DATABASE.md).
+Trong `.env`, đặt `DB_SCHOOL_NAME=internconnect_school` và
+`DB_COMPANY_NAME=internconnect_company`. Tài khoản MySQL của backend cần quyền
+đọc/ghi trên cả hai database. Kết nối dùng cùng server để transaction bao phủ hai bên.
 
 Sửa `.env` theo MySQL trên máy. Hai JWT secret phải khác nhau và có ít nhất 32
 ký tự. Không commit `.env`.
@@ -51,8 +58,10 @@ npm test
 ```text
 Fontend/src/          React app (giữ tên cũ để tránh phá lịch sử)
 server/               Express REST API
-database/schema.sql   Unified schema, FK, constraint và index
-database/seed.sql     Development seed
+database/01_school.sql   Cấu trúc database nhà trường
+database/02_company.sql  Cấu trúc database doanh nghiệp và khóa ngoại liên kết
+database/03_seed.sql     Dữ liệu mẫu cho cả hai database
+docs/DATABASE.md        Hướng dẫn import và tài khoản mẫu
 tests/                Workflow, security, schema, DB integration
 uploads/              Runtime files, không commit
 ```
@@ -67,6 +76,14 @@ uploads/              Runtime files, không commit
 | Doanh nghiệp | `company1@internconnect.vn` | `Company@123` |
 
 ## Role và workflow
+
+### Duyệt tin tuyển dụng
+
+- Doanh nghiệp tạo tin ở **Bản nháp**, chọn **Gửi duyệt** tại `/company/jobs`.
+- Nhà trường mở **Duyệt tin tuyển dụng** tại `/admin/jobs`, chọn duyệt, từ chối hoặc yêu cầu chỉnh sửa. Từ chối và yêu cầu chỉnh sửa bắt buộc nhập lý do/nhận xét.
+- Tin chỉ hiển thị cho sinh viên sau khi nhà trường duyệt. Doanh nghiệp sửa tin đã đăng sẽ tự gửi bản sửa chờ duyệt lại; bản đã duyệt tiếp tục hiển thị đến khi bản sửa được duyệt.
+- Tin đang chờ duyệt không thể chỉnh sửa. Doanh nghiệp nhận thông báo kết quả và xem nhận xét trong danh sách tin.
+- Bộ ba file SQL đã có đầy đủ trường xét duyệt và điểm báo cáo; không cần chạy migration bổ sung.
 
 - Student: profile/CV, job, application, interview, offer, diary, report.
 - Company: profile, job, candidate, interview, offer, intern evaluation.
@@ -104,3 +121,7 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Cấp tài khoản sinh viên / giảng viên
+
+Admin tạo từng người hoặc nhập CSV UTF-8 tại `/admin/users`, người dùng tự đặt mật khẩu qua email. Database đang dùng chạy `npm.cmd run db:migrate`. Xem [hướng dẫn cấp tài khoản và SMTP](docs/ACCOUNT_PROVISIONING.md).

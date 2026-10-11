@@ -1,3 +1,4 @@
+import { companyTables } from '../config/companyTables.js'
 import { Router } from 'express'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -17,8 +18,8 @@ router.get('/:kind/:id/download', async (req, res, next) => {
     if (kind === 'cvs') {
       ;[rows] = await db.execute(`SELECT cv.file_path,cv.file_name,cv.mime_type FROM cvs cv JOIN students s ON s.id=cv.student_id
         WHERE cv.id=? AND (?='admin' OR s.user_id=? OR
-        (?='company' AND EXISTS(SELECT 1 FROM applications a JOIN jobs j ON j.id=a.job_id JOIN company_accounts ca ON ca.company_id=j.company_id WHERE a.cv_id=cv.id AND ca.user_id=?)) OR
-        (?='lecturer' AND EXISTS(SELECT 1 FROM applications a JOIN lecturer_assignments la ON la.student_id=a.student_id AND la.internship_period_id=a.internship_period_id JOIN lecturers l ON l.id=la.lecturer_id WHERE a.cv_id=cv.id AND l.user_id=?)))`,
+        (?='company' AND EXISTS(SELECT 1 FROM ${companyTables.applications} a JOIN ${companyTables.jobs} j ON j.id=a.job_id JOIN ${companyTables.company_accounts} ca ON ca.company_id=j.company_id WHERE a.cv_id=cv.id AND ca.user_id=?)) OR
+        (?='lecturer' AND EXISTS(SELECT 1 FROM ${companyTables.applications} a JOIN lecturer_assignments la ON la.student_id=a.student_id AND la.internship_period_id=a.internship_period_id JOIN lecturers l ON l.id=la.lecturer_id WHERE a.cv_id=cv.id AND l.user_id=?)))`,
       [id,actor.role,actor.sub,actor.role,actor.sub,actor.role,actor.sub])
     } else if (kind === 'reports') {
       ;[rows] = await db.execute(`SELECT r.file_path,r.file_name,r.mime_type FROM reports r JOIN internship_records ir ON ir.id=r.internship_record_id JOIN students s ON s.id=ir.student_id

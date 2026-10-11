@@ -41,7 +41,7 @@ export default function CompanyJobsPage({ create = false }) {
     try {
       if (editor.id) await api.updateJob(editor.id, formValue(event.currentTarget))
       else await api.createJob(formValue(event.currentTarget))
-      setMessage(editor.id ? 'Đã cập nhật tin tuyển dụng.' : 'Đã tạo bản nháp.')
+      setMessage(editor.id ? (editor.status === 'published' ? 'Đã gửi bản sửa chờ duyệt. Bản đã duyệt vẫn hiển thị cho sinh viên.' : 'Đã lưu bản nháp.') : 'Đã tạo bản nháp.')
       setEditor(null)
       resource.reload()
     } catch (error) { setMessage(error.response?.data?.error?.message || 'Không thể lưu tin tuyển dụng.') }
@@ -51,7 +51,7 @@ export default function CompanyJobsPage({ create = false }) {
     if (action === 'close' && !await confirmAction({ title: 'Đóng tin tuyển dụng?', text: 'Tin sẽ ngừng nhận hồ sơ mới.', confirmText: 'Đóng tin' })) return
     try {
       await (action === 'publish' ? api.publishJob(job.id) : api.closeJob(job.id))
-      setMessage(action === 'publish' ? 'Đã xuất bản tin.' : 'Đã đóng tin.')
+      setMessage(action === 'publish' ? 'Đã gửi tin chờ nhà trường duyệt.' : 'Đã đóng tin.')
       resource.reload()
     } catch (error) { setMessage(error.response?.data?.error?.message || 'Không cập nhật được tin.') }
   }
@@ -68,7 +68,15 @@ export default function CompanyJobsPage({ create = false }) {
       <label className="text-sm">Quyền lợi<textarea className={field} name="benefits" defaultValue={editor.benefits || ''}/></label>
       <div className="flex gap-2 md:col-span-2"><button className={button}>{editor.id ? 'Lưu thay đổi' : 'Lưu bản nháp'}</button><button type="button" onClick={() => setEditor(null)}>Hủy</button></div>
     </form>}
-    {resource.loading ? <LoadingState/> : resource.error ? <p role="alert">{resource.error}</p> : resource.data.items.length === 0 ? <p className={`${box} mt-4`}>Chưa có tin tuyển dụng.</p> : <div className="mt-5 space-y-3">{resource.data.items.map((job) => <article className={box} key={job.id}><div className="flex flex-wrap justify-between gap-3"><div><b>{job.title}</b><p className="text-sm">{job.location} · {job.status}</p></div><div className="flex flex-wrap gap-2">{job.status === 'draft' && <><button className="rounded-md border px-3" onClick={() => setEditor(job)}>Chỉnh sửa</button><button className={button} onClick={() => changeStatus(job,'publish')}>Xuất bản</button></>}{job.status === 'published' && <button className="rounded-md border px-3" onClick={() => changeStatus(job,'close')}>Đóng tin</button>}</div></div></article>)}</div>}
+    {resource.loading ? <LoadingState/> : resource.error ? <p role="alert">{resource.error}</p> : resource.data.items.length === 0 ? <p className={`${box} mt-4`}>Chưa có tin tuyển dụng.</p> : <div className="mt-5 space-y-3">{resource.data.items.map((job) => <article className={box} key={job.id}>
+      <div className="flex flex-wrap justify-between gap-3"><div><b>{job.title}</b><p className="text-sm">{job.location} · {['closed','expired'].includes(job.status) ? 'Đã đóng' : ({draft:'Bản nháp',pending:'Chờ duyệt',approved:'Đã đăng',rejected:'Từ chối',changes_requested:'Yêu cầu chỉnh sửa'}[job.review_status] || 'Đã đăng')}</p></div>
+      <div className="flex flex-wrap gap-2">{['draft','published'].includes(job.status) && job.review_status !== 'pending' && <>
+        <button className="rounded-md border px-3" onClick={() => setEditor(job)}>Chỉnh sửa</button>
+        {job.status === 'draft' && <button className={button} onClick={() => changeStatus(job,'publish')}>Gửi duyệt</button>}
+      </>}{job.status === 'published' && <button className="rounded-md border px-3" onClick={() => changeStatus(job,'close')}>Đóng tin</button>}</div></div>
+      {job.review_note && <p className="mt-3 text-sm">Nhận xét của nhà trường: {job.review_note}</p>}
+      {job.status === 'published' && job.pending_revision && <p className="mt-2 text-sm">Bản đã duyệt vẫn đang hiển thị. Bản sửa cần được nhà trường duyệt.</p>}
+    </article>)}</div>}
     {resource.data.pages > 1 && <nav className="pagination" aria-label="Phân trang tin tuyển dụng"><button className="button button-secondary" disabled={page === 1 || resource.loading} onClick={() => setPage(x => x - 1)}>Trước</button><span>Trang {page} / {resource.data.pages}</span><button className="button button-secondary" disabled={page >= resource.data.pages || resource.loading} onClick={() => setPage(x => x + 1)}>Sau</button></nav>}
   </section>
 }

@@ -15,7 +15,7 @@ tests.
 | Module | Current implementation | Problem | Severity | Proposed solution | Main files |
 | --- | --- | --- | --- | --- | --- |
 | Authentication | In-memory token map and frontend localStorage | Sessions disappear on restart; no refresh/revocation; sensitive token in localStorage | Critical | JWT access token, rotated refresh token in HttpOnly cookie, hashed token persistence | `server/index.js`, `Fontend/src/services/mockAuth.js` |
-| Database | Separate school/company databases | Cross-domain IDs have no foreign keys and can become inconsistent | Critical | One `internconnect` schema with real FKs and transactions | `database/school.sql`, `database/company.sql` |
+| Database | Legacy school/company databases without cross-domain foreign keys | Cross-domain IDs could become inconsistent | Critical | Two schemas on the same MySQL server with real cross-schema FKs and shared transactions | `database/01_school.sql`, `database/02_company.sql`, `database/03_seed.sql` |
 | Authorization | A few inline role checks | Missing reusable RBAC and ownership checks; IDOR risk | Critical | Authentication, role, and resource-ownership middleware/repositories | `server/index.js` |
 | Application workflow | Frontend status map and localStorage mutations | Client controls business transitions; history and notification writes are not atomic | Critical | Backend application state service with transactions and event history | `Fontend/src/constants/internshipStatuses.js`, services |
 | Business data | JSON fixtures and localStorage | Multiple sources of truth and data loss | Critical | Migrate module-by-module to REST API backed by MySQL | `Fontend/src/data`, `Fontend/src/services` |

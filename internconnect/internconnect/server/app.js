@@ -4,6 +4,8 @@ import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import { env } from './config/env.js'
 import { db } from './config/database.js'
+import { companyTables } from './config/companyTables.js'
+import accountProvisioningRoutes from './routes/accountProvisioningRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import jobRoutes from './routes/jobRoutes.js'
 import applicationRoutes from './routes/applicationRoutes.js'
@@ -19,6 +21,7 @@ import documentRoutes from './routes/documentRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 export const app = express()
 app.disable('x-powered-by'); app.use(helmet()); app.use(cors({ origin: env.CORS_ORIGIN.split(',').map((x) => x.trim()), credentials: true })); app.use(express.json({ limit: '1mb' })); app.use(cookieParser())
-app.get('/api/health', async (_req, res, next) => { try { await db.query('SELECT 1'); res.json({ success: true, data: { status: 'ok' } }) } catch (error) { next(error) } })
+app.get('/api/health', async (_req, res, next) => { try { await Promise.all([db.query('SELECT 1 FROM users LIMIT 1'), db.query(`SELECT 1 FROM ${companyTables.companies} LIMIT 1`)]); res.json({ success: true, data: { status: 'ok' } }) } catch (error) { next(error) } })
 app.use('/api/documents', documentRoutes)
+app.use('/api/admin/users', accountProvisioningRoutes)
 app.use('/api/auth', authRoutes); app.use('/api/jobs', jobRoutes); app.use('/api/public', publicRoutes); app.use('/api/content', contentRoutes); app.use('/api/students', studentRoutes); app.use('/api/company', companyRoutes); app.use('/api/admin', adminRoutes); app.use('/api/lecturer', lecturerRoutes); app.use('/api/applications', applicationRoutes); app.use('/api/interviews', interviewRoutes); app.use('/api/notifications', notificationRoutes); app.use(notFound); app.use(errorHandler)

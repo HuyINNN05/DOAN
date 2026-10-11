@@ -1,3 +1,4 @@
+import { companyTables } from '../server/config/companyTables.js'
 import test, { after, before } from 'node:test'
 import assert from 'node:assert/strict'
 import process from 'node:process'
@@ -34,11 +35,11 @@ test('company registration explains invalid fields and stores valid pending acco
     assert.equal(created.status,201)
     companyId = created.body.data.companyId
     assert.equal(created.body.data.status,'pending')
-    const [accounts] = await db.execute('SELECT u.status,ca.company_id FROM users u JOIN company_accounts ca ON ca.user_id=u.id WHERE u.email=?',[email])
+    const [accounts] = await db.execute(`SELECT u.status,ca.company_id FROM users u JOIN ${companyTables.company_accounts} ca ON ca.user_id=u.id WHERE u.email=?`,[email])
     assert.equal(accounts[0].company_id,companyId)
     assert.equal(accounts[0].status,'pending')
   } finally {
-    if (companyId) { await db.execute('DELETE FROM company_accounts WHERE company_id=?',[companyId]); await db.execute('DELETE FROM companies WHERE id=?',[companyId]) }
+    if (companyId) { await db.execute(`DELETE FROM ${companyTables.company_accounts} WHERE company_id=?`,[companyId]); await db.execute(`DELETE FROM ${companyTables.companies} WHERE id=?`,[companyId]) }
     await db.execute('DELETE FROM users WHERE email=?',[email])
   }
 })
@@ -64,7 +65,7 @@ before(async () => {
   if (!enabled) return
   server = await new Promise((resolve) => { const instance = app.listen(0, '127.0.0.1', () => resolve(instance)) })
   base = `http://127.0.0.1:${server.address().port}`
-  const [applications] = await db.execute(`SELECT a.id,s.student_code,c.tax_code FROM applications a JOIN students s ON s.id=a.student_id JOIN jobs j ON j.id=a.job_id JOIN companies c ON c.id=j.company_id`)
+  const [applications] = await db.execute(`SELECT a.id,s.student_code,c.tax_code FROM ${companyTables.applications} a JOIN students s ON s.id=a.student_id JOIN ${companyTables.jobs} j ON j.id=a.job_id JOIN ${companyTables.companies} c ON c.id=j.company_id`)
   ids = {
     student1App: applications.find((item) => item.student_code === 'SV001').id,
     student2App: applications.find((item) => item.student_code === 'SV002').id,

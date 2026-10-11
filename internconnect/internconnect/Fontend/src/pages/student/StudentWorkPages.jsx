@@ -8,7 +8,7 @@ import * as api from '../../api/studentApi'
 import { formatDate } from '../../utils/display'
 const labels = { submitted:'Chờ giảng viên duyệt', approved:'Đã duyệt', revision_required:'Cần chỉnh sửa', draft:'Bản nháp', reviewed:'Đã nhận xét' }
 function StudentWorkPage({ reports = false }) {
-  const loader = useCallback(async () => { const record = await api.getInternship(); const items = await (reports ? api.getReports() : api.getDiaries()); return { record,items } }, [reports])
+  const loader = useCallback(async () => { const record = await api.getInternship(); const items = record ? await (reports ? api.getReports() : api.getDiaries()) : []; return { record,items } }, [reports])
   const resource = useApiResource(loader,{record:null,items:[]})
   const [notice,setNotice] = useState(''), [busy,setBusy] = useState(false)
   const active = ['active','evaluating'].includes(resource.data.record?.status)

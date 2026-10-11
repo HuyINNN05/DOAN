@@ -1,4 +1,6 @@
 import { companyRegistrationSchema } from '../validation/companyRegistration.js'
+import { activationSchema } from '../validation/accountProvisioning.js'
+import { activateAccount } from '../services/accountProvisioningService.js'
 import { Buffer } from 'node:buffer'
 import { Router } from 'express'
 import rateLimit from 'express-rate-limit'
@@ -13,6 +15,7 @@ const loginLimiter = rateLimit({ windowMs: 900000, limit: 10, skipSuccessfulRequ
 router.post('/login', loginLimiter, validate(z.object({ email: z.email().max(255), password: z.string().min(8).max(128).refine(value=>Buffer.byteLength(value,'utf8')<=72,{message:'Password must not exceed 72 UTF-8 bytes'}) })), asyncRoute(controller.login))
 router.post('/company-register',validate(companyRegistrationSchema),asyncRoute(controller.registerCompany))
 router.post('/forgot-password',loginLimiter,validate(z.object({email:z.email()})),asyncRoute(controller.forgotPassword))
+router.post('/activate-account',loginLimiter,validate(activationSchema),asyncRoute(async(req,res)=>res.json({success:true,data:await activateAccount(req.body.token,req.body.password)})))
 router.post('/reset-password',loginLimiter,validate(z.object({token:z.string().length(64),password:z.string().min(8).max(128).refine(value=>Buffer.byteLength(value,'utf8')<=72,{message:'Password must not exceed 72 UTF-8 bytes'})})),asyncRoute(controller.resetPassword))
 router.post('/refresh', asyncRoute(controller.refresh))
 router.post('/logout', asyncRoute(controller.logout))

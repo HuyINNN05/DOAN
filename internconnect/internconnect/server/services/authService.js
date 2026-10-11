@@ -1,3 +1,5 @@
+import { companyTables } from '../config/companyTables.js'
+import { sendAccountEmail } from './accountMailService.js'
 import { Buffer } from 'node:buffer'
 import { randomBytes } from 'node:crypto'
 import process from 'node:process'
@@ -70,22 +72,29 @@ export async function registerCompany(input) {
   const passwordHash = await bcrypt.hash(input.password, 12)
   return transaction(async (connection) => {
     const [userResult] = await connection.execute(`INSERT INTO users(email,password_hash,full_name,phone,role,status) VALUES(?,?,?,?,'company','pending')`, [input.email.toLowerCase(), passwordHash, input.fullName, input.phone || null])
-    const [companyResult] = await connection.execute(`INSERT INTO companies(name,tax_code,email,phone,website,address,description,industry,company_size,status) VALUES(?,?,?,?,?,?,?,?,?,'pending')`, [input.companyName, input.taxCode, input.companyEmail.toLowerCase(), input.companyPhone || null, input.website || null, input.address || null, input.description || null, input.industry || null, input.companySize || null])
-    await connection.execute('INSERT INTO company_accounts(user_id,company_id,position,is_owner) VALUES(?,?,?,TRUE)', [userResult.insertId, companyResult.insertId, input.position || null])
+    const [companyResult] = await connection.execute(`INSERT INTO ${companyTables.companies}(name,tax_code,email,phone,website,address,description,industry,company_size,status) VALUES(?,?,?,?,?,?,?,?,?,'pending')`, [input.companyName, input.taxCode, input.companyEmail.toLowerCase(), input.companyPhone || null, input.website || null, input.address || null, input.description || null, input.industry || null, input.companySize || null])
+    await connection.execute(`INSERT INTO ${companyTables.company_accounts}(user_id,company_id,position,is_owner) VALUES(?,?,?,TRUE)`, [userResult.insertId, companyResult.insertId, input.position || null])
     return { id: userResult.insertId, companyId: companyResult.insertId, status: 'pending' }
   })
 }
 
 export async function forgotPassword(email) {
-  if (env.NODE_ENV === 'production') throw new AppError(503, 'PASSWORD_RESET_DELIVERY_UNAVAILABLE', 'Chức năng gửi email đặt lại mật khẩu chưa được cấu hình')
+  if (!env.SMTP_HOST || !env.SMTP_FROM || !env.APP_PUBLIC_URL) throw new AppError(503, 'PASSWORD_RESET_DELIVERY_UNAVAILABLE', 'Chức năng gửi email đặt lại mật khẩu chưa được cấu hình')
   const user = await findUserByEmail(email.toLowerCase())
-  if (!user) return { accepted: true }
+  if (!user || user.status !== 'active') return { accepted: true }
   const token = randomBytes(32).toString('hex')
   await transaction(async (connection) => {
     await connection.execute('UPDATE password_reset_tokens SET used_at=COALESCE(used_at,NOW()) WHERE user_id=? AND used_at IS NULL', [user.id])
     await connection.execute('INSERT INTO password_reset_tokens(user_id,token_hash,expires_at) VALUES(?,?,DATE_ADD(NOW(),INTERVAL 30 MINUTE))', [user.id, hashToken(token)])
   })
-  return { accepted: true, ...(env.NODE_ENV === 'development' && { resetToken: token }) }
+  const delivery = await sendAccountEmail({ email: user.email, fullName: user.full_name, token, purpose: 'reset' })
+  await transaction(async connection => {
+    if (delivery.status !== 'sent') await connection.execute('UPDATE password_reset_tokens SET used_at=NOW() WHERE token_hash=?', [hashToken(token)])
+    await connection.execute("INSERT INTO audit_logs(actor_user_id,action,entity_type,entity_id,new_values) VALUES(NULL,'PASSWORD_RESET_EMAIL','user',?,JSON_OBJECT('deliveryStatus',?,'deliveryCode',?))", [user.id, delivery.status, delivery.code])
+  })
+  // This is acknowledgement of the request, never a claim that a message was
+  // delivered. Keep the same response for unknown, inactive and known emails.
+  return { accepted: true }
 }
 
 export async function resetPassword(token, password) {

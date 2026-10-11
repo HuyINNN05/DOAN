@@ -6,6 +6,13 @@ import { api, setAccessToken } from '../Fontend/src/api/client.js'
 
 const unauthorized = (config) => Promise.reject(new AxiosError('Unauthorized', 'ERR_BAD_REQUEST', config, null, { status: 401, data: {} }))
 
+test('public activation errors do not trigger a session refresh', async () => {
+  const adapter = api.defaults.adapter, calls = []
+  api.defaults.adapter = config => { calls.push(config.url); return unauthorized(config) }
+  try { await assert.rejects(api.post('/auth/activate-account', { token: 'invalid', password: 'Example@123' })); assert.deepEqual(calls, ['/auth/activate-account']) }
+  finally { api.defaults.adapter = adapter }
+})
+
 test('incorrect login preserves the credentials error without refreshing', async () => {
   const adapter = api.defaults.adapter
   const calls = []
