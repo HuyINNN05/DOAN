@@ -1,0 +1,72 @@
+# Local development stack. Uses the existing .env for JWT and SMTP settings.
+name: internconnect
+
+services:
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DOCKER_MYSQL_ROOT_PASSWORD:-internconnect_local_root}
+      MYSQL_DATABASE: internconnect_school
+      MYSQL_USER: internconnect
+      MYSQL_PASSWORD: ${DB_PASSWORD:-change_me}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/01_school.sql:/docker-entrypoint-initdb.d/01_school.sql:ro
+      - ./database/02_company.sql:/docker-entrypoint-initdb.d/02_company.sql:ro
+      - ./database/03_seed.sql:/docker-entrypoint-initdb.d/03_seed.sql:ro
+      - ./docker/04_grants.sql:/docker-entrypoint-initdb.d/04_grants.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$$MYSQL_PASSWORD\" mysql --protocol=TCP -h 127.0.0.1 -u internconnect -e 'SELECT 1 FROM internconnect_school.users LIMIT 1; SELECT 1 FROM internconnect_company.companies LIMIT 1;' > /dev/null"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  api:
+    build: .
+    restart: unless-stopped
+    init: true
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: internconnect
+      DB_PASSWORD: ${DB_PASSWORD:-change_me}
+      DB_SCHOOL_NAME: internconnect_school
+      DB_COMPANY_NAME: internconnect_company
+      CORS_ORIGIN: http://localhost:5173
+      APP_PUBLIC_URL: http://localhost:5173
+      UPLOAD_DIR: /app/uploads
+    ports:
+      - "127.0.0.1:3001:3001"
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/api/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  frontend:
+    build: .
+    init: true
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173", "--strictPort"]
+    environment:
+      API_PROXY_TARGET: http://api:3001
+    ports:
+      - "127.0.0.1:5173:5173"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+  uploads:

@@ -1,0 +1,14 @@
+# Keep the existing host database and uploaded files while running the app in Docker.
+# Run together with compose.yaml, not as a standalone Compose file.
+services:
+  api:
+    environment:
+      DB_HOST: host.docker.internal
+      DB_PORT: ${DB_PORT:-3306}
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-}
+      DB_SCHOOL_NAME: ${DB_SCHOOL_NAME:-internconnect_school}
+      DB_COMPANY_NAME: ${DB_COMPANY_NAME:-internconnect_company}
+    depends_on: !reset {}
+    volumes:
+      - ./uploads:/app/uploads

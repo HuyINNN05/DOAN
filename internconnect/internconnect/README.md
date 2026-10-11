@@ -1,5 +1,7 @@
 # InternConnect
 
+Chạy toàn bộ dự án bằng Docker Compose: xem [hướng dẫn Docker](docs/DOCKER.md).
+
 Hệ thống quản lý thực tập cho sinh viên, doanh nghiệp, giảng viên và nhà trường.
 Frontend React/Vite gọi REST API Express; MySQL là nguồn dữ liệu nghiệp vụ duy
 nhất. Backend chịu trách nhiệm JWT, RBAC, ownership và workflow 01–15.

@@ -4,6 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "docker:local": "docker compose -f compose.yaml -f compose.local-db.yaml up -d --build api frontend",
+    "docker:local:down": "docker compose -f compose.yaml -f compose.local-db.yaml down",
     "dev": "vite",
     "api": "node --env-file-if-exists=.env server/index.js",
     "server": "node --env-file-if-exists=.env server/index.js",
