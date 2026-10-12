@@ -55,6 +55,7 @@ test('home renders jobs independently and distinguishes loading, empty and error
   }] })
   try {
     const { default: Home } = await server.ssrLoadModule('/Fontend/src/pages/HomeApiPage.jsx')
+    const { default: Opportunities } = await server.ssrLoadModule('/Fontend/src/pages/OpportunitiesApiPage.jsx')
     const resource = (data, extra = {}) => ({ data, loading: false, error: '', reload() {}, ...extra })
     const render = (jobs, companies) => {
       globalThis.__homeLoaders = []
@@ -76,6 +77,23 @@ test('home renders jobs independently and distinguishes loading, empty and error
     html = render(resource({ items: [{ id: 1, title: 'Optional fields', company_name: null }], total: 1 }), resource([]))
     assert.ok(html.includes('Optional fields'))
     assert.ok(html.includes('Thỏa thuận'))
+    const renderOpportunities = state => {
+      globalThis.__homeLoaders = []
+      globalThis.__homeResources = [state]
+      return renderToStaticMarkup(createElement(MemoryRouter, { initialEntries: ['/opportunities'] }, createElement(Opportunities)))
+    }
+    const fourJobs = { ...jobs, items: Array.from({ length: 4 }, (_, i) => ({ ...jobs.items[0], id: i + 1, title: `Opportunity ${i + 1}` })) }
+    html = renderOpportunities(resource(fourJobs))
+    assert.ok(html.includes('4 cơ hội'))
+    for (const job of fourJobs.items) assert.ok(html.includes(job.title))
+    html = renderOpportunities(resource({ items: [], total: 0 }, { loading: true }))
+    assert.ok(html.includes('Đang tải cơ hội'))
+    assert.ok(!html.includes('0 cơ hội'))
+    html = renderOpportunities(resource({ items: [], total: 0 }, { error: 'Jobs unavailable' }))
+    assert.ok(html.includes('Jobs unavailable'))
+    assert.ok(!html.includes('0 cơ hội'))
+    html = renderOpportunities(resource({ items: [], total: 0 }))
+    assert.ok(html.includes('Chưa tìm thấy cơ hội phù hợp'))
   } finally {
     delete globalThis.__homeLoaders
     delete globalThis.__homeResources
