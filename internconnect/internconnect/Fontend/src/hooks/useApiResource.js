@@ -7,7 +7,7 @@ export default function useApiResource(loader, initial = [], {refreshOnFocus=fal
     const request = ++sequence.current
     setLoading(true); setError(''); setErrorCode('')
     try { const result = await loader(); if (request === sequence.current) setData(result) }
-    catch (e) { if (request === sequence.current) { setError(e.response?.data?.error?.message || 'Không thể tải dữ liệu. Vui lòng thử lại.'); setErrorCode(e.response?.data?.error?.code || '') } }
+    catch (e) { if (request === sequence.current) { setError(e.response?.data?.error?.message || e.message || 'Không thể tải dữ liệu. Vui lòng thử lại.'); setErrorCode(e.response?.data?.error?.code || '') } }
     finally { if (request === sequence.current) setLoading(false) }
   }, [loader])
   useEffect(() => { const timer = setTimeout(reload,0); return () => { clearTimeout(timer); invalidate() } }, [reload,invalidate])

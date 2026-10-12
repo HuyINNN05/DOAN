@@ -5,9 +5,12 @@ export function formatDate(value) {
   const date = new Date(value)
   return Number.isNaN(date.getTime()) ? 'Chưa cập nhật' : date.toLocaleDateString('vi-VN')
 }
-export function initials(name = '') { return name.trim().split(/\s+/).slice(-2).map(x => x[0]).join('').toUpperCase() || 'IC' }
+export function initials(name = '') { return String(name ?? '').trim().split(/\s+/).slice(-2).map(x => x[0]).join('').toUpperCase() || 'IC' }
 export function foldText(value = '') { return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase() }
 export function salaryLabel(min, max) {
+  const valid = value => value != null && String(value).trim() !== '' && Number.isFinite(Number(value))
+  min = valid(min) ? min : null
+  max = valid(max) ? max : null
   const money = value => Number(value).toLocaleString('vi-VN') + ' đ'
   if (min != null && max != null) return `${money(min)} – ${money(max)}`
   if (min != null) return `Từ ${money(min)}`

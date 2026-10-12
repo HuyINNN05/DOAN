@@ -49,7 +49,7 @@ function refreshSession() {
 }
 api.interceptors.response.use((response) => response, async (error) => {
   const original = error.config
-  if (error.response?.status !== 401 || !original || original._retried || authActions.includes(original.url)) return Promise.reject(error)
+  if (error.response?.status !== 401 || !original || !needsSession(original) || original._retried || authActions.includes(original.url)) return Promise.reject(error)
   original._retried = true
   if(!accessToken||original.headers.Authorization===`Bearer ${accessToken}`)await refreshSession()
   original.headers.Authorization = `Bearer ${accessToken}`
