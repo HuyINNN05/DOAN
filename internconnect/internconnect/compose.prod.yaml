@@ -1,0 +1,50 @@
+# Standalone production stack. Do NOT combine with compose.yaml.
+# MySQL is deliberately not managed: reuse the verified existing server.
+services:
+  api:
+    image: internconnect-api:${APP_IMAGE_TAG:-local}
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      target: api
+    env_file: ${PRODUCTION_ENV_FILE:-.env.production}
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      TRUST_PROXY_HOPS: 1
+      UPLOAD_DIR: /app/uploads
+    init: true
+    restart: unless-stopped
+    security_opt: ["no-new-privileges:true"]
+    networks: [app]
+    volumes:
+      - type: bind
+        source: ${UPLOADS_HOST_PATH:?Set the verified absolute existing uploads path}
+        target: /app/uploads
+        bind:
+          create_host_path: false
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+  nginx:
+    image: internconnect-nginx:${APP_IMAGE_TAG:-local}
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      target: nginx
+    ports: ["127.0.0.1:${NGINX_PORT:-8080}:80"]
+    restart: unless-stopped
+    networks: [app]
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 6
+networks:
+  app:

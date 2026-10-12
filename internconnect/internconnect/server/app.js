@@ -20,6 +20,7 @@ import contentRoutes from './routes/contentRoutes.js'
 import documentRoutes from './routes/documentRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 export const app = express()
+app.set('trust proxy', env.TRUST_PROXY_HOPS)
 app.disable('x-powered-by'); app.use(helmet()); app.use(cors({ origin: env.CORS_ORIGIN.split(',').map((x) => x.trim()), credentials: true })); app.use(express.json({ limit: '1mb' })); app.use(cookieParser())
 app.get('/api/health', async (_req, res, next) => { try { await Promise.all([db.query('SELECT 1 FROM users LIMIT 1'), db.query(`SELECT 1 FROM ${companyTables.companies} LIMIT 1`)]); res.json({ success: true, data: { status: 'ok' } }) } catch (error) { next(error) } })
 app.use('/api/documents', documentRoutes)

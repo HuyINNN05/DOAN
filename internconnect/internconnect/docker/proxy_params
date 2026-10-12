@@ -1,0 +1,16 @@
+# Explicit original URI preserves /api, encoded path and query with dynamic DNS.
+proxy_pass http://$api_upstream$request_uri;
+proxy_http_version 1.1;
+proxy_set_header Host $http_host;
+# One authoritative client address; Express trusts exactly Nginx.
+proxy_set_header X-Forwarded-For $origin_client;
+proxy_set_header X-Real-IP $origin_client;
+proxy_set_header X-Forwarded-Proto $origin_scheme;
+proxy_set_header Connection "";
+proxy_connect_timeout 5s;
+proxy_read_timeout 60s;
+proxy_send_timeout 60s;
+proxy_cache off;
+proxy_hide_header Cache-Control;
+add_header Cache-Control "no-store" always;
+add_header X-Content-Type-Options nosniff always;

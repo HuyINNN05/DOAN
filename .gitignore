@@ -1,0 +1,11 @@
+.tmp/
+.npm-cache/
+.chrome-internconnect-test/
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.production.example
+**/uploads/
+**/backups/
+**/node_modules/
+**/dist/

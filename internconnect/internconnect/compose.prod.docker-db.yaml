@@ -1,0 +1,8 @@
+# Reuse the running MySQL container network. No new DB or volume.
+services:
+  api:
+    networks: [app, existing_db]
+networks:
+  existing_db:
+    external: true
+    name: ${EXISTING_DB_NETWORK:?Set the verified existing MySQL network name}

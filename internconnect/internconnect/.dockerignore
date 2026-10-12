@@ -10,3 +10,7 @@ uploads
 .scratch
 workspace-data
 *.log
+backups
+*.dump
+*.sql.gz
+*.sql.zip

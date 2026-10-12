@@ -1,0 +1,24 @@
+# Checklist triển khai
+
+- [ ] Review Git diff, branch và remote; bảo toàn thay đổi chưa commit.
+- [ ] Chạy build/lint/test; không bật tests có ghi DB trên DB thật.
+- [ ] Xác minh project cũ, project production, Docker Compose version, cổng Nginx chưa bị chiếm.
+- [ ] Xác minh host MySQL hoặc Docker MySQL, đủ hai schema, user grants, network/DNS.
+- [ ] Kiểm tra DB hiện có không public 3306; cấu hình mới không public API.
+- [ ] Xác minh volume/path uploads thật và các đường dẫn được lưu trong DB.
+- [ ] Ngừng ghi tạm thời; backup hai DB và uploads đồng bộ, kiểm tra archive và thử restore riêng.
+- [ ] Ghi commit/image/env cũ để rollback; không overwrite .env.production.
+- [ ] Pull --ff-only; điền credentials thật, JWT riêng đủ mạnh, origin, upload path/network.
+- [ ] Chọn đúng file DB và bind/volume mode; preflight thành công.
+- [ ] Build, Nginx -t, up --wait bằng đúng project/files; không seed/migrate.
+- [ ] /healthz, /api/health và /api/jobs trả thành công; refresh /login và route sâu không 404.
+- [ ] Dữ liệu/tài khoản/số lượng bản ghi cũ vẫn tồn tại; mở và tải CV/report cũ.
+- [ ] Chạy cloudflared vào NGINX_PORT thật; cập nhật URL HTTPS trong APP_PUBLIC_URL/CORS_ORIGIN.
+- [ ] Trên 4G/5G: login từng vai trò, reload, refresh token, logout và mở nhiều tab.
+- [ ] Cookie refresh có Secure, HttpOnly, SameSite=Lax; API Cache-Control=no-store.
+- [ ] Upload PDF/DOC/DOCX dưới 5 MiB, tải lại; file sai/quá dung lượng bị từ chối; quyền tải không bị mở rộng.
+- [ ] Phân trang/tìm kiếm/module dùng API hoạt động; activation/reset email mở đúng URL HTTPS.
+- [ ] Kiểm tra IP client trong audit/rate limit không bị gom chung IP proxy; không thử flood tài khoản thật.
+- [ ] Stop/recreate chỉ API rồi tải lại file thử để kiểm tra persistence.
+- [ ] Dừng API/frontend cũ khi chuyển đổi hoàn tất, giữ MySQL và volume cũ.
+- [ ] Nếu thất bại: rollback image/env ứng dụng, không restore đè DB.

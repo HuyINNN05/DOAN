@@ -1,0 +1,28 @@
+FROM node:22-bookworm-slim AS dependencies
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+
+FROM dependencies AS frontend-build
+COPY index.html vite.config.js ./
+COPY Fontend ./Fontend
+COPY shared ./shared
+RUN npm run build
+
+FROM node:22-bookworm-slim AS api
+WORKDIR /app
+# zod is a devDependency required by the backend at runtime.
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY package.json ./
+COPY server ./server
+COPY shared ./shared
+RUN mkdir /app/uploads && chown node:node /app/uploads
+USER node
+EXPOSE 3001
+CMD ["node", "server/index.js"]
+
+FROM nginx:stable-alpine AS nginx
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/proxy_params /etc/nginx/proxy_params_internconnect
+COPY --from=frontend-build /app/dist /usr/share/nginx/html
+EXPOSE 80

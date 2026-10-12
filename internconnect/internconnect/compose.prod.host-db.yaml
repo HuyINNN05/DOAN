@@ -1,0 +1,4 @@
+# With compose.prod.yaml; Linux host gateway.
+services:
+  api:
+    extra_hosts: ["host.docker.internal:host-gateway"]

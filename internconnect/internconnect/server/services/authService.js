@@ -18,7 +18,7 @@ async function auditLoginFailure(user, email, metadata = {}) {
       VALUES(?,'LOGIN_FAILED','user',?,JSON_OBJECT('email',?),?,?)`,
     [user?.id || null, user?.id || null, email.toLowerCase(), metadata.ip || null, metadata.userAgent?.slice(0, 500) || null])
   } catch (error) {
-    if (process.env.NODE_ENV !== 'test') console.error('Không thể ghi audit đăng nhập thất bại', error.message)
+    if (process.env.NODE_ENV !== 'test') console.error('Không thể ghi audit đăng nhập thất bại', { name: error.name })
   }
 }
 

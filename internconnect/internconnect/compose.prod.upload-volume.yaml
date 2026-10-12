@@ -1,0 +1,9 @@
+# Optional third file when uploads already live in a named Docker volume.
+services:
+  api:
+    volumes: !override
+      - existing_uploads:/app/uploads
+volumes:
+  existing_uploads:
+    external: true
+    name: ${EXISTING_UPLOADS_VOLUME:?Set the verified existing uploads volume name}

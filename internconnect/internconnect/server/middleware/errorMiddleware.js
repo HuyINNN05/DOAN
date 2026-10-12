@@ -10,6 +10,6 @@ export function errorHandler(error, _req, res, next) {
   if (['ECONNREFUSED', 'PROTOCOL_CONNECTION_LOST', 'ER_CON_COUNT_ERROR'].includes(error.code)) error = new AppError(503, 'DATABASE_UNAVAILABLE', 'Database tạm thời không sẵn sàng')
   if (error instanceof multer.MulterError) error = new AppError(422, 'UPLOAD_ERROR', error.code === 'LIMIT_FILE_SIZE' ? 'Tệp vượt quá dung lượng cho phép' : 'Tệp tải lên không hợp lệ')
   const status = error.status || 500
-  if (status === 500 && process.env.NODE_ENV !== 'test') console.error(error)
+  if (status === 500 && process.env.NODE_ENV !== 'test') console.error('Internal server error', { name: error.name })
   res.status(status).json({ success: false, error: { code: error.code || 'INTERNAL_ERROR', message: status === 500 ? 'Lỗi máy chủ' : error.message, ...(error.details && { details: error.details }) } })
 }
